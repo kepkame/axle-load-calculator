@@ -1,50 +1,23 @@
-# React + TypeScript + Vite
+# Калькулятор нагрузки на оси для тягачей и полуприцепов
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Каждый день водители фур сталкиваются с проблемой правильного распределения груза, чтобы избежать перегрузки осей, штрафов и задержек. В свою очередь водители погрузчиков сталкиваются с необходимостью быстро и точно разместить паллеты на платформе, чтобы обеспечить равномерное распределение веса и сократить время загрузки.
 
-Currently, two official plugins are available:
+## Ключевые функции и их ценности:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Рассчитывает нагрузку на оси автоматически, учитывая параметры транспортного средства и распределяя вес без ошибок.
 
-## Expanding the ESLint configuration
+- Предоставляет визуальное размещение паллет через Drag-and-Drop, экономя время и устраняя неопределённость.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Упрощает ввод данных благодаря поддержке стандартных размеров паллет, что снижает вероятность ошибок.
 
-- Configure the top-level `parserOptions` property like this:
+- Показывает перерасчёты в реальном времени, что позволяет быстро принимать решения.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Этапы использования калькулятора
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Шаг 1.** Заполняете данные о транспортном средстве и его параметрах.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **Шаг 2.** Добавляете паллеты, их вес, количество и указываете размещения порядок на платформе.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Шаг 3.** Меняйте расположение груза. Таблица моментально пересчитывает нагрузки осей.
+
+Заполненные данные транспортного средства можно сохранять для повторного использования.
