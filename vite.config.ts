@@ -20,4 +20,29 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, 'src/utils'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Customizing paths for different types of resources
+        assetFileNames: (assetInfo) => {
+          const ext = assetInfo.name?.split('.').pop(); // Get file extension
+
+          // Fonts (woff, woff2, ttf, otf)
+          if (/\.(woff|woff2|ttf|eot|otf)$/.test(assetInfo.name || '')) {
+            return 'assets/fonts/[name]-[hash][extname]';
+          }
+          // SVG-icons
+          if (ext === 'svg') {
+            return 'assets/icons/[name]-[hash][extname]';
+          }
+          // Images (jpg, jpeg, png, webp)
+          if (/\.(jpg|jpeg|png|webp)$/.test(assetInfo.name || '')) {
+            return 'assets/images/[name]-[hash][extname]';
+          }
+          // Other files
+          return 'assets/[name]-[hash][extname]';
+        },
+      },
+    },
+  },
 });
