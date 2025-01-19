@@ -5,7 +5,7 @@
   margin: 0;
   list-style: none;
   outline: none;
-  font-family: 'Proxima Nova', Roboto, system-ui, Tahoma, sans-serif;
+  // font-family: 'Proxima Nova', Roboto, system-ui, Tahoma, sans-serif;
   box-sizing: border-box;
 }
 
@@ -17,7 +17,7 @@ html {
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: variables.$text-primary;
+  color: variables.$color-text-primary;
 }
 
 a,
@@ -29,7 +29,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: variables.$text-primary;
+  color: variables.$color-text-primary;
 }
 
 h1 {

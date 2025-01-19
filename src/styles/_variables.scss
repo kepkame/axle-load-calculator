@@ -1,35 +1,51 @@
 @use 'sass:color';
 
-$primary: #2377f6;
-$primary-light: color.adjust($primary, $saturation: 2%, $lightness: 15%); // #6ba4fb
-$primary-dark: color.adjust($primary, $saturation: -17%, $lightness: -17%); // #1852aa
-$primary-hover: color.adjust($primary, $saturation: -10%, $lightness: -10%); // #1560d1
-$hover: color.adjust($primary, $saturation: -18%, $lightness: 42%); // #f2f6fd
-$surface: #f4f5f5;
+$color-primary: #2377f6;
+$color-primary-light: color.adjust($color-primary, $saturation: 2%, $lightness: 15%); // #6ba4fb
+$color-primary-dark: color.adjust($color-primary, $saturation: -17%, $lightness: -17%); // #1852aa
+$color-primary-hover: color.adjust($color-primary, $saturation: -10%, $lightness: -10%); // #1560d1
+$color-hover: color.adjust($color-primary, $saturation: -18%, $lightness: 42%); // #f2f6fd
+$color-surface: #f4f5f5;
 
-$background: #efeff0;
+$color-background: #efeff0;
 
-$text-primary: #232323;
-$text-secondary: color.adjust($text-primary, $hue: 213, $saturation: 13%, $lightness: 27%);
+$color-text-primary: #232323;
+$color-text-secondary: color.adjust(
+  $color-text-primary,
+  $hue: 213,
+  $saturation: 13%,
+  $lightness: 27%
+);
 // #5a6675
-$text-subtitle: color.adjust($text-primary, $hue: 214, $saturation: 15%, $lightness: 54%);
+$color-text-subtitle: color.adjust(
+  $color-text-primary,
+  $hue: 214,
+  $saturation: 15%,
+  $lightness: 54%
+);
 // #a0abb9
-$text-subtitle-light: color.adjust($text-primary, $hue: 215, $saturation: 13%, $lightness: 68%);
+$color-text-subtitle-light: color.adjust(
+  $color-text-primary,
+  $hue: 215,
+  $saturation: 13%,
+  $lightness: 68%
+);
 // #cacfd6
 
-$success: #32b94f;
-$success-light: color.adjust($success, $saturation: 4%, $lightness: 26%); // #8ce49f
-$success-dark: color.adjust($success, $saturation: -18%, $lightness: -8%); // #3b874b
+$color-success: #32b94f;
+$color-success-light: color.adjust($color-success, $saturation: 4%, $lightness: 26%); // #8ce49f
+$color-success-dark: color.adjust($color-success, $saturation: -18%, $lightness: -8%); // #3b874b
 
-$warning: #f2a50d;
-$warning-light: color.adjust($warning, $saturation: 1%, $lightness: 23%); // #f9cf7c
-$warning-dark: color.adjust($warning, $saturation: -32%, $lightness: -8%); // #a97f2d
+$color-warning: #f2a50d;
+$color-warning-light: color.adjust($color-warning, $saturation: 1%, $lightness: 23%); // #f9cf7c
+$color-warning-dark: color.adjust($color-warning, $saturation: -32%, $lightness: -8%); // #a97f2d
 
-$danger: #f44734;
-$danger-light: color.adjust($danger, $hue: -1, $saturation: 1%, $lightness: 15%); // #f9867c
-$danger-dark: color.adjust($danger, $saturation: -32%, $lightness: -16%); // #a93a2d
+$color-danger: #f44734;
+$color-danger-light: color.adjust($color-danger, $hue: -1, $saturation: 1%, $lightness: 15%);
+// #f9867c
+$color-danger-dark: color.adjust($color-danger, $saturation: -32%, $lightness: -16%); // #a93a2d
 
-$white: #ffffff;
+$color-white: #ffffff;
 
 $font-family: Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
 $border-radius: 8px;
