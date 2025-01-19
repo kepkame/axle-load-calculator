@@ -90,6 +90,17 @@ img {
   vertical-align: middle;
 }
 
+// Скрытие стандартного фокуса для мыши
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+// Сильный индикатор фокуса для клавиатуры
+.js-focus-visible .focus-visible {
+  outline: 2px solid variables.$color-primary-hover;
+  outline-offset: 2px;
+}
+
 .visually-hidden:not(:focus):not(:active) {
   position: absolute;
   width: 1px;
@@ -106,7 +117,6 @@ img {
 @media (min-width: 992px) {
   h1 {
     font-size: 3rem;
-    text-transform: uppercase;
   }
 
   h2 {
