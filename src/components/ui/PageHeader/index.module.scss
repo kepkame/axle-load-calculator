@@ -1,0 +1,38 @@
+@use '@styles/variables';
+
+.header {
+  display: block;
+  margin-bottom: 32px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 8px;
+
+  button {
+    margin-top: 9px;
+  }
+}
+
+.title {
+  max-width: calc(100% - 4px - 16px);
+  text-overflow: ellipsis;
+  margin: 0;
+  overflow: hidden;
+}
+
+.description,
+.description * {
+  color: variables.$color-text-secondary;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

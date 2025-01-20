@@ -10,7 +10,9 @@ export const MainLayout: React.FC = () => {
     <div className={styles.page}>
       <Header />
       <main className={styles.main}>
-        <Outlet />
+        <div className="container">
+          <Outlet />
+        </div>
       </main>
       <Footer />
     </div>
