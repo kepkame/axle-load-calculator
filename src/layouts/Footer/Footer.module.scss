@@ -1,0 +1,30 @@
+@use '@styles/variables';
+
+.footer {
+  border-top: 1px solid variables.$color-text-subtitle-light;
+  padding: 0.75rem 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  a {
+    color: variables.$color-text-primary;
+    order: -1;
+  }
+}
+
+@media (min-width: 370px) {
+  .wrapper {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    a {
+      order: 0;
+    }
+  }
+}

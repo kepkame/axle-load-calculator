@@ -1,0 +1,13 @@
+@use './variables';
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: variables.$grid-breakpoints-lg) {
+  .container {
+    padding: 0 2rem;
+  }
+}

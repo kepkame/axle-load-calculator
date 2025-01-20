@@ -1,0 +1,24 @@
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+
+  img {
+    width: auto;
+    max-width: 34px;
+    height: 26px;
+  }
+}
+
+.text {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-left: 6px;
+}
