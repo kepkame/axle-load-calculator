@@ -15,7 +15,7 @@
   font-size: 16px;
   line-height: 1.5;
   font-family: variables.$font-family;
-  font-weight: 400;
+  font-weight: 500;
   color: variables.$color-text-primary;
 
   /* color-scheme: light dark; */
@@ -80,6 +80,13 @@ a {
     text-decoration: underline;
     color: variables.$color-primary-hover;
   }
+}
+
+button {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }
 
 img {

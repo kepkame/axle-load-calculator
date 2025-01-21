@@ -1,0 +1,144 @@
+@use 'sass:color';
+@use '@styles/variables';
+@use '@styles/helpers/mixins' as mixins;
+
+.button {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: inherit;
+  border: none;
+  background-color: variables.$color-primary;
+  border-radius: variables.$border-radius;
+  padding: 12px 16px;
+  transform: translateY(0);
+  transition: background-color variables.$duration ease-in-out;
+  cursor: pointer;
+
+  &.small {
+    padding: 8px 12px;
+  }
+
+  &:global(.focus-visible),
+  &:hover {
+    background-color: variables.$color-primary-hover;
+  }
+
+  &:active {
+    transition: background-color 0.15s ease-in-out;
+    background-color: variables.$color-primary-dark;
+  }
+}
+
+.outlined {
+  background-color: transparent;
+  border: 1px solid variables.$color-primary;
+  padding: 11px 15px;
+  transition: color variables.$duration ease-in-out,
+    background-color variables.$duration ease-in-out, border-color variables.$duration ease-in-out;
+
+  &.small {
+    padding: 7px 11px;
+  }
+
+  .text {
+    color: variables.$color-primary;
+  }
+
+  .icon {
+    fill: variables.$color-primary;
+  }
+
+  &:global(.focus-visible),
+  &:hover {
+    border-color: variables.$color-primary-hover;
+    background-color: variables.$color-hover;
+
+    .text {
+      color: variables.$color-primary-hover;
+    }
+
+    .icon {
+      fill: variables.$color-primary-hover;
+    }
+  }
+
+  &:active {
+    border-color: variables.$color-primary-dark;
+    background-color: color.adjust(variables.$color-hover, $lightness: -5%);
+
+    .text {
+      color: variables.$color-primary-dark;
+    }
+
+    .icon {
+      fill: variables.$color-primary-dark;
+    }
+  }
+}
+
+.small {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.iconOnly {
+  padding-right: 12px;
+  padding-left: 12px;
+
+  &.outlined {
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+
+  &.small {
+    padding-right: 8px;
+    padding-left: 8px;
+
+    &.outlined {
+      padding-right: 7px;
+      padding-left: 7px;
+    }
+  }
+}
+
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  fill: variables.$color-white;
+
+  & + .text {
+    margin-left: 6px;
+  }
+
+  &.small + .text {
+    margin-left: 4px;
+  }
+}
+
+.iconRight {
+  margin-right: 0;
+  margin-left: 40px;
+
+  .button.small & {
+    margin-left: 32px;
+  }
+}
+
+.text {
+  color: variables.$color-white;
+}
+
+.status-success {
+  @include mixins.button-status(success);
+}
+
+.status-warning {
+  @include mixins.button-status(warning);
+}
+
+.status-danger {
+  @include mixins.button-status(danger);
+}

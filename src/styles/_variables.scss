@@ -56,3 +56,21 @@ $grid-breakpoints-lg: 992px;
 $container-max-width: 1200px;
 
 $duration: 0.25s;
+
+$statuses: (
+  success: (
+    base: #32b94f,
+    light: color.adjust(#32b94f, $saturation: 4%, $lightness: 26%),
+    dark: color.adjust(#32b94f, $saturation: -18%, $lightness: -8%),
+  ),
+  warning: (
+    base: #f2a50d,
+    light: color.adjust(#f2a50d, $saturation: 1%, $lightness: 23%),
+    dark: color.adjust(#f2a50d, $saturation: -32%, $lightness: -8%),
+  ),
+  danger: (
+    base: #f44734,
+    light: color.adjust(#f44734, $hue: -1, $saturation: 1%, $lightness: 15%),
+    dark: color.adjust(#f44734, $saturation: -32%, $lightness: -16%),
+  ),
+);

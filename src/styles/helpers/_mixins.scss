@@ -1,0 +1,52 @@
+@use 'sass:color';
+@use 'sass:map';
+@use '@styles/variables';
+
+@mixin button-status($name) {
+  $colors: map.get(variables.$statuses, $name);
+  $base: map.get($colors, base);
+  $light: map.get($colors, light);
+  $dark: map.get($colors, dark);
+
+  background-color: $dark;
+
+  &:global(.focus-visible),
+  &:hover {
+    background-color: color.adjust($dark, $saturation: 2%, $lightness: -10%);
+  }
+
+  &:active {
+    background-color: color.adjust($dark, $saturation: 2%, $lightness: -15%);
+  }
+
+  &.outlined {
+    background-color: transparent;
+    border-color: $dark;
+
+    .icon {
+      fill: $dark;
+    }
+
+    .text {
+      color: $dark;
+    }
+
+    &:global(.focus-visible),
+    &:hover {
+      background-color: color.adjust($light, $saturation: 2%, $lightness: 23%);
+      border-color: color.adjust($dark, $saturation: 2%, $lightness: -15%);
+
+      .icon {
+        fill: color.adjust($dark, $saturation: 2%, $lightness: -15%);
+      }
+
+      .text {
+        color: color.adjust($dark, $saturation: 2%, $lightness: -15%);
+      }
+    }
+
+    &:active {
+      background-color: color.adjust($light, $saturation: 2%, $lightness: 18%);
+    }
+  }
+}
