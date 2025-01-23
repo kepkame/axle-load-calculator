@@ -1,0 +1,12 @@
+@use '@styles/variables';
+@use './IconBase.module.scss';
+
+.button {
+  @extend %button;
+  text-decoration: none;
+  &:global(.active) {
+    color: variables.$color-text-primary;
+    opacity: 1;
+    cursor: default;
+  }
+}

@@ -1,7 +1,7 @@
 @use 'sass:color';
-@use './libs/normalize';
-@use './helpers/mixins';
-@use './variables';
-@use './fonts';
-@use './base';
-@use './layouts';
+@use '@styles/libs/normalize';
+@use '@styles/mixins/button-status';
+@use '@styles/variables';
+@use '@styles/fonts';
+@use '@styles/base';
+@use '@styles/layouts';

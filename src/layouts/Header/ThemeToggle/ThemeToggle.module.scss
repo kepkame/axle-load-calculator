@@ -1,0 +1,63 @@
+@use '@styles/variables';
+
+.themeToggle {
+  line-height: 0;
+}
+
+.buttonToggleDark,
+.buttonToggleLight {
+  position: relative;
+  z-index: 1;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.buttonToggleDark {
+  display: none;
+}
+
+.themeIndicator {
+  display: none;
+}
+
+@media (min-width: variables.$grid-breakpoints-md) {
+  .themeToggle {
+    position: relative;
+    background-color: variables.$color-background;
+    border-radius: 12px;
+    padding: 8px 12px;
+  }
+
+  .themeIndicator {
+    display: block;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    left: 50%;
+    background-color: variables.$color-white;
+    border-radius: 8px;
+    transform: translate(calc(-50% + 15px), -50%);
+    transition: transform variables.$duration ease-in-out;
+  }
+
+  .buttonToggleDark,
+  .buttonToggleLight {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .buttonToggleDark {
+    display: inline-block;
+    margin-right: 6px;
+
+    .dark &.active ~ .themeIndicator {
+      transform: translate(calc(-50% - 15px), -50%);
+    }
+  }
+}

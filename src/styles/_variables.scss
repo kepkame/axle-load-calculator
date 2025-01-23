@@ -73,4 +73,9 @@ $statuses: (
     light: color.adjust(#f44734, $hue: -1, $saturation: 1%, $lightness: 15%),
     dark: color.adjust(#f44734, $saturation: -32%, $lightness: -16%),
   ),
+  remove: (
+    base: #f44734,
+    light: color.adjust(#f44734, $hue: -1, $saturation: 1%, $lightness: 15%),
+    dark: #f44734,
+  ),
 );

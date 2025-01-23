@@ -16,6 +16,14 @@
 .buttons {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+.buttonSettings {
+  svg {
+    width: 32px;
+    height: 32px;
+  }
 }

@@ -1,12 +1,22 @@
+@use '@styles/variables';
+
 .logo {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 
-  &:focus,
-  &:hover {
+  &:focus {
     text-decoration: none;
+  }
+
+  &:hover,
+  &:global(.focus-visible) {
+    text-decoration: none;
+
+    .text {
+      color: variables.$color-primary-hover;
+    }
   }
 
   img {
@@ -21,4 +31,5 @@
   font-weight: 700;
   line-height: 1.15;
   margin-left: 6px;
+  transition: color variables.$duration ease-in-out;
 }

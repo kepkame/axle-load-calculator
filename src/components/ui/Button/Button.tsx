@@ -1,16 +1,16 @@
 import React from 'react';
-import { IButtonProps } from './index.type';
-import styles from './index.module.scss';
+import { IButtonProps } from './Button.types';
+import styles from './Button.module.scss';
 
 export const Button: React.FC<IButtonProps> = ({
+  onClick,
   isOutline = false,
   isSmall = false,
   icon: Icon,
   iconPositionRight,
-  children,
   status,
-  onClick,
   className,
+  children,
   ...props
 }) => {
   const baseClass = styles.button;

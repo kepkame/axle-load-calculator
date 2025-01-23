@@ -1,0 +1,30 @@
+@use '@styles/variables';
+
+%button,
+.button {
+  display: inline-block;
+  line-height: 0;
+  color: variables.$color-text-primary;
+  transition: color variables.$duration ease-in-out, opacity variables.$duration ease-in-out;
+  opacity: 0.6;
+
+  &:global(.focus-visible),
+  &:hover {
+    color: variables.$color-primary-hover;
+    opacity: 1;
+  }
+
+  &.remove {
+    color: variables.$color-danger;
+    opacity: 1;
+
+    &:global(.focus-visible),
+    &:hover {
+      color: variables.$color-danger-dark;
+    }
+  }
+
+  .icon {
+    fill: currentColor;
+  }
+}

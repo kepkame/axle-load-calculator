@@ -1,0 +1,9 @@
+@use '@styles/variables';
+@use './IconBase.module.scss';
+
+.button {
+  @extend %button;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

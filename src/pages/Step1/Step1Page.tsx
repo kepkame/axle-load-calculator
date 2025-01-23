@@ -1,7 +1,9 @@
-import { Button } from '@components/ui/Button';
-import { PageHeader } from '@components/ui/PageHeader';
 import React, { useState } from 'react';
+import { PageHeader } from '@components/ui/PageHeader';
+import { IconButton } from '@components/ui/Button/IconButtons/IconButton';
+import { Button } from '@components/ui/Button/Button';
 import SVGIcon from '@assets/icons/file_document.svg?react';
+import SVGIconRemove from '@assets/icons/remove.svg?react';
 import SVGIconChevron from '@assets/icons/chevron-down.svg?react';
 
 const Step1Page: React.FC = () => {
@@ -16,6 +18,22 @@ const Step1Page: React.FC = () => {
     <>
       <PageHeader title="Калькулятор нагрузки на ось грузового автомобиля" />
       <h1>{count}</h1>
+
+      <div>
+        <IconButton icon={SVGIcon} onClick={handleOnClick} ariaLabel="My TeSt" />
+        <IconButton
+          isRemove={true}
+          icon={SVGIconRemove}
+          onClick={handleOnClick}
+          ariaLabel="My TeSt"
+        />
+      </div>
+
+      <br />
+      <hr />
+      <hr />
+      <hr />
+      <br />
 
       <div style={{ display: 'flex', flexDirection: 'row', gap: '32px' }}>
         <div
@@ -137,18 +155,18 @@ const Step1Page: React.FC = () => {
             gap: '22px',
           }}
         >
-          <Button status="success" onClick={handleOnClick} icon={SVGIcon}></Button>
-          <Button status="success" onClick={handleOnClick}>
+          <Button status="remove" onClick={handleOnClick} icon={SVGIcon}></Button>
+          <Button status="remove" onClick={handleOnClick}>
             Кнопка 1
           </Button>
-          <Button status="success" icon={SVGIcon} onClick={handleOnClick}>
+          <Button status="remove" icon={SVGIcon} onClick={handleOnClick}>
             Кнопка 2
           </Button>
-          <Button status="success" icon={SVGIconChevron} onClick={handleOnClick}>
+          <Button status="remove" icon={SVGIconChevron} onClick={handleOnClick}>
             Кнопка 3
           </Button>
           <Button
-            status="success"
+            status="remove"
             icon={SVGIconChevron}
             iconPositionRight={true}
             onClick={handleOnClick}
@@ -165,18 +183,18 @@ const Step1Page: React.FC = () => {
             gap: '22px',
           }}
         >
-          <Button status="success" isOutline={true} icon={SVGIcon} onClick={handleOnClick}></Button>
-          <Button status="success" isOutline={true} onClick={handleOnClick}>
+          <Button status="remove" isOutline={true} icon={SVGIcon} onClick={handleOnClick}></Button>
+          <Button status="remove" isOutline={true} onClick={handleOnClick}>
             Кнопка 1
           </Button>
-          <Button status="success" isOutline={true} icon={SVGIcon} onClick={handleOnClick}>
+          <Button status="remove" isOutline={true} icon={SVGIcon} onClick={handleOnClick}>
             Кнопка 2
           </Button>
-          <Button status="success" isOutline={true} icon={SVGIconChevron} onClick={handleOnClick}>
+          <Button status="remove" isOutline={true} icon={SVGIconChevron} onClick={handleOnClick}>
             Кнопка 3
           </Button>
           <Button
-            status="success"
+            status="remove"
             isOutline={true}
             icon={SVGIconChevron}
             iconPositionRight={true}
@@ -193,18 +211,18 @@ const Step1Page: React.FC = () => {
             gap: '22px',
           }}
         >
-          <Button status="success" isSmall={true} onClick={handleOnClick} icon={SVGIcon}></Button>
-          <Button status="success" isSmall={true} onClick={handleOnClick}>
+          <Button status="remove" isSmall={true} onClick={handleOnClick} icon={SVGIcon}></Button>
+          <Button status="remove" isSmall={true} onClick={handleOnClick}>
             Label
           </Button>
-          <Button status="success" isSmall={true} icon={SVGIcon} onClick={handleOnClick}>
+          <Button status="remove" isSmall={true} icon={SVGIcon} onClick={handleOnClick}>
             Label
           </Button>
-          <Button status="success" isSmall={true} icon={SVGIconChevron} onClick={handleOnClick}>
+          <Button status="remove" isSmall={true} icon={SVGIconChevron} onClick={handleOnClick}>
             Label
           </Button>
           <Button
-            status="success"
+            status="remove"
             isSmall={true}
             icon={SVGIconChevron}
             iconPositionRight={true}
@@ -223,17 +241,17 @@ const Step1Page: React.FC = () => {
           }}
         >
           <Button
-            status="success"
+            status="remove"
             isSmall={true}
             isOutline={true}
             icon={SVGIcon}
             onClick={handleOnClick}
           ></Button>
-          <Button status="success" isSmall={true} isOutline={true} onClick={handleOnClick}>
+          <Button status="remove" isSmall={true} isOutline={true} onClick={handleOnClick}>
             Label
           </Button>
           <Button
-            status="success"
+            status="remove"
             isSmall={true}
             isOutline={true}
             icon={SVGIcon}
@@ -242,7 +260,7 @@ const Step1Page: React.FC = () => {
             Label
           </Button>
           <Button
-            status="success"
+            status="remove"
             isSmall={true}
             isOutline={true}
             icon={SVGIconChevron}
@@ -251,7 +269,7 @@ const Step1Page: React.FC = () => {
             Label
           </Button>
           <Button
-            status="success"
+            status="remove"
             isSmall={true}
             isOutline={true}
             icon={SVGIconChevron}

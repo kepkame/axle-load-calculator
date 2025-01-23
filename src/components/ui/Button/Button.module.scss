@@ -1,6 +1,6 @@
 @use 'sass:color';
 @use '@styles/variables';
-@use '@styles/helpers/mixins' as mixins;
+@use '@styles/mixins/button-status' as mixins;
 
 .button {
   display: flex;
@@ -141,4 +141,8 @@
 
 .status-danger {
   @include mixins.button-status(danger);
+}
+
+.status-remove {
+  @include mixins.button-status(remove);
 }
