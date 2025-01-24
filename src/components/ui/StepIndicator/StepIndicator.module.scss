@@ -1,0 +1,56 @@
+@use '@styles/variables';
+
+.stepIndicator {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 352px;
+  margin: 0 auto;
+  margin-bottom: 32px;
+
+  button {
+    position: relative;
+    margin-right: auto;
+
+    &:nth-child(3n + 3) {
+      margin-right: 0;
+    }
+
+    &:nth-child(n + 4) {
+      margin-top: 12px;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: -6%;
+      width: 30px;
+      height: 1px;
+      background-color: variables.$color-text-subtitle;
+      transform: translateX(-50%);
+    }
+
+    &:nth-child(3n - 2):before {
+      content: none;
+      background-color: red;
+    }
+  }
+}
+
+@media (min-width: 375px) {
+  .stepIndicator {
+    button:before {
+      left: -9%;
+    }
+  }
+}
+
+@media (min-width: 385px) {
+  .stepIndicator {
+    button:before {
+      left: -13%;
+    }
+  }
+}

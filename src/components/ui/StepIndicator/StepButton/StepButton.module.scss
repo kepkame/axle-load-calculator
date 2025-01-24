@@ -1,0 +1,95 @@
+@use 'sass:color';
+@use '@styles/variables';
+
+.stepButton {
+  max-width: 100px;
+  text-align: center;
+  color: variables.$color-text-primary;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &--current {
+    cursor: default;
+  }
+
+  &--success:hover {
+    .number {
+      background-color: color.adjust(
+        variables.$color-success-light,
+        $saturation: -18%,
+        $lightness: -8%
+      );
+    }
+  }
+
+  &--danger:hover {
+    .number {
+      background-color: color.adjust(
+        variables.$color-danger-light,
+        $saturation: -18%,
+        $lightness: -8%
+      );
+    }
+  }
+
+  &:disabled {
+    color: variables.$color-text-secondary;
+    cursor: default;
+  }
+}
+
+.number {
+  display: block;
+  max-width: 56px;
+  line-height: 1rem;
+  color: currentColor;
+  border: 1px solid variables.$color-text-primary;
+  border-radius: variables.$border-radius;
+  margin: 0 auto;
+  margin-bottom: 4px;
+  padding-top: 11px;
+  padding-bottom: 9px;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease-in-out;
+
+  .stepButton--current & {
+    outline: 2px solid variables.$color-text-primary;
+    outline-offset: -2px;
+  }
+
+  .stepButton--success & {
+    background-color: variables.$color-success-light;
+    border-color: variables.$color-success-dark;
+  }
+
+  .stepButton--danger & {
+    background-color: variables.$color-danger-light;
+    border-color: variables.$color-danger-dark;
+  }
+
+  .stepButton:disabled & {
+    color: variables.$color-text-secondary;
+    background-color: variables.$color-background;
+    border-color: variables.$color-text-secondary;
+    cursor: default;
+  }
+}
+
+.name {
+  display: inline-block;
+  width: 100%;
+  max-width: 100px;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: currentColor;
+
+  .stepButton--current & {
+    font-weight: 600;
+    color: variables.$color-text-primary;
+  }
+
+  .stepButton:hover:not(:disabled) & {
+    font-weight: 600;
+  }
+}

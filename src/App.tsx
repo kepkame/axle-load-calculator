@@ -1,15 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { MainLayout } from '@layouts/MainLayout';
+import { MainLayout } from '@layouts/MainLayout/MainLayout';
+import { CalcLayout } from '@layouts/CalcLayout/CalcLayout';
 import Step1Page from '@pages/Step1/Step1Page';
 import Step2Page from '@pages/Step2/Step2Page';
 import Step3Page from '@pages/Step3/Step3Page';
-import Favorites from '@pages/Favorites/Favorites';
-import NotFoundPage from '@pages/NotFound/NotFoundPage';
+import Favorites from '@pages/static/Favorites/Favorites';
+import NotFoundPage from '@pages/static/NotFound/NotFoundPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <CalcLayout />,
     children: [
       {
         path: '',
@@ -23,8 +24,14 @@ const router = createBrowserRouter([
         path: '/step3',
         element: <Step3Page />,
       },
+    ],
+  },
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: [
       {
-        path: '/favorites',
+        path: 'favorites',
         element: <Favorites />,
       },
       {
