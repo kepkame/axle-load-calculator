@@ -4,9 +4,20 @@
 .button {
   @extend %button;
   text-decoration: none;
+
   &:global(.active) {
     color: variables.$color-text-primary;
     opacity: 1;
     cursor: default;
+  }
+
+  &:focus:not(:global(.focus-visible)) {
+    color: variables.$color-text-primary;
+    opacity: 0.6;
+  }
+
+  &:focus:global(.active):not(:global(.focus-visible)) {
+    color: variables.$color-text-primary;
+    opacity: 1;
   }
 }

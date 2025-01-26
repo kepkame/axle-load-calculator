@@ -1,15 +1,13 @@
 import React from 'react';
+import clsx from 'clsx';
 import { IStepButtonProps } from './StepButton.types';
 import styles from './StepButton.module.scss';
 
 export const StepButton: React.FC<IStepButtonProps> = ({ step, name, status }) => {
-  const classess = `
-    ${styles.stepButton}
-    ${status ? styles[`stepButton--${status}`] : ''}
-  `.trim();
+  const className = clsx(styles.stepButton, { [styles[`stepButton--${status}`]]: !!status });
 
   return (
-    <button className={classess} type="button" disabled={!status}>
+    <button className={className} type="button" disabled={!status}>
       <span className={styles.number}>{step}</span>
       <span className={styles.name}>{name}</span>
     </button>

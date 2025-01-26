@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { IButtonProps } from './Button.types';
 import styles from './Button.module.scss';
 
@@ -13,18 +14,16 @@ export const Button: React.FC<IButtonProps> = ({
   children,
   ...props
 }) => {
-  const baseClass = styles.button;
-  const variantClass = isOutline ? styles['outlined'] : '';
-  const sizeClass = isSmall ? styles.small : '';
-  const iconOnlyClass = Icon && !children ? styles.iconOnly : '';
-  const statusClass = status ? styles[`status-${status}`] : '';
-  const classes = `
-    ${baseClass}
-    ${variantClass}
-    ${sizeClass}
-    ${iconOnlyClass}
-    ${statusClass}
-    ${className || ''}`.trim();
+  const classes = clsx(
+    styles.button,
+    {
+      [styles['outlined']]: isOutline,
+      [styles.small]: isSmall,
+      [styles.iconOnly]: Icon && !children,
+      [styles[`status-${status}`]]: status,
+    },
+    className,
+  );
 
   return (
     <button className={classes} onClick={onClick} {...props}>

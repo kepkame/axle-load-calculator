@@ -27,7 +27,7 @@ export const CalcLayout: React.FC = () => {
       <Header />
       <main className={styles.main}>
         <div className="container">
-          <PageHeader title="Калькулятор нагрузки на ось грузового автомобиля" />
+          <PageHeader title="Калькулятор нагрузки на оси" />
           <StepIndicator steps={dataStepIndicator} />
           <div className={styles.calculator}>
             <Outlet />

@@ -1,8 +1,8 @@
 import React from 'react';
 import { StepButton } from './StepButton/StepButton';
-import styles from './StepIndicator.module.scss';
 import { IStepIndicatorProps } from './StepIndicator.types';
 import { IStepButtonProps } from './StepButton/StepButton.types';
+import styles from './StepIndicator.module.scss';
 
 export const StepIndicator: React.FC<IStepIndicatorProps> = ({ steps }) => {
   return (
