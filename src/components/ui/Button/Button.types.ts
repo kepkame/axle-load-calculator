@@ -1,4 +1,4 @@
-export interface IButtonProps {
+export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void;
   isOutline?: boolean;
   isSmall?: boolean;
@@ -7,5 +7,5 @@ export interface IButtonProps {
   status?: 'success' | 'warning' | 'danger' | 'remove';
   className?: string;
   children?: React.ReactNode;
-  [x: string]: any; // Дополнительные пропсы
+  [x: string]: any; // Additional props
 }
