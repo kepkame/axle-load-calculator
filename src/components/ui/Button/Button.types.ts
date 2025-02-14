@@ -1,5 +1,5 @@
 export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  onClick: () => void;
+  onClick?: () => void;
   isOutline?: boolean;
   isSmall?: boolean;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
