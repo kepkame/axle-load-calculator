@@ -11,19 +11,19 @@ export const formSchema = z.object({
   truckWeight: z.preprocess((val) => {
     const num = Number(val);
     return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(10, 'Минимальное значение: 10').max(10000, 'Максимальное значение: 10 000')),
+  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(4800, 'Минимальное значение: 4800').max(12000, 'Максимальное значение: 12 000')),
   truckWheelbase: z.preprocess((val) => {
     const num = Number(val);
     return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(1.0, 'Минимальное значение: 1.0').max(5.0, 'Максимальное значение: 5.0')),
+  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(2.0, 'Минимальное значение: 2.0').max(5.0, 'Максимальное значение: 5.0')),
   trailerWeight: z.preprocess((val) => {
     const num = Number(val);
     return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(10, 'Минимальное значение: 10').max(10000, 'Максимальное значение: 10 000')),
+  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(4000, 'Минимальное значение: 4000').max(10000, 'Максимальное значение: 10 000')),
   trailerWheelbase: z.preprocess((val) => {
     const num = Number(val);
     return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(1.0, 'Минимальное значение: 1.0').max(5.0, 'Максимальное значение: 5.0')),
+  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(1.0, 'Минимальное значение: 1.0').max(3.0, 'Максимальное значение: 3.0')),
 });
 
 type TFormSchema = z.infer<typeof formSchema>;
@@ -36,10 +36,10 @@ export const FormDefault: React.FC = () => {
   } = useForm<TFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      truckWeight: 1000,
-      truckWheelbase: 1.1,
-      trailerWeight: 1000,
-      trailerWheelbase: 1.1,
+      truckWeight: 8200,
+      truckWheelbase: 3.6,
+      trailerWeight: 7000,
+      trailerWheelbase: 1.32,
     },
   });
 
@@ -56,9 +56,9 @@ export const FormDefault: React.FC = () => {
             name="truckWeight"
             control={control}
             maxLength={5}
+            showRange={true}
             inputMode="numeric"
             autoFocus={true}
-            showRange={true}
           />
         </BaseField>
 
@@ -71,9 +71,9 @@ export const FormDefault: React.FC = () => {
             name="truckWheelbase"
             control={control}
             maxLength={5}
-            decimalPlaces={3}
-            inputMode="decimal"
+            decimalPlaces={1}
             showRange={true}
+            inputMode="decimal"
           />
         </BaseField>
       </fieldset>
@@ -85,7 +85,13 @@ export const FormDefault: React.FC = () => {
           error={errors.trailerWeight?.message}
           units="кг"
         >
-          <NumberField name="trailerWeight" control={control} maxLength={5} inputMode="numeric" />
+          <NumberField
+            name="trailerWeight"
+            control={control}
+            maxLength={5}
+            showRange={true}
+            inputMode="numeric"
+          />
         </BaseField>
 
         <BaseField
@@ -97,7 +103,8 @@ export const FormDefault: React.FC = () => {
             name="trailerWheelbase"
             control={control}
             maxLength={5}
-            decimalPlaces={1}
+            decimalPlaces={2}
+            showRange={true}
             inputMode="decimal"
           />
         </BaseField>
