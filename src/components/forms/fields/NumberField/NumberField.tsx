@@ -3,7 +3,7 @@ import { useController } from 'react-hook-form';
 import clsx from 'clsx';
 import { INumberFieldProps } from './NumberField.types';
 import { RangeField } from '@components/forms/fields/RangeField/RangeField';
-import { formSchema } from '@components/forms/Form/Form';
+import { formSchema } from '@pages/Step1/validation';
 import { getZodMinMax } from '@utils/zodUtils';
 import { defaultFormatter } from '@utils/numberUtils/formatUtils';
 import { normalizeDecimalPlaces } from '@utils/numberUtils/validationUtils';

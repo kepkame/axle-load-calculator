@@ -1,116 +1,24 @@
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { BaseField } from '../BaseField/BaseField';
-import { NumberField } from '@components/forms/fields/NumberField/NumberField';
-// import styles from './Form.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { IFormProps } from './Form.types';
+// import { useDispatch } from 'react-redux';
 
-// Define a Zod schema for form validation
-export const formSchema = z.object({
-  truckWeight: z.preprocess((val) => {
-    const num = Number(val);
-    return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(4800, 'Минимальное значение: 4800').max(12000, 'Максимальное значение: 12 000')),
-  truckWheelbase: z.preprocess((val) => {
-    const num = Number(val);
-    return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(2.0, 'Минимальное значение: 2.0').max(5.0, 'Максимальное значение: 5.0')),
-  trailerWeight: z.preprocess((val) => {
-    const num = Number(val);
-    return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(4000, 'Минимальное значение: 4000').max(10000, 'Максимальное значение: 10 000')),
-  trailerWheelbase: z.preprocess((val) => {
-    const num = Number(val);
-    return Number.isNaN(num) ? undefined : num;
-  }, z.number({ required_error: 'Поле обязательно для заполнения' }).min(1.0, 'Минимальное значение: 1.0').max(3.0, 'Максимальное значение: 3.0')),
-});
+export const Form = <T extends FieldValues>({ schema, defaultValues, children }: IFormProps<T>) => {
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
-type TFormSchema = z.infer<typeof formSchema>;
-
-export const FormDefault: React.FC = () => {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<TFormSchema>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      truckWeight: 8200,
-      truckWheelbase: 3.6,
-      trailerWeight: 7000,
-      trailerWheelbase: 1.32,
-    },
+  const methods = useForm<T>({
+    resolver: zodResolver(schema),
+    defaultValues,
+    mode: 'onBlur',
   });
 
-  const onSubmit: SubmitHandler<TFormSchema> = (data) => {
-    console.log('data:', data);
+  const onSubmit = (data: T) => {
+    console.log('Отправка формы:', data);
+    // dispatch({ type: 'form/saveStep1', payload: data }); // Заглушка для Redux
+    navigate('/step2');
   };
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <fieldset>
-        <legend>Данные о тягаче</legend>
-        <BaseField label="Собственный вес тягача" error={errors.truckWeight?.message} units="кг">
-          <NumberField
-            name="truckWeight"
-            control={control}
-            maxLength={5}
-            showRange={true}
-            inputMode="numeric"
-            autoFocus={true}
-          />
-        </BaseField>
-
-        <BaseField
-          label="Межосевое расстояние осей тягача"
-          error={errors.truckWheelbase?.message}
-          units="метров"
-        >
-          <NumberField
-            name="truckWheelbase"
-            control={control}
-            maxLength={5}
-            decimalPlaces={1}
-            showRange={true}
-            inputMode="decimal"
-          />
-        </BaseField>
-      </fieldset>
-
-      <fieldset>
-        <legend>Данные полуприцепа</legend>
-        <BaseField
-          label="Собственный вес полуприцепа"
-          error={errors.trailerWeight?.message}
-          units="кг"
-        >
-          <NumberField
-            name="trailerWeight"
-            control={control}
-            maxLength={5}
-            showRange={true}
-            inputMode="numeric"
-          />
-        </BaseField>
-
-        <BaseField
-          label="Межосевое расстояние осей полуприцепа"
-          error={errors.trailerWheelbase?.message}
-          units="метров"
-        >
-          <NumberField
-            name="trailerWheelbase"
-            control={control}
-            maxLength={5}
-            decimalPlaces={2}
-            showRange={true}
-            inputMode="decimal"
-          />
-        </BaseField>
-      </fieldset>
-
-      <button type="submit">Отправить</button>
-    </form>
-  );
+  return <form onSubmit={methods.handleSubmit(onSubmit)}>{children(methods)}</form>;
 };
