@@ -11,7 +11,6 @@ export interface IHandleNumberInputBlurArgs {
   min: number;
   max: number;
   decimalPlaces: number;
-  formatter: (value: number, decimalPlaces: number) => string;
   onChange: (value: string) => void;
   onBlur: () => void;
 }
@@ -21,6 +20,5 @@ export interface IHandleNumberInputKeyDownArgs {
   field: any;
   min: number;
   max: number;
-  formatter: (value: number, decimalPlaces: number) => string;
   normalizedDecimalPlaces: number;
 }

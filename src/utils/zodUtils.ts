@@ -7,9 +7,7 @@ interface IZodCheck {
   message?: string;
 }
 
-/**
- * Extracts the minimum and maximum constraints from a ZodNumber schema.
- */
+/** Extracts the min and max constraints from a ZodNumber schema */
 export const getZodMinMax = (schema: ZodTypeAny) => {
   // If ZodEffects is passed (because of preprocess), get the internal circuitry
   if (schema instanceof ZodEffects) {

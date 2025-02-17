@@ -3,11 +3,14 @@ import { Control, FieldErrors } from 'react-hook-form';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { formSchema } from './validation';
+import { getConstraintsFromSchema } from './validationUtils';
 
 interface ITransportFormProps {
   control: Control<typeof formSchema._type>;
   errors: FieldErrors<typeof formSchema._type>;
 }
+
+const constraints = getConstraintsFromSchema(formSchema);
 
 export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }) => {
   return (
@@ -18,6 +21,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="truckWeight"
             control={control}
+            min={constraints.truckWeight.min}
+            max={constraints.truckWeight.max}
             maxLength={5}
             showRange={true}
             inputMode="numeric"
@@ -33,6 +38,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="truckWheelbase"
             control={control}
+            min={constraints.truckWheelbase.min}
+            max={constraints.truckWheelbase.max}
             maxLength={5}
             decimalPlaces={1}
             showRange={true}
@@ -51,6 +58,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="trailerWeight"
             control={control}
+            min={constraints.trailerWeight.min}
+            max={constraints.trailerWeight.max}
             maxLength={5}
             showRange={true}
             inputMode="numeric"
@@ -65,6 +74,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="trailerWheelbase"
             control={control}
+            min={constraints.trailerWheelbase.min}
+            max={constraints.trailerWheelbase.max}
             maxLength={5}
             decimalPlaces={2}
             showRange={true}

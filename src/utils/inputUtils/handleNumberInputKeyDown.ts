@@ -1,3 +1,4 @@
+import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
 import { IHandleNumberInputKeyDownArgs } from './numberFieldHandlers.types';
 
 /**
@@ -11,7 +12,6 @@ export const handleNumberInputKeyDown = ({
   field,
   min,
   max,
-  formatter,
   normalizedDecimalPlaces,
 }: IHandleNumberInputKeyDownArgs) => {
   // Block input of minus, space and alphabetic characters (e.g. 'e' for exponential numbers)
@@ -52,5 +52,5 @@ export const handleNumberInputKeyDown = ({
   const clampedValue = Math.min(Math.max(newValue, min ?? -Infinity), max ?? Infinity);
 
   // Apply formatting and update the field value
-  field.onChange(formatter(clampedValue, normalizedDecimalPlaces));
+  field.onChange(formatNumberToDecimals(clampedValue, normalizedDecimalPlaces));
 };

@@ -1,4 +1,5 @@
 import { getDecimalRegex } from '@utils/numberUtils/validationUtils';
+import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
 import {
   IHandleNumberInputChangeArgs,
   IHandleNumberInputBlurArgs,
@@ -38,7 +39,6 @@ export const handleNumberInputChange = ({
 export const handleNumberInputBlur = ({
   e,
   decimalPlaces,
-  formatter,
   onChange,
   onBlur,
 }: IHandleNumberInputBlurArgs) => {
@@ -58,7 +58,7 @@ export const handleNumberInputBlur = ({
   }
 
   // Formatting a number before saving
-  const formattedValue = formatter(numericValue, decimalPlaces);
+  const formattedValue = formatNumberToDecimals(numericValue, decimalPlaces);
 
   // Update the value (convert to a number if possible)
   onChange(formattedValue);

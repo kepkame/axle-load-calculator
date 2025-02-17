@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { calculateStep, roundToNearestStep } from '@utils/numberUtils/mathUtils';
-import { defaultFormatter } from '@utils/numberUtils/formatUtils';
+import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
 import { IRangeFieldProps } from './RangeField.types';
 import styles from './RangeField.module.scss';
 
@@ -27,7 +27,7 @@ export const RangeField: React.FC<IRangeFieldProps> = ({
     // Rounding before setting
     const roundedValue = roundToNearestStep(newValue, step, max, decimalPlaces);
     // Format the number before sending it to onChange
-    const formattedValue = defaultFormatter(roundedValue, decimalPlaces);
+    const formattedValue = formatNumberToDecimals(roundedValue, decimalPlaces);
 
     onChange(formattedValue);
   };

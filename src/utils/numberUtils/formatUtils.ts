@@ -1,7 +1,7 @@
 /**
  * Function for formatting numbers with a given number of decimal places.
  */
-export const defaultFormatter = (value: number, decimalPlaces: number): string => {
+export const formatNumberToDecimals = (value: number, decimalPlaces: number): string => {
   return decimalPlaces > 0 ? value.toFixed(decimalPlaces) : Math.round(value).toString();
 };
 
