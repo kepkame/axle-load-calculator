@@ -1,9 +1,8 @@
-import React from 'react';
 import { Control, FieldErrors } from 'react-hook-form';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
-import { formSchema } from './validation';
-import { getConstraintsFromSchema } from './validationUtils';
+import { formSchema } from './validation/validation';
+import { getConstraintsFromSchema } from './validation/validationUtils';
 
 interface ITransportFormProps {
   control: Control<typeof formSchema._type>;

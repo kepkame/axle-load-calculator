@@ -1,9 +1,11 @@
 @use '@styles/variables';
+@use 'sass:color';
 
 input[type='text'],
 input[type='number'],
 textarea {
   font-size: 1rem;
+  font-weight: 500;
   line-height: 1.5rem;
   color: variables.$color-text-secondary;
   background-color: transparent;
@@ -46,3 +48,87 @@ legend {
   color: variables.$color-danger-dark;
   padding-top: 4px;
 }
+
+/** Custom Select (react-select) */
+div.custom-select {
+  &__control {
+    background-color: transparent;
+    border: 2px solid variables.$color-text-subtitle;
+    border-radius: variables.$border-radius;
+    transition: border-color variables.$duration ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      border-color: variables.$color-primary;
+
+      .custom-select__indicator {
+        color: variables.$color-primary;
+      }
+    }
+
+    &--is-focused {
+      box-shadow: none;
+      border-color: variables.$color-primary-hover;
+
+      .custom-select__indicator {
+        color: variables.$color-primary-hover;
+      }
+    }
+
+    &--menu-is-open {
+      border-radius: variables.$border-radius variables.$border-radius 0 0;
+    }
+  }
+
+  &__placeholder,
+  &__indicator {
+    color: variables.$color-text-secondary;
+    transition: color variables.$duration ease-in-out;
+  }
+
+  &__value-container {
+    padding: 10px;
+  }
+
+  &__single-value {
+    color: variables.$color-text-secondary;
+  }
+
+  &__menu {
+    background-color: variables.$color-white;
+    border: 2px solid variables.$color-text-subtitle;
+    border-top: none;
+    border-radius: 0 0 variables.$border-radius variables.$border-radius;
+    margin-top: 0;
+    box-shadow: variables.$box-shadow-md;
+  }
+
+  &__option {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: variables.$color-text-secondary;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  &__option--is-selected {
+    color: variables.$color-white;
+    background-color: variables.$color-primary;
+  }
+
+  &__option--is-focused {
+    background-color: color.adjust(variables.$color-primary, $saturation: -18%, $lightness: 38%);
+
+    &.custom-select__option--is-selected {
+      background-color: variables.$color-primary;
+    }
+  }
+}
+
+span.custom-select__indicator-separator {
+  display: none;
+}
+
+// form .custom-select__control {
+//   margin-top: 32px;
+// }

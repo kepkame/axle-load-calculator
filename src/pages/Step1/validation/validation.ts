@@ -1,6 +1,27 @@
 import { z } from 'zod';
 
 export const formSchema = z.object({
+  truckModel: z
+    .string({
+      required_error: 'Выберите модель тягача',
+      invalid_type_error: 'Выберите корректную модель тягача',
+    })
+    .min(1, 'Выберите модель тягача')
+    .refine(
+      (val) =>
+        [
+          'kamaz_65115',
+          'maz_6516',
+          'scania_r420',
+          'mercedes_actros',
+          'man_tgs_18440',
+          'volvo_fh16',
+        ].includes(val),
+      {
+        message: 'Выберите корректную модель тягача',
+      },
+    ),
+
   truckWeight: z.coerce
     .number()
     .min(4800, 'Минимальное значение: 4800')
