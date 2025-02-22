@@ -1,0 +1,45 @@
+@use '@styles/variables';
+
+.radioLabel {
+  position: relative;
+  display: inline-block;
+  border-radius: variables.$border-radius;
+  padding: 0;
+}
+
+.radioInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  bottom: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.radioText {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  background-color: variables.$color-background;
+  border-radius: variables.$border-radius;
+  padding: 6px 16px;
+  transition: color variables.$duration ease-in-out,
+    background-color variables.$duration ease-in-out;
+  cursor: pointer;
+
+  .radioLabel:focus &,
+  .radioLabel:hover & {
+    background-color: variables.$color-text-subtitle-light;
+  }
+
+  .radioInput:checked + &,
+  .radioInput:checked + &:hover {
+    color: variables.$color-white;
+    background-color: variables.$color-primary-light;
+    cursor: default;
+  }
+}

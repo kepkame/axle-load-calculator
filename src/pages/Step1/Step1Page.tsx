@@ -21,7 +21,7 @@ const truckModels: IOption[] = [
 
 const Step1Page: React.FC = () => {
   const defaultValues = {
-    truckModel: '' as string,
+    truckAxles: '2',
     truckWeight: 8200,
     truckWheelbase: 3.6,
     trailerWeight: 7000,
@@ -41,6 +41,7 @@ const Step1Page: React.FC = () => {
               <ValueSelector
                 options={truckModels}
                 onChange={(option: IOptionSelector) => applyPresetTruckValues(option)}
+                placeholder="Выберите модель фуры"
               />
             </BaseField>
           </div>

@@ -3,6 +3,7 @@ import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { formSchema } from './validation/validation';
 import { getConstraintsFromSchema } from './validation/validationUtils';
+import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';
 
 interface ITransportFormProps {
   control: Control<typeof formSchema._type>;
@@ -16,6 +17,18 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
     <>
       <fieldset>
         <legend>Данные о тягаче</legend>
+        <RadioGroup
+          name="truckAxles"
+          options={[
+            { value: '2', option: '2' },
+            { value: '2.5', option: '2.5' },
+            { value: '3', option: '3' },
+          ]}
+          label="Количество осей тягача"
+          control={control}
+          error={errors.truckAxles?.message}
+        />
+
         <BaseField label="Собственный вес тягача" error={errors.truckWeight?.message} units="кг">
           <NumberField
             name="truckWeight"
