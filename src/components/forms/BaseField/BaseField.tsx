@@ -1,15 +1,7 @@
 import React, { useId, cloneElement } from 'react';
 import clsx from 'clsx';
+import { IBaseFieldProps } from './BaseField.types';
 import styles from './BaseField.module.scss';
-
-interface IBaseFieldProps {
-  label: string;
-  htmlFor?: string;
-  error?: string;
-  /** Units of Measurement */
-  units?: string;
-  children: React.ReactElement;
-}
 
 export const BaseField: React.FC<IBaseFieldProps> = ({
   label,
@@ -18,7 +10,8 @@ export const BaseField: React.FC<IBaseFieldProps> = ({
   units,
   children,
 }) => {
-  const fieldId = htmlFor || useId(); // Use the passed id or create a new one
+  // Use the passed id or create a new one
+  const fieldId = htmlFor || useId();
 
   return (
     <div className={clsx(styles.baseField, { [styles.error]: error })}>
