@@ -5,6 +5,7 @@ $color-primary-light: color.adjust($color-primary, $saturation: 2%, $lightness: 
 $color-primary-dark: color.adjust($color-primary, $saturation: -17%, $lightness: -17%); // #1852aa
 $color-primary-hover: color.adjust($color-primary, $saturation: -10%, $lightness: -10%); // #1560d1
 $color-hover: color.adjust($color-primary, $saturation: -18%, $lightness: 42%); // #f2f6fd
+$color-shadow: color.adjust($color-primary, $saturation: -16%, $lightness: -68%);
 $color-surface: #f4f5f5;
 
 $color-background: #efeff0;
@@ -50,12 +51,9 @@ $color-white: #ffffff;
 $font-family: Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
 $border-radius: 0.5rem;
 
-$box-shadow-sm: 0 1px 2px 0 rgba($color-primary-dark, 0.3),
-  0 1px 3px 1px rgba($color-primary-dark, 0.15);
-$box-shadow-md: 0 1px 2px 0px rgba($color-primary-dark, 0.3),
-  0 2px 6px 2px rgba($color-primary-dark, 0.15);
-$box-shadow-lg: 0 4px 8px 3px rgba($color-primary-dark, 0.15),
-  0 1px 3px 0px rgba($color-primary-dark, 0.3);
+$box-shadow-sm: 0 1px 2px 0 rgba($color-shadow, 0.3), 0 1px 3px 1px rgba($color-shadow, 0.15);
+$box-shadow-md: 0 1px 2px 0px rgba($color-shadow, 0.3), 0 2px 6px 2px rgba($color-shadow, 0.15);
+$box-shadow-lg: 0 4px 8px 3px rgba($color-shadow, 0.15), 0 1px 3px 0px rgba($color-shadow, 0.3);
 
 $grid-breakpoints-sm: 576px;
 $grid-breakpoints-md: 767px;

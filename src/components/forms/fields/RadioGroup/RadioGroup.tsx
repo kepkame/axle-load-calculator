@@ -3,6 +3,7 @@ import { useController } from 'react-hook-form';
 import { RadioButton } from './RadioButton';
 import { IOption, IRadioGroupProps } from './RadioGroup.types';
 import styles from './RadioGroup.module.scss';
+import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
 
 export const RadioGroup: React.FC<IRadioGroupProps> = ({
   name,
@@ -24,8 +25,6 @@ export const RadioGroup: React.FC<IRadioGroupProps> = ({
 
   const groupId = id || useId();
   const errorMessage = fieldError?.message || error;
-  console.log('fieldError: ', fieldError);
-  console.log('errorMessage: ', errorMessage);
 
   return (
     <div
@@ -36,7 +35,11 @@ export const RadioGroup: React.FC<IRadioGroupProps> = ({
       className={styles.radioGroup}
     >
       <div className={styles.radioHeader}>
-        <p className={styles.radioTitle}>{label}</p>
+        <span className={styles.radioTitle}>{label}</span>
+        <Tooltip>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt aut eligendi voluptas
+          modi laborum fugit esse.
+        </Tooltip>
       </div>
 
       <div className={styles.radioWrapper}>

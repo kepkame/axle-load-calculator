@@ -21,7 +21,7 @@ export const RadioButton: React.FC<IRadioButtonProps> = memo(
       <label
         htmlFor={computedId}
         className={styles.radioLabel}
-        tabIndex={0}
+        tabIndex={checked ? -1 : 0}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
