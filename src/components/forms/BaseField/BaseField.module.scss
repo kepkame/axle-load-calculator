@@ -1,7 +1,7 @@
 @use '@styles/variables.scss';
 
 .baseField {
-  max-width: 320px;
+  max-width: 344px;
 
   &.error {
     input {
@@ -19,7 +19,18 @@
   }
 }
 
-.root {
+.label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+
+  label {
+    white-space: normal;
+    // display: inline-block;
+  }
+}
+
+.field {
   position: relative;
 }
 

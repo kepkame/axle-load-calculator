@@ -10,6 +10,7 @@ export interface IRadioGroupProps {
   options: IOption[];
   control: Control<any>;
   label: string;
+  tooltip?: string | React.ReactElement;
   error?: string;
   disabled?: boolean;
   id?: string;

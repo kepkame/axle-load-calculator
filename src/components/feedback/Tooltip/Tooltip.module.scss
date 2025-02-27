@@ -35,10 +35,9 @@
   max-width: 260px;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  background-color: variables.$color-white;
+  background-color: variables.$color-surface;
   border-radius: variables.$border-radius;
-  box-shadow: 0 8px 12px rgba(variables.$color-shadow, 0.3),
-    0 1px 12px rgba(variables.$color-shadow, 0.3);
+  box-shadow: variables.$box-shadow-xl;
   margin: 8px 0;
   padding: 8px 12px 12px;
 }

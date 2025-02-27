@@ -2,14 +2,15 @@ import { useId } from 'react';
 import { useController } from 'react-hook-form';
 import { RadioButton } from './RadioButton';
 import { IOption, IRadioGroupProps } from './RadioGroup.types';
-import styles from './RadioGroup.module.scss';
 import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
+import styles from './RadioGroup.module.scss';
 
 export const RadioGroup: React.FC<IRadioGroupProps> = ({
   name,
   options,
   control,
   label,
+  tooltip,
   error,
   disabled = false,
   id,
@@ -36,17 +37,14 @@ export const RadioGroup: React.FC<IRadioGroupProps> = ({
     >
       <div className={styles.radioHeader}>
         <span className={styles.radioTitle}>{label}</span>
-        <Tooltip>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt aut eligendi voluptas
-          modi laborum fugit esse.
-        </Tooltip>
+        {tooltip && <Tooltip>{tooltip}</Tooltip>}
       </div>
 
       <div className={styles.radioWrapper}>
         {options.map(({ value: optionValue, option }: IOption) => (
           <RadioButton
             key={optionValue}
-            name="numberAxle"
+            name={name}
             value={optionValue}
             label={option}
             checked={value === optionValue}

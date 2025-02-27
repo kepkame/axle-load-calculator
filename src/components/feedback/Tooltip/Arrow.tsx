@@ -51,7 +51,7 @@ export const Arrow = React.forwardRef<SVGSVGElement, IArrowProps>(
 
     return (
       <svg ref={ref} style={arrowStyle} width="14" height="7" viewBox="0 0 14 7" {...props}>
-        <path d="M0 7 L7 0 L14 7 Z" fill="white" />
+        <path d="M0 7 L7 0 L14 7 Z" fill="#f4f5f5" />
       </svg>
     );
   },

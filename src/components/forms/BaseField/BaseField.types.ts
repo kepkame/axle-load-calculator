@@ -4,5 +4,6 @@ export interface IBaseFieldProps {
   error?: string;
   /** Units of Measurement */
   units?: string;
+  tooltip?: string | React.ReactElement;
   children: React.ReactElement;
 }

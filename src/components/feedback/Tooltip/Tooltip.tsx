@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useTooltipFloating } from '@hooks/useTooltipFloating';
 import SVGIcon from '@assets/icons/question.svg?react';
 import { Arrow } from './Arrow';
-import { handleClose, handleOpen } from './Tooltip.handlers';
+import { handleOpen, handleClose } from './Tooltip.handlers';
 import { ITooltipProps } from './Tooltip.types';
 import styles from './Tooltip.module.scss';
 
@@ -39,7 +39,7 @@ export const Tooltip: React.FC<ITooltipProps> = memo(({ className, children }) =
           'aria-describedby': open ? tooltipId : undefined,
           'aria-label': 'Tooltip',
           type: 'button',
-          onPointerEnter: () => !isMobile && handleOpen({ setOpen, timeoutRef }), // Open on hover
+          onPointerEnter: () => !isMobile && handleOpen({ setOpen, timeoutRef, delay: 150 }), // Open on hover
           onPointerLeave: () => !isMobile && handleClose({ setOpen, timeoutRef, delay: 300 }), // Close when cursor leaves
           onClick: () => handleOpen({ setOpen, timeoutRef }),
         })}
@@ -60,11 +60,8 @@ export const Tooltip: React.FC<ITooltipProps> = memo(({ className, children }) =
                 position: strategy, // Absolute positioning for the tooltip
                 top: y ?? 0,
                 left: x ?? 0,
-                transition: 'opacity 0.2s ease-in-out, transform 0.2s ease-in-out',
-                opacity: open ? 1 : 0,
-                transform: open ? 'scale(1)' : 'scale(0.95)',
               },
-              onMouseEnter: () => !isMobile && handleOpen({ setOpen, timeoutRef }),
+              onMouseEnter: () => !isMobile && handleOpen({ setOpen, timeoutRef, delay: 150 }),
               onMouseLeave: () => !isMobile && handleClose({ setOpen, timeoutRef, delay: 300 }),
               onClick: (e) => e.stopPropagation(),
             })}

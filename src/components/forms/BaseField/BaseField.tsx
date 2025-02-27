@@ -1,6 +1,7 @@
 import React, { useId, cloneElement } from 'react';
 import clsx from 'clsx';
 import { IBaseFieldProps } from './BaseField.types';
+import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
 import styles from './BaseField.module.scss';
 
 export const BaseField: React.FC<IBaseFieldProps> = ({
@@ -8,6 +9,7 @@ export const BaseField: React.FC<IBaseFieldProps> = ({
   htmlFor,
   error,
   units,
+  tooltip,
   children,
 }) => {
   // Use the passed id or create a new one
@@ -15,9 +17,12 @@ export const BaseField: React.FC<IBaseFieldProps> = ({
 
   return (
     <div className={clsx(styles.baseField, { [styles.error]: error })}>
-      <label htmlFor={fieldId}>{label}</label>
+      <div className={styles.label}>
+        <label htmlFor={fieldId}>{label}</label>
+        {tooltip && <Tooltip className={styles.tooltipLabel}>{tooltip}</Tooltip>}
+      </div>
 
-      <div className={styles.root}>
+      <div className={styles.field}>
         {cloneElement(children, { id: fieldId, isUnits: units !== undefined })}
         {units && <span className={styles.units}>{units}</span>}
       </div>

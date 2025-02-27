@@ -21,11 +21,14 @@ const truckModels: IOption[] = [
 
 const Step1Page: React.FC = () => {
   const defaultValues = {
-    truckAxles: '2',
     truckWeight: 8200,
+    truckAxles: '2',
     truckWheelbase: 3.6,
     trailerWeight: 7000,
+    trailerAxles: '3',
+    couplingLength: '1.35',
     trailerWheelbase: 1.32,
+    deckLength: 13.6,
   };
 
   const { applyPresetTruckValues } = usePresetTruckValues();

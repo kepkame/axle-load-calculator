@@ -27,7 +27,6 @@ export const useTooltipFloating = ({ open, setOpen }: IUseTooltipFloatingProps) 
     update,
     placement: floatingPlacement,
   } = useFloating({
-    open,
     onOpenChange: setOpen,
     placement: 'bottom',
     middleware: createTooltipMiddleware(arrowRef), // Apply middleware for positioning
