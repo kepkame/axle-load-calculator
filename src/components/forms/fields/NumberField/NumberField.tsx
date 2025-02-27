@@ -66,7 +66,10 @@ export const NumberField: React.FC<INumberFieldProps> = ({
       {showRange && (
         <RangeField
           value={Number(field.value)}
-          onChange={(val) => field.onChange(val)}
+          onChange={(val) => {
+            field.onChange(val);
+            field.onBlur();
+          }}
           min={min}
           max={max}
           decimalPlaces={decimalPlaces}
