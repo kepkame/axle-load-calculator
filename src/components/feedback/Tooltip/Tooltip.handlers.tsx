@@ -6,7 +6,7 @@ import {
   useInteractions,
   FloatingContext,
 } from '@floating-ui/react';
-import { ITooltipHandlerParams, ITooltipHandleCloseParams } from './Tooltip.types';
+import { ITooltipHandlerParams } from './Tooltip.types';
 
 /**
  * Opening the tooltip (resetting the close timer, if there was one).
@@ -14,11 +14,18 @@ import { ITooltipHandlerParams, ITooltipHandleCloseParams } from './Tooltip.type
  * @param setOpen - State setter function for controlling the tooltip's visibility.
  * @param timeoutRef - Reference to a timeout ID used for delaying actions.
  */
-export const handleOpen = ({ setOpen, timeoutRef }: ITooltipHandlerParams) => {
+export const handleOpen = ({ setOpen, timeoutRef, delay = 0 }: ITooltipHandlerParams) => {
   if (timeoutRef.current) {
     clearTimeout(timeoutRef.current);
   }
-  setOpen(true);
+
+  if (delay > 0) {
+    timeoutRef.current = setTimeout(() => {
+      setOpen(true);
+    }, delay);
+  } else {
+    setOpen(true);
+  }
 };
 
 /**
@@ -28,7 +35,11 @@ export const handleOpen = ({ setOpen, timeoutRef }: ITooltipHandlerParams) => {
  * @param timeoutRef - Reference to a timeout ID used for delaying actions.
  * @param delay - Delay in milliseconds before closing the tooltip (default: 300ms).
  */
-export const handleClose = ({ setOpen, timeoutRef, delay = 300 }: ITooltipHandleCloseParams) => {
+export const handleClose = ({ setOpen, timeoutRef, delay = 200 }: ITooltipHandlerParams) => {
+  if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+  }
+
   timeoutRef.current = setTimeout(() => {
     setOpen(false);
   }, delay);
@@ -48,7 +59,7 @@ export const handleClose = ({ setOpen, timeoutRef, delay = 300 }: ITooltipHandle
  */
 export const useTooltipHandlers = (context: FloatingContext<any>) => {
   const click = useClick(context);
-  const hover = useHover(context, { delay: { close: 300 }, mouseOnly: true });
+  const hover = useHover(context);
   const focus = useFocus(context);
   const dismiss = useDismiss(context);
   const { getReferenceProps, getFloatingProps } = useInteractions([click, hover, focus, dismiss]);
