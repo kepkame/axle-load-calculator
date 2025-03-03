@@ -4,6 +4,7 @@ import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { formSchema } from './validation/validation';
 import { getConstraintsFromSchema } from './validation/validationUtils';
 import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';
+import { TruckSideView } from '@components/visualization/TruckSideView/TruckSideView';
 
 interface ITransportFormProps {
   control: Control<typeof formSchema._type>;
@@ -151,6 +152,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           />
         </BaseField>
       </fieldset>
+
+      <TruckSideView />
     </>
   );
 };
