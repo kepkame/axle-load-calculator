@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { TRACTOR_FENDERS, TRACTOR_BACK_FRAMES } from '../config/platformConfig';
+import { TRACTOR_FENDERS, TRACTOR_BACK_FRAMES } from '../data/platformData';
 import { TractorAxleCount } from '../TruckSideView.types';
 
 interface IPlatformProps {

@@ -2,7 +2,7 @@ import {
   TRACTOR_AXLE_X_POSITIONS,
   TRAILER_AXLE_X_POSITIONS,
   TRACTOR_2_5_AXLE_D,
-} from '../config/axleConfigs';
+} from '../data/axleData';
 import recalculateAxlePathX from '../utils/recalculateAxlePathX';
 
 const getAxles = (

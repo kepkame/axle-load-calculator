@@ -1,4 +1,4 @@
-import { TRAILER_FRONT_SECTION, TRAILER_FENDERS } from './../config/platformConfig';
+import { TRAILER_FRONT_SECTION, TRAILER_FENDERS } from '../data/platformData';
 
 interface ITrailerPlatformProps {
   axleCount: number;

@@ -1,4 +1,4 @@
-import { DEFAULT_AXLE_PATH_D } from '../config/axleConfigs';
+import { DEFAULT_AXLE_PATH_D } from '../data/axleData';
 
 interface IRecalculateAxlePathXParams {
   newLeftX: number;
