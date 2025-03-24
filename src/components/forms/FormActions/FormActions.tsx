@@ -5,10 +5,12 @@ import styles from './FormActions.module.scss';
 export const FormActions: React.FC<IFormActionsProps> = ({ onSave, showSave = false }) => {
   return (
     <div className={styles.formActions}>
-      <button type="submit">Далее</button>
+      <button className="btn" type="submit">
+        Далее
+      </button>
 
       {showSave && (
-        <button type="button" onClick={onSave}>
+        <button className="btn btn--outline" type="button" onClick={onSave}>
           Сохранить параметры
         </button>
       )}

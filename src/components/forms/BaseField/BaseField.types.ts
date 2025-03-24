@@ -1,5 +1,6 @@
 export interface IBaseFieldProps {
   label: string;
+  className?: string | undefined;
   htmlFor?: string;
   error?: string;
   /** Units of Measurement */

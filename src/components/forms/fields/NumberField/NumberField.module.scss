@@ -1,6 +1,10 @@
 .numberField {
   width: 100%;
 
+  &.numberFieldRange {
+    margin-bottom: 6px;
+  }
+
   &.numberFieldUnits {
     padding-right: 24px;
   }

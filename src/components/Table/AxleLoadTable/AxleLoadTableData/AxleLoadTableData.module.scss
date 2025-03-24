@@ -1,0 +1,77 @@
+@use '@styles/variables';
+
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: variables.$color-text-secondary;
+    margin-right: 4px;
+  }
+
+  input[type='text'] {
+    max-width: 78px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-top: 6px;
+    padding-right: 24px;
+    padding-bottom: 6px;
+  }
+
+  &Error input[type='text'] {
+    border-color: variables.$color-danger;
+
+    &:hover {
+      border-color: variables.$color-danger-dark;
+    }
+
+    &:focus {
+      border-color: variables.$color-danger-dark;
+      box-shadow: 0 0 0px 1px rgba(variables.$color-danger, 1);
+    }
+  }
+}
+
+.data {
+  & + & {
+    margin-top: 12px;
+  }
+}
+
+.name {
+  margin-right: auto;
+  color: variables.$color-text-secondary;
+}
+
+.units {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(160.355, 171.054, 185.045);
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.mobileOnly {
+  color: inherit;
+}
+
+.desktopOnly {
+  display: none;
+  color: inherit;
+}
+
+@media (min-width: variables.$container-max-width) {
+  .mobileOnly {
+    display: none;
+  }
+
+  .desktopOnly {
+    display: inline;
+  }
+}

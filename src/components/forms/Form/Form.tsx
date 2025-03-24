@@ -20,5 +20,7 @@ export const Form = <T extends FieldValues>({ schema, defaultValues, children }:
     navigate('/step2');
   };
 
+  console.log('Ошибки формы:', methods.formState.errors);
+
   return <form onSubmit={methods.handleSubmit(onSubmit)}>{children(methods)}</form>;
 };

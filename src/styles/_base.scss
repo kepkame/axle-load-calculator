@@ -96,6 +96,39 @@ img {
   vertical-align: middle;
 }
 
+.btn {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: variables.$color-white;
+  background-color: variables.$color-primary;
+  border: none;
+  border-radius: 0.5em;
+  padding: 12px 16px;
+  transition: background-color variables.$duration ease-in-out;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    background-color: variables.$color-primary-hover;
+  }
+
+  &--outline {
+    color: variables.$color-primary;
+    background-color: transparent;
+    border: 1px solid variables.$color-primary;
+    padding: 10px 14px;
+    transition: color variables.$duration ease-in-out,
+      background-color variables.$duration ease-in-out, border-color variables.$duration ease-in-out;
+
+    &:focus,
+    &:hover {
+      color: variables.$color-primary-hover;
+      background-color: variables.$color-hover;
+      border-color: variables.$color-primary-hover;
+    }
+  }
+}
+
 // Скрытие стандартного фокуса для мыши
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;

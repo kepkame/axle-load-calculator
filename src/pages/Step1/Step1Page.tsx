@@ -22,13 +22,21 @@ const truckModels: IOption[] = [
 const Step1Page: React.FC = () => {
   const defaultValues = {
     truckWeight: 8200,
-    truckAxles: '2',
+    truckAxles: '2.5',
     truckWheelbase: 3.6,
     trailerWeight: 7000,
     trailerAxles: '3',
     couplingLength: '1.35',
     trailerWheelbase: 1.32,
     deckLength: 13.6,
+    axleLoadData: [
+      { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 96.77 },
+      { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 96.77, lifted: true },
+      { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 96.77 },
+      { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
+      { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
+      { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
+    ],
   };
 
   const { applyPresetTruckValues } = usePresetTruckValues();
@@ -53,6 +61,10 @@ const Step1Page: React.FC = () => {
         <Form schema={formSchema} defaultValues={defaultValues}>
           {({ control, formState: { errors } }) => (
             <>
+              {console.log(
+                '1. Step1Page.tsx – полный объект errors перед передачей в TransportForm:',
+                errors,
+              )}
               <TransportForm control={control} errors={errors} />
               <FormActions onSave={storeTruckFormPreset} showSave />
             </>

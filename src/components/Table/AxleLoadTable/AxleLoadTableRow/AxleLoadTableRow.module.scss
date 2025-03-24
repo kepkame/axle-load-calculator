@@ -1,0 +1,59 @@
+@use '@styles/variables';
+
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 20px;
+
+  & + & {
+    border-top: 1px solid variables.$color-text-subtitle-light;
+    padding-top: 20px;
+
+    &Error {
+      border-top: none;
+      margin-top: 4px;
+      padding-top: 0;
+    }
+  }
+}
+
+.label,
+.value {
+  margin-bottom: 10px;
+}
+
+// .label {
+//   padding-top: 4px;
+//   padding-bottom: 4px;
+// }
+
+.data {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.value {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  svg {
+    flex: 1 0 24px;
+    width: 24px;
+    height: 24px;
+    fill: variables.$color-text-secondary;
+    margin-right: 4px;
+  }
+}
+
+.name {
+  margin-right: auto;
+  color: variables.$color-text-secondary;
+}

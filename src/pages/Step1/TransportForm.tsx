@@ -1,23 +1,64 @@
-import { Control, FieldErrors } from 'react-hook-form';
+import { useEffect } from 'react';
+import { FieldErrorsImpl, useFieldArray } from 'react-hook-form';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
-import { formSchema } from './validation/validation';
-import { getConstraintsFromSchema } from './validation/validationUtils';
 import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';
 import { TruckSideView } from '@components/visualization/TruckSideView/TruckSideView';
+import { AxleLoadTable } from '@components/Table/AxleLoadTable/AxleLoadTable';
+import { formSchema } from './validation/validation';
+import { getConstraintsFromSchema } from './validation/validationUtils';
+import { AxleLoadDataItem, ITransportFormProps } from './TransportForm.types';
+import styles from './TransportForm.module.scss';
 
-interface ITransportFormProps {
-  control: Control<typeof formSchema._type>;
-  errors: FieldErrors<typeof formSchema._type>;
-}
-
+// Extracting constraints from the validation schema
 const constraints = getConstraintsFromSchema(formSchema);
+const axleLoadConstraints = constraints.axleLoadData as {
+  axleLoadEmpty: { min: number; max: number };
+  axleLoadLimit: { min: number; max: number };
+};
 
-// Comment first
 export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }) => {
+  const { fields, append, remove } = useFieldArray({ control, name: 'axleLoadData' });
+  const truckAxles = Number(control._formValues.truckAxles);
+  const trailerAxles = Number(control._formValues.trailerAxles);
+
+  useEffect(() => {
+    const truckAxleRaw = Number(control._formValues.truckAxles);
+    const trailerAxleRaw = Number(control._formValues.trailerAxles);
+
+    const truckAxles = Math.floor(truckAxleRaw);
+    const hasLiftedAxle = truckAxleRaw % 1 !== 0; // Checking for the presence of a lift axis
+
+    const totalTruckAxles = truckAxles + (hasLiftedAxle ? 1 : 0);
+    const totalAxles = totalTruckAxles + trailerAxleRaw;
+
+    const currentAxles = fields.length;
+
+    if (totalAxles > currentAxles) {
+      // Adding missing axes
+      for (let i = currentAxles; i < totalAxles; i++) {
+        const isTruck = i < totalTruckAxles;
+        const isLifted = isTruck && hasLiftedAxle && i === totalTruckAxles - 1;
+
+        append({
+          axleType: i < truckAxles ? 'truck' : 'trailer',
+          axleLoadEmpty: i < 2 ? 29.99 : 13,
+          axleLoadLimit: i < 2 ? 46.77 : 17,
+          lifted: isLifted || undefined,
+        });
+      }
+    } else if (totalAxles < currentAxles) {
+      // Removing unnecessary axes
+      for (let i = currentAxles; i > totalAxles; i--) {
+        remove(i - 1);
+      }
+    }
+  }, [truckAxles, trailerAxles]);
+
   return (
     <>
-      <fieldset>
+      {/* Truck data block */}
+      <fieldset className={styles.fieldset}>
         <legend>Данные о тягаче</legend>
 
         <BaseField
@@ -29,8 +70,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="truckWeight"
             control={control}
-            min={constraints.truckWeight.min}
-            max={constraints.truckWeight.max}
+            min={(constraints.truckWeight as { min: number; max: number }).min}
+            max={(constraints.truckWeight as { min: number; max: number }).max}
             maxLength={5}
             showRange={true}
             inputMode="numeric"
@@ -60,8 +101,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="truckWheelbase"
             control={control}
-            min={constraints.truckWheelbase.min}
-            max={constraints.truckWheelbase.max}
+            min={(constraints.truckWheelbase as { min: number; max: number }).min}
+            max={(constraints.truckWheelbase as { min: number; max: number }).max}
             maxLength={5}
             decimalPlaces={1}
             showRange={true}
@@ -70,7 +111,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
         </BaseField>
       </fieldset>
 
-      <fieldset>
+      {/* Trailer data block */}
+      <fieldset className={styles.fieldset}>
         <legend>Данные полуприцепа</legend>
         <BaseField
           label="Собственный вес полуприцепа"
@@ -81,8 +123,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="trailerWeight"
             control={control}
-            min={constraints.trailerWeight.min}
-            max={constraints.trailerWeight.max}
+            min={(constraints.trailerWeight as { min: number; max: number }).min}
+            max={(constraints.trailerWeight as { min: number; max: number }).max}
             maxLength={5}
             showRange={true}
             inputMode="numeric"
@@ -125,8 +167,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="trailerWheelbase"
             control={control}
-            min={constraints.trailerWheelbase.min}
-            max={constraints.trailerWheelbase.max}
+            min={(constraints.trailerWheelbase as { min: number; max: number }).min}
+            max={(constraints.trailerWheelbase as { min: number; max: number }).max}
             maxLength={5}
             decimalPlaces={2}
             showRange={true}
@@ -143,8 +185,8 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
           <NumberField
             name="deckLength"
             control={control}
-            min={constraints.deckLength.min}
-            max={constraints.deckLength.max}
+            min={(constraints.deckLength as { min: number; max: number }).min}
+            max={(constraints.deckLength as { min: number; max: number }).max}
             maxLength={5}
             decimalPlaces={2}
             showRange={true}
@@ -153,7 +195,20 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
         </BaseField>
       </fieldset>
 
-      <TruckSideView />
+      {/* Truck visualization */}
+      <TruckSideView TractorAxleCount={2} TrailerAxleCount={3} />
+
+      {/* Axle load table */}
+      <AxleLoadTable
+        fields={fields}
+        control={control}
+        errors={
+          Array.isArray(errors.axleLoadData)
+            ? (errors.axleLoadData as FieldErrorsImpl<AxleLoadDataItem>[])
+            : []
+        }
+        constraints={axleLoadConstraints}
+      />
     </>
   );
 };

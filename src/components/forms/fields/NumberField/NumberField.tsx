@@ -60,7 +60,11 @@ export const NumberField: React.FC<INumberFieldProps> = ({
         }
         onKeyDown={(e) => handleNumberInputKeyDown({ e, field, min, max, normalizedDecimalPlaces })}
         aria-describedby={error ? `${field.name}-error` : undefined}
-        className={clsx(styles.numberField, { [styles.numberFieldUnits]: isUnits })}
+        className={clsx(
+          styles.numberField,
+          { [styles.numberFieldRange]: showRange },
+          { [styles.numberFieldUnits]: isUnits },
+        )}
       />
 
       {showRange && (

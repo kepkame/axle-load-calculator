@@ -31,4 +31,19 @@ export const formSchema = z.object({
     .number()
     .min(6, 'Минимальное значение: 6.0')
     .max(14, 'Максимальное значение: 14.0'),
+
+  axleLoadData: z.array(
+    z.object({
+      axleType: z.string().optional(),
+      axleLoadEmpty: z.coerce
+        .number()
+        .min(1, 'Минимальное значение: 1.00')
+        .max(40, 'Максимальное значение: 40.00'),
+      axleLoadLimit: z.coerce
+        .number()
+        .min(4, 'Минимальное значение: 4.00')
+        .max(50, 'Максимальное значение: 50.00'),
+      lifted: z.boolean().optional(),
+    }),
+  ),
 });

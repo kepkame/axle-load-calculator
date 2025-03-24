@@ -4,9 +4,15 @@ import styles from './TruckSideView.module.scss';
 
 interface ITruckSideViewProps {
   title?: string;
+  TractorAxleCount?: number;
+  TrailerAxleCount?: number;
 }
 
-export const TruckSideView: React.FC<ITruckSideViewProps> = ({ title = 'Нагрузка на оси' }) => {
+export const TruckSideView: React.FC<ITruckSideViewProps> = ({
+  title = 'Нагрузка на оси',
+  TractorAxleCount = 2,
+  TrailerAxleCount = 3,
+}) => {
   // TODO: Pass values through Redux.
   return (
     <div>
@@ -21,8 +27,8 @@ export const TruckSideView: React.FC<ITruckSideViewProps> = ({ title = 'Нагр
         strokeWidth="2"
         className={styles.media}
       >
-        <Trailer axleCount={3} />
-        <Tractor axleCount={2} />
+        <Trailer axleCount={TrailerAxleCount} />
+        <Tractor axleCount={TractorAxleCount} />
       </svg>
     </div>
   );

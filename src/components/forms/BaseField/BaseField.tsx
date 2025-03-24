@@ -6,6 +6,7 @@ import styles from './BaseField.module.scss';
 
 export const BaseField: React.FC<IBaseFieldProps> = ({
   label,
+  className,
   htmlFor,
   error,
   units,
@@ -16,7 +17,7 @@ export const BaseField: React.FC<IBaseFieldProps> = ({
   const fieldId = htmlFor || useId();
 
   return (
-    <div className={clsx(styles.baseField, { [styles.error]: error })}>
+    <div className={clsx(styles.baseField, { [styles.error]: error }, className)}>
       <div className={styles.label}>
         <label htmlFor={fieldId}>{label}</label>
         {tooltip && <Tooltip className={styles.tooltipLabel}>{tooltip}</Tooltip>}
