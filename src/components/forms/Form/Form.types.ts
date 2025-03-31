@@ -5,4 +5,5 @@ export interface IFormProps<T extends FieldValues> {
   schema: ZodSchema<T>;
   defaultValues: DefaultValues<T>;
   children: (methods: UseFormReturn<T>) => React.ReactNode;
+  onSubmitSuccess?: (data: T) => void;
 }

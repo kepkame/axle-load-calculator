@@ -6,7 +6,6 @@
   align-items: flex-start;
   flex-wrap: wrap;
   max-width: 352px;
-  margin: 0 auto;
   margin-bottom: 32px;
 
   button {
@@ -34,7 +33,6 @@
 
     &:nth-child(3n - 2):before {
       content: none;
-      background-color: red;
     }
   }
 }

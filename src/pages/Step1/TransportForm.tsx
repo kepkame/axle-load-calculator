@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { FieldErrorsImpl, useFieldArray } from 'react-hook-form';
+import { useFieldArray, useWatch } from 'react-hook-form';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';
@@ -7,7 +7,8 @@ import { TruckSideView } from '@components/visualization/TruckSideView/TruckSide
 import { AxleLoadTable } from '@components/Table/AxleLoadTable/AxleLoadTable';
 import { formSchema } from './validation/validation';
 import { getConstraintsFromSchema } from './validation/validationUtils';
-import { AxleLoadDataItem, ITransportFormProps } from './TransportForm.types';
+import type { ITransportFormProps } from './TransportForm.types';
+import { syncAxleFields } from './utils/axleFieldSync';
 import styles from './TransportForm.module.scss';
 
 // Extracting constraints from the validation schema
@@ -19,41 +20,18 @@ const axleLoadConstraints = constraints.axleLoadData as {
 
 export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }) => {
   const { fields, append, remove } = useFieldArray({ control, name: 'axleLoadData' });
-  const truckAxles = Number(control._formValues.truckAxles);
-  const trailerAxles = Number(control._formValues.trailerAxles);
+  const truckAxlesRaw = parseFloat(useWatch({ control, name: 'truckAxles' }) as string) || 0;
+  const trailerAxlesRaw = parseFloat(useWatch({ control, name: 'trailerAxles' }) as string) || 0;
 
   useEffect(() => {
-    const truckAxleRaw = Number(control._formValues.truckAxles);
-    const trailerAxleRaw = Number(control._formValues.trailerAxles);
-
-    const truckAxles = Math.floor(truckAxleRaw);
-    const hasLiftedAxle = truckAxleRaw % 1 !== 0; // Checking for the presence of a lift axis
-
-    const totalTruckAxles = truckAxles + (hasLiftedAxle ? 1 : 0);
-    const totalAxles = totalTruckAxles + trailerAxleRaw;
-
-    const currentAxles = fields.length;
-
-    if (totalAxles > currentAxles) {
-      // Adding missing axes
-      for (let i = currentAxles; i < totalAxles; i++) {
-        const isTruck = i < totalTruckAxles;
-        const isLifted = isTruck && hasLiftedAxle && i === totalTruckAxles - 1;
-
-        append({
-          axleType: i < truckAxles ? 'truck' : 'trailer',
-          axleLoadEmpty: i < 2 ? 29.99 : 13,
-          axleLoadLimit: i < 2 ? 46.77 : 17,
-          lifted: isLifted || undefined,
-        });
-      }
-    } else if (totalAxles < currentAxles) {
-      // Removing unnecessary axes
-      for (let i = currentAxles; i > totalAxles; i--) {
-        remove(i - 1);
-      }
-    }
-  }, [truckAxles, trailerAxles]);
+    syncAxleFields({
+      currentFieldsLength: fields.length,
+      truckAxlesRaw,
+      trailerAxlesRaw,
+      append,
+      remove,
+    });
+  }, [fields.length, truckAxlesRaw, trailerAxlesRaw, append, remove]);
 
   return (
     <>
@@ -202,11 +180,7 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
       <AxleLoadTable
         fields={fields}
         control={control}
-        errors={
-          Array.isArray(errors.axleLoadData)
-            ? (errors.axleLoadData as FieldErrorsImpl<AxleLoadDataItem>[])
-            : []
-        }
+        errors={Array.isArray(errors.axleLoadData) ? errors.axleLoadData : []}
         constraints={axleLoadConstraints}
       />
     </>

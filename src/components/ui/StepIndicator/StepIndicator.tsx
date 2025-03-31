@@ -1,14 +1,33 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectSteps } from '@store/slices/stepsSlice/stepsSlice';
+import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
+import { Step } from '@store/slices/stepsSlice/stepsSlice.types';
 import { StepButton } from './StepButton/StepButton';
-import { IStepIndicatorProps } from './StepIndicator.types';
-import { IStepButtonProps } from './StepButton/StepButton.types';
 import styles from './StepIndicator.module.scss';
 
-export const StepIndicator: React.FC<IStepIndicatorProps> = ({ steps }) => {
+export const StepIndicator: React.FC = () => {
+  const navigate = useNavigate();
+  const steps = useSelector(selectSteps);
+
+  const handleStepClick = (index: number) => {
+    const route = stepsRoutes[index];
+    if (route) {
+      navigate(route.path);
+    }
+  };
+
   return (
     <div className={styles.stepIndicator}>
-      {steps.map((obj: IStepButtonProps, index: number) => (
-        <StepButton key={index} step={index + 1} name={obj.name} status={obj.status ?? undefined} />
+      {steps.map((step: Step, index: number) => (
+        <StepButton
+          key={index}
+          index={index}
+          step={index + 1}
+          name={step.name}
+          onClick={() => handleStepClick(index)}
+        />
       ))}
     </div>
   );

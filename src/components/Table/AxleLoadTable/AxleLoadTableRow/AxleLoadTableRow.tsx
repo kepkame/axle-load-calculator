@@ -14,9 +14,6 @@ export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({
   isLifted = false,
   constraints,
 }) => {
-  console.log(`errors ${label}:`, errors);
-  console.log('axleLoadEmpty:', axleLoadEmpty);
-  console.log('axleLoadLimit:', axleLoadLimit);
   return (
     <>
       <tr className={styles.row}>
