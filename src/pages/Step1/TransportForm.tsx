@@ -18,7 +18,7 @@ const axleLoadConstraints = constraints.axleLoadData as {
   axleLoadLimit: { min: number; max: number };
 };
 
-export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }) => {
+export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors, trigger }) => {
   const { fields, append, remove } = useFieldArray({ control, name: 'axleLoadData' });
   const truckAxlesRaw = parseFloat(useWatch({ control, name: 'truckAxles' }) as string) || 0;
   const trailerAxlesRaw = parseFloat(useWatch({ control, name: 'trailerAxles' }) as string) || 0;
@@ -180,6 +180,7 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors }
       <AxleLoadTable
         fields={fields}
         control={control}
+        trigger={trigger}
         errors={Array.isArray(errors.axleLoadData) ? errors.axleLoadData : []}
         constraints={axleLoadConstraints}
       />

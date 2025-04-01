@@ -11,7 +11,7 @@ export const Form = <T extends FieldValues>({
   const methods = useForm<T>({
     resolver: zodResolver(schema),
     defaultValues,
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const onSubmit = (data: T) => {

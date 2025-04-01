@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { formSchema } from '@pages/Step1/validation/validation';
-import { Control, FieldError, FieldErrors } from 'react-hook-form';
+import { Control, FieldError, FieldErrors, FieldPath } from 'react-hook-form';
 
 export type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -20,4 +20,5 @@ export type AxleLoadDataErrors = FieldErrors<AxleLoadDataItem>[] | undefined;
 export interface ITransportFormProps {
   control: Control<FormSchemaType>;
   errors: FieldErrors<FormSchemaType>;
+  trigger: (name?: FieldPath<FormSchemaType> | FieldPath<FormSchemaType>[]) => Promise<boolean>;
 }

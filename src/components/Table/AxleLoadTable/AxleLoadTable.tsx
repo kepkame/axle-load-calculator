@@ -9,6 +9,7 @@ export const AxleLoadTable: React.FC<IAxleLoadTableProps> = ({
   fields,
   control,
   errors,
+  trigger,
   constraints,
 }) => {
   let truckAxleCount = 0;
@@ -32,8 +33,10 @@ export const AxleLoadTable: React.FC<IAxleLoadTableProps> = ({
               <AxleLoadTableRow
                 key={field.id}
                 control={control}
+                trigger={trigger}
                 errors={errors?.[index] ? errors[index] : undefined}
                 label={label}
+                index={index}
                 axleLoadEmpty={`axleLoadData.${index}.axleLoadEmpty`}
                 axleLoadLimit={`axleLoadData.${index}.axleLoadLimit`}
                 isLifted={isLifted}

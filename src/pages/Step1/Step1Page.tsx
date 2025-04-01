@@ -75,13 +75,13 @@ const Step1Page: React.FC = () => {
             navigate(stepsRoutes[1].path);
           }}
         >
-          {({ control, formState: { errors } }) => (
+          {({ control, formState: { errors }, trigger }) => (
             <>
               {console.log(
                 '1. Step1Page.tsx – полный объект errors перед передачей в TransportForm:',
                 errors,
               )}
-              <TransportForm control={control} errors={errors} />
+              <TransportForm control={control} errors={errors} trigger={trigger} />
               <FormActions onSave={storeTruckFormPreset} showSave />
             </>
           )}

@@ -3,20 +3,20 @@ import { z } from 'zod';
 export const formSchema = z.object({
   truckWeight: z.coerce
     .number()
-    .min(4800, 'Минимальное значение: 4800')
-    .max(12000, 'Максимальное значение: 12 000'),
+    .min(4800, 'введи значение от 4 800')
+    .max(12000, 'введи значение оси до 12 000'),
 
   truckAxles: z.string().min(1, 'Укажите количество осей'),
 
   truckWheelbase: z.coerce
     .number()
-    .min(2.0, 'Минимальное значение: 2.0')
-    .max(5.0, 'Максимальное значение: 5.0'),
+    .min(2.0, 'введи значение от 2.0')
+    .max(5.0, 'введи значение до 5.0'),
 
   trailerWeight: z.coerce
     .number()
-    .min(4000, 'Минимальное значение: 4000')
-    .max(10000, 'Максимальное значение: 10 000'),
+    .min(4000, 'введи значение  от 4 000')
+    .max(10000, 'введи значение до 10 000'),
 
   trailerAxles: z.string().min(1, 'Укажите количество осей'),
 
@@ -24,26 +24,28 @@ export const formSchema = z.object({
 
   trailerWheelbase: z.coerce
     .number()
-    .min(1.0, 'Минимальное значение: 1.0')
-    .max(3.0, 'Максимальное значение: 3.0'),
+    .min(1.0, 'введи значение  от 1.0')
+    .max(3.0, 'введи значение до 3.0'),
 
-  deckLength: z.coerce
-    .number()
-    .min(6, 'Минимальное значение: 6.0')
-    .max(14, 'Максимальное значение: 14.0'),
+  deckLength: z.coerce.number().min(6, 'введи значение  от 6.0').max(14, 'введи значение до 14.0'),
 
   axleLoadData: z.array(
-    z.object({
-      axleType: z.string().optional(),
-      axleLoadEmpty: z.coerce
-        .number()
-        .min(1, 'Минимальное значение: 1.00')
-        .max(40, 'Максимальное значение: 40.00'),
-      axleLoadLimit: z.coerce
-        .number()
-        .min(4, 'Минимальное значение: 4.00')
-        .max(50, 'Максимальное значение: 50.00'),
-      lifted: z.boolean().optional(),
-    }),
+    z
+      .object({
+        axleType: z.string().optional(),
+        axleLoadEmpty: z.coerce
+          .number()
+          .min(1, 'введи значение  от 1.00')
+          .max(40, 'введи значение до 40.00'),
+        axleLoadLimit: z.coerce
+          .number()
+          .min(4, 'введи значение  от 4.00')
+          .max(50, 'введи значение до 50.00'),
+        lifted: z.boolean().optional(),
+      })
+      .refine((data) => data.axleLoadEmpty < data.axleLoadLimit, {
+        message: 'должно быть меньше максимальной нагрузки',
+        path: ['axleLoadEmpty'],
+      }),
   ),
 });

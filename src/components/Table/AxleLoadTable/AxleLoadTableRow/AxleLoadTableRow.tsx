@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useWatch } from 'react-hook-form';
 import { AxleLoadTableData } from '../AxleLoadTableData/AxleLoadTableData';
 import { AxleLoadTableRowErrors } from '../AxleLoadTableRowErrors/AxleLoadTableRowErrors';
 import IconTruck from '@assets/icons/truck.svg?react';
@@ -7,13 +9,26 @@ import styles from './AxleLoadTableRow.module.scss';
 
 export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({
   control,
+  trigger,
   errors,
   label,
+  index,
   axleLoadEmpty,
   axleLoadLimit,
   isLifted = false,
   constraints,
 }) => {
+  const axleLoadEmptyName = `axleLoadData.${index}.axleLoadEmpty` as const;
+  const axleLoadLimitName = `axleLoadData.${index}.axleLoadLimit` as const;
+
+  const axleLoadEmptyValue = useWatch({ control, name: axleLoadEmptyName });
+  const axleLoadLimitValue = useWatch({ control, name: axleLoadLimitName });
+
+  // If one of the values is changed manually, we call validation on both
+  useEffect(() => {
+    trigger([axleLoadEmptyName, axleLoadLimitName]);
+  }, [axleLoadEmptyValue, axleLoadLimitValue, axleLoadEmpty, axleLoadLimit, trigger]);
+
   return (
     <>
       <tr className={styles.row}>
