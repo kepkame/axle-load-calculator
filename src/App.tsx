@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <CalcLayout />,
     children: [
       {
-        path: '',
+        index: true,
         element: <Step1Page />,
       },
       {
