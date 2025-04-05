@@ -13,4 +13,5 @@ export interface INumberFieldProps
   /** Function to format the value when focus is lost. */
   formatter?: (value: number, decimalPlaces: number) => string;
   ref?: React.Ref<HTMLInputElement>;
+  autoFocus?: boolean;
 }

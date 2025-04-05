@@ -28,12 +28,15 @@ export const syncAxleFields = ({
       const isLifted = isTruck && hasLiftedAxle && i === totalTruckAxles - 1;
 
       // Add a new axle with default load values
-      append({
-        axleType: isTruck ? 'truck' : 'trailer',
-        axleLoadEmpty: isTruck ? (i < 2 ? 29.99 : 13) : 13,
-        axleLoadLimit: isTruck ? (i < 2 ? 46.77 : 17) : 17,
-        lifted: isLifted || undefined, // only set if true
-      });
+      append(
+        {
+          axleType: isTruck ? 'truck' : 'trailer',
+          axleLoadEmpty: isTruck ? (i < 2 ? 29.99 : 13) : 13,
+          axleLoadLimit: isTruck ? (i < 2 ? 46.77 : 17) : 17,
+          lifted: isLifted || undefined, // only set if true
+        },
+        { shouldFocus: false },
+      );
     }
   } else if (totalAxles < currentFieldsLength) {
     // Remove extra axle entries if there are too many

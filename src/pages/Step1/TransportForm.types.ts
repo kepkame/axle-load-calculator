@@ -22,3 +22,10 @@ export interface ITransportFormProps {
   errors: FieldErrors<FormSchemaType>;
   trigger: (name?: FieldPath<FormSchemaType> | FieldPath<FormSchemaType>[]) => Promise<boolean>;
 }
+
+// Props for form sections such as TruckFormSection and TrailerFormSection
+export interface IFormSectionProps {
+  control: Control<FormSchemaType>;
+  errors: FieldErrors<FormSchemaType>;
+  constraints: Record<string, unknown>;
+}

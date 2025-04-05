@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
-import { AxleLoadTableData } from '../AxleLoadTableData/AxleLoadTableData';
+import { IAxleLoadTableRowProps } from './AxleLoadTableRow.types';
 import { AxleLoadTableRowErrors } from '../AxleLoadTableRowErrors/AxleLoadTableRowErrors';
+import { AxleLoadTableData } from '../AxleLoadTableData/AxleLoadTableData';
 import IconTruck from '@assets/icons/truck.svg?react';
 import IconTruckCargo from '@assets/icons/truck-cargo.svg?react';
-import { IAxleLoadTableRowProps } from './AxleLoadTableRow.types';
 import styles from './AxleLoadTableRow.module.scss';
 
 export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({

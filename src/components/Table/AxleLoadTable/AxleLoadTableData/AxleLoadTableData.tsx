@@ -40,6 +40,7 @@ export const AxleLoadTableData: React.FC<IAxleLoadTableDataProps> = ({
           maxLength={maxLength}
           decimalPlaces={decimalPlaces}
           inputMode={inputMode}
+          autoFocus={false}
         />
         <span className={styles.units}>т.</span>
       </div>

@@ -25,31 +25,32 @@ const truckModels: IOption[] = [
   { value: 'volvo_fh16', label: 'Volvo FH 16' },
 ];
 
+const defaultValues = {
+  truckWeight: 8200,
+  truckAxles: '2.5',
+  truckWheelbase: 3.6,
+  trailerWeight: 7000,
+  trailerAxles: '3',
+  couplingLength: '1.35',
+  trailerWheelbase: 1.32,
+  deckLength: 13.6,
+  axleLoadData: [
+    { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0 },
+    { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0, lifted: true },
+    { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0 },
+    { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
+    { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
+    { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
+  ],
+};
+
 const Step1Page: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { applyPresetTruckValues } = usePresetTruckValues();
 
+  // Step synchronization through a custom hook
   useStepSync(0);
-
-  const defaultValues = {
-    truckWeight: 8200,
-    truckAxles: '2.5',
-    truckWheelbase: 3.6,
-    trailerWeight: 7000,
-    trailerAxles: '3',
-    couplingLength: '1.35',
-    trailerWheelbase: 1.32,
-    deckLength: 13.6,
-    axleLoadData: [
-      { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0 },
-      { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0, lifted: true },
-      { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0 },
-      { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
-      { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
-      { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
-    ],
-  };
 
   return (
     <div>

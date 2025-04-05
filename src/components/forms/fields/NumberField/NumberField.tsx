@@ -41,6 +41,7 @@ export const NumberField: React.FC<INumberFieldProps> = ({
         type="text"
         {...field}
         {...rest}
+        autoFocus={rest.autoFocus ?? false}
         onChange={(e) =>
           handleNumberInputChange({
             e,
