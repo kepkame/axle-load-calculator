@@ -1,5 +1,5 @@
 import { useWatch, Control } from 'react-hook-form';
-import { FormSchemaType } from '../TransportForm.types';
+import { FormSchemaType } from '../components/TransportForm/TransportForm.types';
 
 interface UseAxleFieldValuesResult {
   truckAxlesRaw: number;

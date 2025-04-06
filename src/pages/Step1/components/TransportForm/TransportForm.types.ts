@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { formSchema } from '@pages/Step1/validation/validation';
+import { formSchema } from '@entities/step1Form/schema';
 import { Control, FieldError, FieldErrors, FieldPath } from 'react-hook-form';
 
 export type FormSchemaType = z.infer<typeof formSchema>;

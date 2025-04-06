@@ -1,5 +1,5 @@
 import { Control } from 'react-hook-form';
-import { FormSchemaType } from '@pages/Step1/TransportForm.types';
+import { FormSchemaType } from '@pages/Step1/components/TransportForm/TransportForm.types';
 
 export interface IAxleLoadTableDataProps {
   icon: React.ReactNode;

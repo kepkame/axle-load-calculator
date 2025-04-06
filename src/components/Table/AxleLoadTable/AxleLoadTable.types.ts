@@ -1,5 +1,8 @@
 import { Control, FieldArrayWithId, FieldPath } from 'react-hook-form';
-import { AxleLoadDataErrors, FormSchemaType } from '@pages/Step1/TransportForm.types';
+import {
+  AxleLoadDataErrors,
+  FormSchemaType,
+} from '@pages/Step1/components/TransportForm/TransportForm.types';
 
 export interface IAxleLoadTableProps {
   fields: FieldArrayWithId<FormSchemaType, 'axleLoadData'>[];

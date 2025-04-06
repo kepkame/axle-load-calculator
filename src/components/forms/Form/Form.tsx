@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IFormProps } from './Form.types';
@@ -14,8 +15,13 @@ export const Form = <T extends FieldValues>({
     mode: 'onChange',
   });
 
+  const { reset } = methods;
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
+
   const onSubmit = (data: T) => {
-    console.log('Отправка формы:', data);
     if (onSubmitSuccess) {
       onSubmitSuccess(data);
     }

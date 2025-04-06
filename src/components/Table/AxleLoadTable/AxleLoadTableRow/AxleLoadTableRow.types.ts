@@ -1,5 +1,8 @@
 import { Control, FieldPath } from 'react-hook-form';
-import { AxleLoadDataItemErrors, FormSchemaType } from '@pages/Step1/TransportForm.types';
+import {
+  AxleLoadDataItemErrors,
+  FormSchemaType,
+} from '@pages/Step1/components/TransportForm/TransportForm.types';
 
 export interface IAxleLoadTableRowProps {
   control: Control<FormSchemaType>;

@@ -1,5 +1,5 @@
 import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
-import { FormSchemaType } from '../../Step1/TransportForm.types';
+import { FormSchemaType } from '../components/TransportForm/TransportForm.types';
 
 export interface syncAxleFieldsParams {
   currentFieldsLength: number;

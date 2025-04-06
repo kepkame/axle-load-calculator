@@ -2,18 +2,23 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { validateStep, resetStepsAfter } from '@store/slices/stepsSlice/stepsSlice';
 import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
+// import { selectStep1FormData } from '@store/slices/step1FormSlice/step1FormSlice.selectors';
+import { saveFormData, markFormFilled } from '@store/slices/step1FormSlice/step1FormSlice';
 import { Form } from '@components/forms/Form/Form';
 import { FormActions } from '@components/forms/FormActions/FormActions';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { ValueSelector } from '@components/ui/ValueSelector/ValueSelector';
 import { IOption } from '@components/forms/fields/SelectField/SelectField.types';
 import { IOptionSelector } from '@components/ui/ValueSelector/ValueSelector.types';
+import { formSchema } from '@entities/step1Form/schema';
+import { useDefaultStep1Data } from '@hooks/useDefaultStep1Data';
 import { useStepSync } from '@hooks/useStepSync';
-import { TransportForm } from './TransportForm';
-import { formSchema } from './validation/validation';
+import { TransportForm } from './components/TransportForm/TransportForm';
 import { usePresetTruckValues } from './hooks/usePresetTruckValues';
 import { storeTruckFormPreset } from './utils/formUtils';
 import styles from './Step1Page.module.scss';
+import SkeletonStep1Form from './components/SkeletonStep1Form';
+// import { useSelector } from 'react-redux';
 
 const truckModels: IOption[] = [
   // TODO: Take options from the slice
@@ -25,25 +30,6 @@ const truckModels: IOption[] = [
   { value: 'volvo_fh16', label: 'Volvo FH 16' },
 ];
 
-const defaultValues = {
-  truckWeight: 8200,
-  truckAxles: '2.5',
-  truckWheelbase: 3.6,
-  trailerWeight: 7000,
-  trailerAxles: '3',
-  couplingLength: '1.35',
-  trailerWheelbase: 1.32,
-  deckLength: 13.6,
-  axleLoadData: [
-    { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0 },
-    { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0, lifted: true },
-    { axleType: 'truck', axleLoadEmpty: 29.99, axleLoadLimit: 40.0 },
-    { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
-    { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
-    { axleType: 'trailer', axleLoadEmpty: 13, axleLoadLimit: 17 },
-  ],
-};
-
 const Step1Page: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,10 +38,11 @@ const Step1Page: React.FC = () => {
   // Step synchronization through a custom hook
   useStepSync(0);
 
+  const { defaultValues, isLoading } = useDefaultStep1Data();
+
   return (
     <div>
       <h2>Данные транспорта</h2>
-
       <div>
         {truckModels.length > 0 && (
           <BaseField label="Сохраненные модели фур" className={styles.savedTruckModels}>
@@ -67,26 +54,34 @@ const Step1Page: React.FC = () => {
           </BaseField>
         )}
 
-        <Form
-          schema={formSchema}
-          defaultValues={defaultValues}
-          onSubmitSuccess={() => {
-            dispatch(validateStep(0));
-            dispatch(resetStepsAfter(0));
-            navigate(stepsRoutes[1].path);
-          }}
-        >
-          {({ control, formState: { errors }, trigger }) => (
-            <>
-              {console.log(
-                '1. Step1Page.tsx – полный объект errors перед передачей в TransportForm:',
-                errors,
-              )}
-              <TransportForm control={control} errors={errors} trigger={trigger} />
-              <FormActions onSave={storeTruckFormPreset} showSave />
-            </>
-          )}
-        </Form>
+        {isLoading ? (
+          <SkeletonStep1Form />
+        ) : (
+          <Form
+            schema={formSchema}
+            defaultValues={defaultValues}
+            onSubmitSuccess={(formData) => {
+              dispatch(saveFormData(formData));
+              dispatch(markFormFilled());
+
+              dispatch(validateStep(0));
+              dispatch(resetStepsAfter(0));
+
+              navigate(stepsRoutes[1].path);
+            }}
+          >
+            {({ control, formState: { errors }, trigger }) => (
+              <>
+                {console.log(
+                  '1. Step1Page.tsx – полный объект errors перед передачей в TransportForm:',
+                  errors,
+                )}
+                <TransportForm control={control} errors={errors} trigger={trigger} />
+                <FormActions onSave={storeTruckFormPreset} showSave />
+              </>
+            )}
+          </Form>
+        )}
       </div>
     </div>
   );
