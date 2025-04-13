@@ -1,26 +1,17 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { Header } from '@layouts/Header/Header';
+// import { Outlet } from 'react-router-dom';
+// import { Header } from '@layouts/Header/Header';
 import { PageHeader } from '@components/ui/PageHeader';
 import { StepIndicator } from '@components/ui/StepIndicator/StepIndicator';
-import { Footer } from '@layouts/Footer/Footer';
+// import { Footer } from '@layouts/Footer/Footer';
+import { ICalcLayoutProps } from './CalcLayout.types';
 
-import styles from './CalcLayout.module.scss';
-
-export const CalcLayout: React.FC = () => {
+export const CalcLayout: React.FC<ICalcLayoutProps> = ({ children }) => {
   return (
-    <div className={styles.page}>
-      <Header />
-      <main className={styles.main}>
-        <div className="container">
-          <PageHeader title="Калькулятор нагрузки на оси" />
-          <StepIndicator />
-          <div className={styles.calculator}>
-            <Outlet />
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <>
+      <PageHeader title="Калькулятор нагрузки на оси" />
+      <StepIndicator />
+      {children}
+    </>
   );
 };
