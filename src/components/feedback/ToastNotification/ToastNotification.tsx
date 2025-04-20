@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface IToastNotificationProps {
+interface ToastNotificationProps {
   type: string;
   message: string;
   duration: number;
 }
 
-export const ToastNotification: React.FC<IToastNotificationProps> = ({
+export const ToastNotification: React.FC<ToastNotificationProps> = ({
   type = 'success',
   message = 'Данные успешно сохранены',
   duration = 5000,

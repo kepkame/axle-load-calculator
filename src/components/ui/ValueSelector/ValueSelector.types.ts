@@ -1,10 +1,10 @@
-export interface IOptionSelector {
+export interface OptionSelector {
   value: string;
   label: string;
 }
 
-export interface IValueSelectorProps {
-  options: IOptionSelector[];
-  onChange: (value: IOptionSelector) => void;
+export interface ValueSelectorProps {
+  options: OptionSelector[];
+  onChange: (value: OptionSelector) => void;
   placeholder?: string;
 }

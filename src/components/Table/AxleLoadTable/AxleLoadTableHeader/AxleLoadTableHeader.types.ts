@@ -1,3 +1,3 @@
-export interface TAxleLoadTableHeaderProps {
+export interface AxleLoadTableHeaderProps {
   titles: string[];
 }

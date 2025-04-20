@@ -7,11 +7,11 @@ import {
 } from '@utils/inputUtils/numberFieldHandlers';
 import { handleNumberInputKeyDown } from '@utils/inputUtils/handleNumberInputKeyDown';
 
-import { IControlledNumberInputProps } from './ControlledNumberInput.types';
+import { ControlledNumberInputProps } from './ControlledNumberInput.types';
 import styles from '../NumberField.module.scss';
 
 /** Controlled numeric input that defers value updates until blur */
-export const ControlledNumberInput: React.FC<IControlledNumberInputProps> = ({
+export const ControlledNumberInput: React.FC<ControlledNumberInputProps> = ({
   id,
   value,
   onChange,

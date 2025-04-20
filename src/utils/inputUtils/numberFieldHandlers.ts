@@ -1,8 +1,8 @@
 import { getDecimalRegex } from '@utils/numberUtils/validationUtils';
 import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
 import {
-  IHandleNumberInputChangeArgs,
-  IHandleNumberInputBlurArgs,
+  HandleNumberInputChangeArgs,
+  HandleNumberInputBlurArgs,
 } from './numberFieldHandlers.types';
 
 /**
@@ -14,7 +14,7 @@ export const handleNumberInputChange = ({
   e,
   decimalPlaces,
   onChange,
-}: IHandleNumberInputChangeArgs) => {
+}: HandleNumberInputChangeArgs) => {
   const rawValue = e.target.value.trim();
   const sanitizedValue = rawValue.replace(',', '.');
   const decimalRegex = getDecimalRegex(decimalPlaces);
@@ -41,7 +41,7 @@ export const handleNumberInputBlur = ({
   decimalPlaces,
   onChange,
   onBlur,
-}: IHandleNumberInputBlurArgs) => {
+}: HandleNumberInputBlurArgs) => {
   const value = e.target.value.trim();
   // If the field is empty - save the empty string
   if (value === '') {

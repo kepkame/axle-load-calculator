@@ -3,10 +3,10 @@ import { Table } from '../Table';
 import { AxleLoadTableHeader } from './AxleLoadTableHeader/AxleLoadTableHeader';
 import { AxleLoadTableRow } from './AxleLoadTableRow/AxleLoadTableRow';
 import { TABLE_COLUMN_HEADERS } from './data';
-import { IAxleLoadTableProps } from './AxleLoadTable.types';
+import { AxleLoadTableProps } from './AxleLoadTable.types';
 
 /** Axle load display table */
-export const AxleLoadTable: React.FC<IAxleLoadTableProps> = ({
+export const AxleLoadTable: React.FC<AxleLoadTableProps> = ({
   control,
   trigger,
   fields,

@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { IButtonProps } from './Button.types';
+import { ButtonProps } from './Button.types';
 import styles from './Button.module.scss';
 
-export const Button: React.FC<IButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   onClick,
   isOutline = false,
   isSmall = false,

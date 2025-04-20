@@ -1,4 +1,4 @@
-export interface IRangeFieldProps {
+export interface RangeFieldProps {
   value: number;
   onChange: (value: string) => void;
   min: number;

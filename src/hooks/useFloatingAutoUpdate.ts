@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { autoUpdate, ReferenceType } from '@floating-ui/react';
 
-interface IUseFloatingAutoUpdateProps {
+interface UseFloatingAutoUpdateProps {
   open: boolean;
   reference: React.MutableRefObject<ReferenceType | null>;
   floating: React.MutableRefObject<HTMLElement | null>;
@@ -27,7 +27,7 @@ export const useFloatingAutoUpdate = ({
   reference,
   floating,
   update,
-}: IUseFloatingAutoUpdateProps) => {
+}: UseFloatingAutoUpdateProps) => {
   useEffect(() => {
     // Ensure the tooltip is open and both reference and floating elements exist
     if (!open || !reference.current || !floating.current) {

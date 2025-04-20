@@ -7,7 +7,7 @@ import {
 // Type of one element of axleLoadData array in useFieldArray with ID included
 export type AxleFieldArrayItem = FieldArrayWithId<FormSchemaType, 'axleLoadData', 'id'>;
 
-export interface IAxleLoadTableProps {
+export interface AxleLoadTableProps {
   fields: AxleFieldArrayItem[]; // Axis array obtained via useFieldArray, with service IDs included
   control: Control<FormSchemaType>;
   name: 'axleLoadData';

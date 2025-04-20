@@ -4,7 +4,7 @@ import {
   FormSchemaType,
 } from '@pages/Step1/components/TransportForm/TransportForm.types';
 
-export interface IAxleLoadTableRowProps {
+export interface AxleLoadTableRowProps {
   control: Control<FormSchemaType>;
   trigger: (name?: FieldPath<FormSchemaType> | FieldPath<FormSchemaType>[]) => Promise<boolean>;
   errors: AxleLoadDataItemErrors | undefined;

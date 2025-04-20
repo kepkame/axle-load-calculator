@@ -1,13 +1,13 @@
 import { Control } from 'react-hook-form';
 
-export interface IOption {
+export interface Option {
   value: string;
   option: string;
 }
 
-export interface IRadioGroupProps {
+export interface RadioGroupProps {
   name: string;
-  options: IOption[];
+  options: Option[];
   control: Control<any>;
   label: string;
   tooltip?: string | React.ReactElement;

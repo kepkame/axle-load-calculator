@@ -24,7 +24,7 @@ export type AxleLoadDataItemErrors = {
 export type AxleLoadDataErrors = FieldErrors<AxleLoadDataItem>[] | undefined;
 
 // Interface for passing form control and error handling
-export interface ITransportFormProps {
+export interface TransportFormProps {
   control: Control<FormSchemaType>;
   errors: FieldErrors<FormSchemaType>;
   trigger: (name?: FieldPath<FormSchemaType> | FieldPath<FormSchemaType>[]) => Promise<boolean>;
@@ -34,7 +34,7 @@ export interface ITransportFormProps {
 }
 
 // Props for form sections such as TruckFormSection and TrailerFormSection
-export interface IFormSectionProps {
+export interface FormSectionProps {
   control: Control<FormSchemaType>;
   errors: FieldErrors<FormSchemaType>;
   constraints: Record<string, unknown>;

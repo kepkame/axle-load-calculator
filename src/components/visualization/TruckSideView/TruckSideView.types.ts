@@ -5,7 +5,7 @@ export enum AxleLoadStatus {
   Danger = '#F9867C',
 }
 
-export interface IAxlesProps {
+export interface AxlesProps {
   axleCount?: number;
   status?: AxleLoadStatus;
 }

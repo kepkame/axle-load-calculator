@@ -1,8 +1,8 @@
-import { IAxleLoadTableRowErrorsProps } from './AxleLoadTableRowErrors.types';
-import styles from './../AxleLoadTableRow/AxleLoadTableRow.module.scss';
 import clsx from 'clsx';
+import { AxleLoadTableRowErrorsProps } from './AxleLoadTableRowErrors.types';
+import styles from './../AxleLoadTableRow/AxleLoadTableRow.module.scss';
 
-export const AxleLoadTableRowErrors: React.FC<IAxleLoadTableRowErrorsProps> = ({ errors }) => {
+export const AxleLoadTableRowErrors: React.FC<AxleLoadTableRowErrorsProps> = ({ errors }) => {
   const axleLoadEmptyError = errors?.axleLoadEmpty;
   const axleLoadLimitError = errors?.axleLoadLimit;
 

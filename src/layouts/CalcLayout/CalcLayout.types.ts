@@ -1,3 +1,3 @@
-export interface ICalcLayoutProps {
+export interface CalcLayoutProps {
   children: React.ReactNode;
 }

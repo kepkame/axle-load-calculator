@@ -1,7 +1,7 @@
 import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { FormSchemaType } from '../components/TransportForm/TransportForm.types';
 
-export interface syncAxleFieldsParams {
+export interface SyncAxleFieldsParams {
   currentFieldsLength: number;
   truckAxlesRaw: number;
   trailerAxlesRaw: number;
@@ -23,7 +23,7 @@ export const syncAxleFields = ({
   trailerAxlesRaw,
   append,
   remove,
-}: syncAxleFieldsParams): void => {
+}: SyncAxleFieldsParams): void => {
   const baseTruckAxles = Math.floor(truckAxlesRaw);
   const hasLiftedAxle = truckAxlesRaw % 1 !== 0;
   const totalTruckAxles = baseTruckAxles + (hasLiftedAxle ? 1 : 0);

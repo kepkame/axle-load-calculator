@@ -5,10 +5,10 @@ import { useTooltipFloating } from '@hooks/useTooltipFloating';
 import SVGIcon from '@assets/icons/question.svg?react';
 import { Arrow } from './Arrow';
 import { handleOpen, handleClose } from './Tooltip.handlers';
-import { ITooltipProps } from './Tooltip.types';
+import { TooltipProps } from './Tooltip.types';
 import styles from './Tooltip.module.scss';
 
-export const Tooltip: React.FC<ITooltipProps> = memo(({ className, children }) => {
+export const Tooltip: React.FC<TooltipProps> = memo(({ className, children }) => {
   const [open, setOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMobile = window.matchMedia('(hover: none)').matches;

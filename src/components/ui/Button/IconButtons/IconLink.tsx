@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
-import { IIconLink } from './IconLink.types.ts';
+import { IconLinkProps } from './IconLink.types.ts';
 import styles from './IconLink.module.scss';
 
-export const IconLink: React.FC<IIconLink> = ({
+export const IconLink: React.FC<IconLinkProps> = ({
   url,
   icon: Icon,
   className,

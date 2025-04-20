@@ -1,6 +1,6 @@
-import { TAxleLoadTableHeaderProps } from './AxleLoadTableHeader.types';
+import { AxleLoadTableHeaderProps } from './AxleLoadTableHeader.types';
 
-export const AxleLoadTableHeader: React.FC<TAxleLoadTableHeaderProps> = ({ titles }) => {
+export const AxleLoadTableHeader: React.FC<AxleLoadTableHeaderProps> = ({ titles }) => {
   return (
     <thead className="visually-hidden">
       <tr>

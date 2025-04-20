@@ -1,14 +1,14 @@
 import React, { useId, cloneElement } from 'react';
 import clsx from 'clsx';
-import { IBaseFieldProps } from './BaseField.types';
 import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
+import { BaseFieldProps } from './BaseField.types';
 import styles from './BaseField.module.scss';
 
 /**
  * Wrapper component for form fields that renders a label, optional tooltip,
  * units suffix, and error message. Injects `id` and `isUnits` into the child input.
  */
-export const BaseField: React.FC<IBaseFieldProps> = ({
+export const BaseField: React.FC<BaseFieldProps> = ({
   label,
   className,
   htmlFor,

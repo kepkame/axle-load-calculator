@@ -1,5 +1,5 @@
 import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
-import { IHandleNumberInputKeyDownArgs } from './numberFieldHandlers.types';
+import { HandleNumberInputKeyDownArgs } from './numberFieldHandlers.types';
 
 /**
  * Handler for pressing up/down keys to change the value
@@ -13,7 +13,7 @@ export const handleNumberInputKeyDown = ({
   min,
   max,
   normalizedDecimalPlaces,
-}: IHandleNumberInputKeyDownArgs) => {
+}: HandleNumberInputKeyDownArgs) => {
   // Block input of minus, space and alphabetic characters (e.g. 'e' for exponential numbers)
   if (e.key === '-' || e.key === ' ' || e.key === 'e') {
     e.preventDefault();

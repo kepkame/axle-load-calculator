@@ -1,4 +1,4 @@
-export interface IRadioButtonProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface RadioButtonProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   value: string;
   label: string;

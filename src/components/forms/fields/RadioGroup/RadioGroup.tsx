@@ -1,11 +1,11 @@
 import { useId } from 'react';
 import { useController } from 'react-hook-form';
 import { RadioButton } from './RadioButton';
-import { IOption, IRadioGroupProps } from './RadioGroup.types';
+import { Option, RadioGroupProps } from './RadioGroup.types';
 import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
 import styles from './RadioGroup.module.scss';
 
-export const RadioGroup: React.FC<IRadioGroupProps> = ({
+export const RadioGroup: React.FC<RadioGroupProps> = ({
   name,
   options,
   control,
@@ -41,7 +41,7 @@ export const RadioGroup: React.FC<IRadioGroupProps> = ({
       </div>
 
       <div className={styles.radioWrapper}>
-        {options.map(({ value: optionValue, option }: IOption) => (
+        {options.map(({ value: optionValue, option }: Option) => (
           <RadioButton
             key={optionValue}
             name={name}

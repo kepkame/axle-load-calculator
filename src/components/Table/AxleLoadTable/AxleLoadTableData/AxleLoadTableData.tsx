@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useController } from 'react-hook-form';
 import { ControlledNumberInput } from '@components/forms/fields/NumberField/ControlledNumberInput/ControlledNumberInput';
-import { IAxleLoadTableDataProps } from './AxleLoadTableData.types';
+import { AxleLoadTableDataProps } from './AxleLoadTableData.types';
 import styles from './AxleLoadTableData.module.scss';
 
 /**
@@ -10,7 +10,7 @@ import styles from './AxleLoadTableData.module.scss';
  *
  * Supports optional read-only mode, error highlighting, and unit suffix display.
  */
-export const AxleLoadTableData: React.FC<IAxleLoadTableDataProps> = ({
+export const AxleLoadTableData: React.FC<AxleLoadTableDataProps> = ({
   icon,
   label,
   fieldName,

@@ -1,8 +1,8 @@
 import { memo, useId, useRef } from 'react';
-import { IRadioButtonProps } from './RadioButton.types';
+import { RadioButtonProps } from './RadioButton.types';
 import styles from './RadioButton.module.scss';
 
-export const RadioButton: React.FC<IRadioButtonProps> = memo(
+export const RadioButton: React.FC<RadioButtonProps> = memo(
   ({
     name,
     value,
@@ -46,7 +46,7 @@ export const RadioButton: React.FC<IRadioButtonProps> = memo(
       </label>
     );
   },
-  (prevProps: IRadioButtonProps, nextProps: IRadioButtonProps) =>
+  (prevProps: RadioButtonProps, nextProps: RadioButtonProps) =>
     prevProps.checked === nextProps.checked &&
     prevProps.disabled === nextProps.disabled &&
     prevProps.label === nextProps.label,

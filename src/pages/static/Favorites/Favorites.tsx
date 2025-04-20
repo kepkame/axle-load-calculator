@@ -1,7 +1,6 @@
 import { PageHeader } from '@components/ui/PageHeader';
-import React from 'react';
 
-const Favorites: React.FC = () => {
+const Favorites = () => {
   return (
     <>
       <PageHeader title="Параметры" tooltip="Проверка передачи tooltip" />

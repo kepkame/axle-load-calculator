@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { calculateStep, roundToNearestStep } from '@utils/numberUtils/mathUtils';
 import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
-import { IRangeFieldProps } from './RangeField.types';
+import { RangeFieldProps } from './RangeField.types';
 import styles from './RangeField.module.scss';
 
-export const RangeField: React.FC<IRangeFieldProps> = ({
+export const RangeField: React.FC<RangeFieldProps> = ({
   value,
   onChange,
   min,

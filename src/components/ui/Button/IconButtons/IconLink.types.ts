@@ -1,6 +1,6 @@
-import { IIconBase } from './IconBase.type';
+import { IconBaseProps } from './IconBase.type';
 
-export interface IIconLink extends IIconBase {
+export interface IconLinkProps extends IconBaseProps {
   url: string;
   openInNewTab?: boolean;
 }

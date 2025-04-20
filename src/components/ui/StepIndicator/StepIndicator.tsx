@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectSteps } from '@store/slices/stepsSlice/stepsSlice';
 import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
-import { Step } from '@store/slices/stepsSlice/stepsSlice.types';
 import { StepButton } from './StepButton/StepButton';
+import type { Step } from '@store/slices/stepsSlice/stepsSlice.types';
 import styles from './StepIndicator.module.scss';
 
 export const StepIndicator: React.FC = () => {

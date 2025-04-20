@@ -2,14 +2,14 @@ import { Tractor } from './Tracktor/Tractor';
 import { Trailer } from './Trailer/Trailer';
 import styles from './TruckSideView.module.scss';
 
-interface ITruckSideViewProps {
+interface TruckSideViewProps {
   title?: string;
   TractorAxleCount?: number;
   TrailerAxleCount?: number;
   className?: string;
 }
 
-export const TruckSideView: React.FC<ITruckSideViewProps> = ({
+export const TruckSideView: React.FC<TruckSideViewProps> = ({
   title = 'Нагрузка на оси',
   TractorAxleCount = 2,
   TrailerAxleCount = 3,

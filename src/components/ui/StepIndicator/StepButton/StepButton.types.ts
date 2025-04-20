@@ -1,6 +1,6 @@
 export type StepStatus = 'current' | 'success' | 'visited' | 'danger' | undefined;
 
-export interface IStepButtonProps {
+export interface StepButtonProps {
   index: number;
   name: string;
   step?: number;

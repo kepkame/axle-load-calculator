@@ -6,7 +6,7 @@ import {
   useInteractions,
   FloatingContext,
 } from '@floating-ui/react';
-import { ITooltipHandlerParams } from './Tooltip.types';
+import { TooltipHandlerParams } from './Tooltip.types';
 
 /**
  * Opening the tooltip (resetting the close timer, if there was one).
@@ -14,7 +14,7 @@ import { ITooltipHandlerParams } from './Tooltip.types';
  * @param setOpen - State setter function for controlling the tooltip's visibility.
  * @param timeoutRef - Reference to a timeout ID used for delaying actions.
  */
-export const handleOpen = ({ setOpen, timeoutRef, delay = 0 }: ITooltipHandlerParams) => {
+export const handleOpen = ({ setOpen, timeoutRef, delay = 0 }: TooltipHandlerParams) => {
   if (timeoutRef.current) {
     clearTimeout(timeoutRef.current);
   }
@@ -35,7 +35,7 @@ export const handleOpen = ({ setOpen, timeoutRef, delay = 0 }: ITooltipHandlerPa
  * @param timeoutRef - Reference to a timeout ID used for delaying actions.
  * @param delay - Delay in milliseconds before closing the tooltip (default: 300ms).
  */
-export const handleClose = ({ setOpen, timeoutRef, delay = 200 }: ITooltipHandlerParams) => {
+export const handleClose = ({ setOpen, timeoutRef, delay = 200 }: TooltipHandlerParams) => {
   if (timeoutRef.current) {
     clearTimeout(timeoutRef.current);
   }

@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
-import { IAxleLoadTableRowProps } from './AxleLoadTableRow.types';
+import { AxleLoadTableRowProps } from './AxleLoadTableRow.types';
 import { AxleLoadTableRowErrors } from '../AxleLoadTableRowErrors/AxleLoadTableRowErrors';
 import { AxleLoadTableData } from '../AxleLoadTableData/AxleLoadTableData';
 import IconTruck from '@assets/icons/truck.svg?react';
 import IconTruckCargo from '@assets/icons/truck-cargo.svg?react';
 import styles from './AxleLoadTableRow.module.scss';
 
-export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({
+export const AxleLoadTableRow: React.FC<AxleLoadTableRowProps> = ({
   control,
   trigger,
   errors,

@@ -1,8 +1,7 @@
-import React from 'react';
-import { IFormActionsProps } from './FormActions.types';
+import { FormActionsProps } from './FormActions.types';
 import styles from './FormActions.module.scss';
 
-export const FormActions: React.FC<IFormActionsProps> = ({ onSave, showSave = false }) => {
+export const FormActions: React.FC<FormActionsProps> = ({ onSave, showSave = false }) => {
   return (
     <div className={styles.formActions}>
       <button className="btn" type="submit">

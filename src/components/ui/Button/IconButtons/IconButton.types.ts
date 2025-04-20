@@ -1,6 +1,6 @@
-import { IIconBase } from './IconBase.type';
+import { IconBaseProps } from './IconBase.type';
 
-export interface IIconButton extends IIconBase {
+export interface IconButtonProps extends IconBaseProps {
   onClick: () => void;
   isRemove?: boolean;
   type?: 'button' | 'submit' | 'reset';

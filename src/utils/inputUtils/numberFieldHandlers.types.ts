@@ -1,12 +1,12 @@
 import React from 'react';
 
-export interface IHandleNumberInputChangeArgs {
+export interface HandleNumberInputChangeArgs {
   e: React.ChangeEvent<HTMLInputElement>;
   decimalPlaces: number;
   onChange: (value: string) => void;
 }
 
-export interface IHandleNumberInputBlurArgs {
+export interface HandleNumberInputBlurArgs {
   e: React.FocusEvent<HTMLInputElement>;
   min: number;
   max: number;
@@ -15,7 +15,7 @@ export interface IHandleNumberInputBlurArgs {
   onBlur: () => void;
 }
 
-export interface IHandleNumberInputKeyDownArgs {
+export interface HandleNumberInputKeyDownArgs {
   e: React.KeyboardEvent<HTMLInputElement>;
   field: any;
   min: number;

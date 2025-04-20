@@ -6,7 +6,7 @@ import { getConstraintsFromSchema } from '../../validation/validationUtils';
 import { TruckFormSection } from './TruckFormSection';
 import { TrailerFormSection } from './TrailerFormSection';
 import { TransportFormEmptyMessage } from './TransportFormEmptyMessage';
-import type { ITransportFormProps } from './TransportForm.types';
+import type { TransportFormProps } from './TransportForm.types';
 import styles from './TransportForm.module.scss';
 
 // Extract min/max validation constraints from Zod schema for field-level validation
@@ -20,7 +20,7 @@ const axleLoadConstraints = constraints.axleLoadData as {
  * TransportForm - visual component responsible for displaying the form
  * of transport parameters and axle load distribution table.
  */
-export const TransportForm: React.FC<ITransportFormProps> = ({
+export const TransportForm: React.FC<TransportFormProps> = ({
   control,
   errors,
   trigger,

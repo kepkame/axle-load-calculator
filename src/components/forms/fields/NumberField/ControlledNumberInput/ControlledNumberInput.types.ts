@@ -1,17 +1,19 @@
-import { InputHTMLAttributes } from 'react';
+import { NumberFieldProps } from '../NumberField.types';
 
-export interface IControlledNumberInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+export interface ControlledNumberInputProps
+  extends Omit<
+    NumberFieldProps,
+    'name' | 'onChange' | 'showRange' | 'formatter' | 'ref' | 'autoFocus' | 'value'
+  > {
   id?: string;
   value: number;
   onChange: (value: number) => void;
+  className?: string;
+  inputMode?: 'decimal' | 'numeric';
 
   min?: number;
   max?: number;
   decimalPlaces?: number;
   autoFocus?: boolean;
-  inputMode?: 'decimal' | 'numeric';
   isUnits?: boolean;
-
-  className?: string;
 }

@@ -1,6 +1,6 @@
 import { DEFAULT_AXLE_PATH_D } from '../data/axleData';
 
-interface IRecalculateAxlePathXParams {
+interface RecalculateAxlePathXParams {
   newLeftX: number;
   originalD?: string;
 }
@@ -72,7 +72,7 @@ const recalcCoordinates = (tokens: string[], shiftX: number): string[] => {
  * @param params.originalD - the original "d" attribute value (defaults to a predefined value if not provided)
  * @returns the updated "d" attribute with recalculated coordinates
  */
-const recalculateAxlePathX = ({ newLeftX, originalD }: IRecalculateAxlePathXParams): string => {
+const recalculateAxlePathX = ({ newLeftX, originalD }: RecalculateAxlePathXParams): string => {
   try {
     const baseD = originalD ?? DEFAULT_AXLE_PATH_D;
     const tokens = parseDAttribute(baseD);

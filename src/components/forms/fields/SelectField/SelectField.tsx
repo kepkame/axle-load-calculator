@@ -1,9 +1,9 @@
 // import { useState } from 'react';
 import { useController } from 'react-hook-form';
 import Select, { SingleValue, components } from 'react-select';
-import { IOption, ISelectProps } from './SelectField.types';
+import { Option, SelectProps } from './SelectField.types';
 
-export const SelectField: React.FC<ISelectProps> = ({ options, name, control, placeholder }) => {
+export const SelectField: React.FC<SelectProps> = ({ options, name, control, placeholder }) => {
   // const [currentModel, setCurrentModel] = useState<IOption | null>(null);
 
   const {
@@ -28,7 +28,7 @@ export const SelectField: React.FC<ISelectProps> = ({ options, name, control, pl
       // onChange={handleOnChange}
       placeholder={placeholder ?? 'Выберите значение'}
       isSearchable={false}
-      onChange={(option: SingleValue<IOption>) => {
+      onChange={(option: SingleValue<Option>) => {
         // When a new option is selected, we update the value in the form
         onChange(option ? option.value : null);
       }}

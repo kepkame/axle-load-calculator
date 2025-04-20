@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { IIconButton } from './IconButton.types';
+import { IconButtonProps } from './IconButton.types';
 import styles from './IconButton.module.scss';
 
-export const IconButton: React.FC<IIconButton> = ({
+export const IconButton: React.FC<IconButtonProps> = ({
   onClick,
   icon: Icon,
   ariaLabel,

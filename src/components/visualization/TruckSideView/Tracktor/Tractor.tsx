@@ -2,11 +2,11 @@ import { TractorAxles } from './TractorAxles';
 import { TractorCab } from './TractorCab';
 import { TractorPlatform } from './TractorPlatform';
 
-interface ITractorProps {
+interface TractorProps {
   axleCount: number;
 }
 
-export const Tractor: React.FC<ITractorProps> = ({ axleCount = 2 }) => {
+export const Tractor: React.FC<TractorProps> = ({ axleCount = 2 }) => {
   return (
     <>
       <TractorCab />

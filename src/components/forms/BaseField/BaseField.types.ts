@@ -1,4 +1,4 @@
-export interface IBaseFieldProps {
+export interface BaseFieldProps {
   label: string;
   className?: string | undefined;
   htmlFor?: string;

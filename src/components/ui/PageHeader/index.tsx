@@ -1,8 +1,8 @@
 import React from 'react';
-import { IPageHeaderProps } from './index.type';
+import { PageHeaderProps } from './index.type';
 import styles from './index.module.scss';
 
-export const PageHeader: React.FC<IPageHeaderProps> = ({ title, tooltip, renderDescription }) => {
+export const PageHeader: React.FC<PageHeaderProps> = ({ title, tooltip, renderDescription }) => {
   return (
     <div className={styles.header}>
       <div className={styles.wrapper}>

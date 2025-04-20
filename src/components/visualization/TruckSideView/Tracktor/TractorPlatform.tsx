@@ -2,11 +2,11 @@ import { useMemo } from 'react';
 import { TRACTOR_FENDERS, TRACTOR_BACK_FRAMES } from '../data/platformData';
 import { TractorAxleCount } from '../TruckSideView.types';
 
-interface IPlatformProps {
+interface PlatformProps {
   axleCount: number;
 }
 
-export const TractorPlatform: React.FC<IPlatformProps> = ({ axleCount }) => {
+export const TractorPlatform: React.FC<PlatformProps> = ({ axleCount }) => {
   const backFrameLines = useMemo(
     () =>
       TRACTOR_BACK_FRAMES[axleCount as TractorAxleCount].map(([x1, y1, x2, y2]) => (

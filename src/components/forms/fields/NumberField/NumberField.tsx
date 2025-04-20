@@ -1,4 +1,3 @@
-import React from 'react';
 import { useController } from 'react-hook-form';
 import clsx from 'clsx';
 import { RangeField } from '@components/forms/fields/RangeField/RangeField';
@@ -8,10 +7,10 @@ import {
   handleNumberInputBlur,
 } from '@utils/inputUtils/numberFieldHandlers';
 import { handleNumberInputKeyDown } from '@utils/inputUtils/handleNumberInputKeyDown';
-import { INumberFieldProps } from './NumberField.types';
+import { NumberFieldProps } from './NumberField.types';
 import styles from './NumberField.module.scss';
 
-export const NumberField: React.FC<INumberFieldProps> = ({
+export const NumberField: React.FC<NumberFieldProps> = ({
   id,
   min = 0,
   max = Infinity,

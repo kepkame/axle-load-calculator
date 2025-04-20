@@ -1,10 +1,10 @@
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';
-import { IFormSectionProps } from './TransportForm.types';
+import { FormSectionProps } from './TransportForm.types';
 import styles from './TransportForm.module.scss';
 
-export const TrailerFormSection: React.FC<IFormSectionProps> = ({
+export const TrailerFormSection: React.FC<FormSectionProps> = ({
   control,
   errors,
   constraints,

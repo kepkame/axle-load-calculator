@@ -4,7 +4,7 @@ import { ALLOWED_TRUCK_AXLES, ALLOWED_TRAILER_AXLES } from '../constants/axleOpt
 import { prepareAxleFields } from '../utils/prepareAxleFields';
 import { parseAxleValue } from '../utils/parseAxleValue';
 
-interface IUsePreparedStep1FormResult {
+interface UsePreparedStep1FormResult {
   isLoading: boolean;
   isError: boolean;
   hasData: boolean;
@@ -17,7 +17,7 @@ interface IUsePreparedStep1FormResult {
  * and generating a matching axleLoadData array.
  * Returns enriched values ready for form initialization. base: UseStep1FormStateResult
  */
-export const usePreparedStep1Form = (): IUsePreparedStep1FormResult => {
+export const usePreparedStep1Form = (): UsePreparedStep1FormResult => {
   const base = useDefaultStep1Data();
 
   // Parsing string values of axes

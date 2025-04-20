@@ -1,4 +1,4 @@
-export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
   isOutline?: boolean;
   isSmall?: boolean;

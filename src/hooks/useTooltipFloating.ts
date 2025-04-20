@@ -4,12 +4,12 @@ import { createTooltipMiddleware } from '@utils/floatingTooltipMiddleware';
 import { useTooltipHandlers } from '@components/feedback/Tooltip/Tooltip.handlers';
 import { useFloatingAutoUpdate } from './useFloatingAutoUpdate';
 
-interface IUseTooltipFloatingProps {
+interface UseTooltipFloatingProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-export const useTooltipFloating = ({ open, setOpen }: IUseTooltipFloatingProps) => {
+export const useTooltipFloating = ({ open, setOpen }: UseTooltipFloatingProps) => {
   // Ref for the tooltip arrow element
   const arrowRef = useRef<SVGSVGElement | null>(null);
 

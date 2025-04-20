@@ -1,10 +1,10 @@
 import { TRAILER_FRONT_SECTION, TRAILER_FENDERS } from '../data/platformData';
 
-interface ITrailerPlatformProps {
+interface TrailerPlatformProps {
   axleCount: number;
 }
 
-export const TrailerPlatform: React.FC<ITrailerPlatformProps> = ({ axleCount = 3 }) => {
+export const TrailerPlatform: React.FC<TrailerPlatformProps> = ({ axleCount = 3 }) => {
   return (
     <g id="trailer-platform">
       <g id="front-section-of-frame-trailer" data-attr={axleCount}>

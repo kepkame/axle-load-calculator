@@ -1,7 +1,7 @@
 import { getTrailerAxles } from '../renderers/axlesRenderer';
-import { AxleLoadStatus, IAxlesProps } from '../TruckSideView.types';
+import { AxleLoadStatus, AxlesProps } from '../TruckSideView.types';
 
-export const TrailerAxles: React.FC<IAxlesProps> = ({
+export const TrailerAxles: React.FC<AxlesProps> = ({
   axleCount = 3,
   status = AxleLoadStatus.Default,
 }) => {

@@ -2,10 +2,10 @@ import React from 'react';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';
-import { IFormSectionProps } from './TransportForm.types';
+import { FormSectionProps } from './TransportForm.types';
 import styles from './TransportForm.module.scss';
 
-export const TruckFormSection: React.FC<IFormSectionProps> = ({ control, errors, constraints }) => {
+export const TruckFormSection: React.FC<FormSectionProps> = ({ control, errors, constraints }) => {
   return (
     <fieldset className={styles.fieldset}>
       <legend>Данные о тягаче</legend>

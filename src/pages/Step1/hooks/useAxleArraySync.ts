@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { AxleLoadDataItem } from '../components/TransportForm/TransportForm.types';
+import { AxleFieldArrayItem } from '@components/Table/AxleLoadTable/AxleLoadTable.types';
 import { prepareAxleFields } from '../utils/prepareAxleFields';
 import { generateAxleKeys } from '../utils/generateAxleKeys';
-import { AxleFieldArrayItem } from '@components/Table/AxleLoadTable/AxleLoadTable.types';
 
 interface AxleConfigSnapshot {
   truck: number;

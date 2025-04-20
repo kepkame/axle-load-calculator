@@ -1,7 +1,6 @@
-import React from 'react';
 import { UseControllerProps } from 'react-hook-form';
 
-export interface INumberFieldProps
+export interface NumberFieldProps
   extends Omit<UseControllerProps<any>, 'defaultValue'>,
     Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name'> {
   id?: string;

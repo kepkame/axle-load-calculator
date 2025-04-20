@@ -11,8 +11,8 @@ import { Form } from '@components/forms/Form/Form';
 import { FormActions } from '@components/forms/FormActions/FormActions';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { ValueSelector } from '@components/ui/ValueSelector/ValueSelector';
-import { IOption } from '@components/forms/fields/SelectField/SelectField.types';
-import { IOptionSelector } from '@components/ui/ValueSelector/ValueSelector.types';
+import { Option } from '@components/forms/fields/SelectField/SelectField.types';
+import { OptionSelector } from '@components/ui/ValueSelector/ValueSelector.types';
 import { FormSchemaType } from '@entities/step1Form/types';
 import { formSchema } from '@entities/step1Form/schema';
 import { useDefaultStep1Data } from '@hooks/useDefaultStep1Data';
@@ -29,7 +29,7 @@ import { generateAxleKeys } from './utils/generateAxleKeys';
 
 import styles from './Step1Page.module.scss';
 
-const truckModels: IOption[] = [
+const truckModels: Option[] = [
   { value: 'kamaz_65115', label: 'KAMAZ 65115' },
   { value: 'maz_6516', label: 'MAZ 6516' },
   { value: 'scania_r420', label: 'Scania R 420' },
@@ -70,7 +70,7 @@ const Step1Page: React.FC = () => {
         <BaseField label="Сохраненные модели фур" className={styles.savedTruckModels}>
           <ValueSelector
             options={truckModels}
-            onChange={(option: IOptionSelector) => applyPresetTruckValues(option)}
+            onChange={(option: OptionSelector) => applyPresetTruckValues(option)}
             placeholder="Выберите модель фуры"
           />
         </BaseField>

@@ -1,10 +1,8 @@
-import React from 'react';
-
-interface ITransportFormEmptyMessageProps {
+interface TransportFormEmptyMessageProps {
   className: string;
 }
 
-export const TransportFormEmptyMessage: React.FC<ITransportFormEmptyMessageProps> = ({
+export const TransportFormEmptyMessage: React.FC<TransportFormEmptyMessageProps> = ({
   className,
 }) => {
   return (
