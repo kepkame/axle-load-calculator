@@ -1,4 +1,3 @@
-import React from 'react';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';

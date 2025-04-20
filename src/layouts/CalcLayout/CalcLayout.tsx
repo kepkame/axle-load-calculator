@@ -1,4 +1,3 @@
-import React from 'react';
 import { PageHeader } from '@components/ui/PageHeader';
 import { StepIndicator } from '@components/ui/StepIndicator/StepIndicator';
 import { CalcLayoutProps } from './CalcLayout.types';

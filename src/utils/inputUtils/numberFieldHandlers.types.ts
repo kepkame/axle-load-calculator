@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface HandleNumberInputChangeArgs {
   e: React.ChangeEvent<HTMLInputElement>;
   decimalPlaces: number;

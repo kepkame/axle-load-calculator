@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 import { IconButtonProps } from './IconButton.types';
 import styles from './IconButton.module.scss';

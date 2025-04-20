@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface ToastNotificationProps {
   type: string;
   message: string;

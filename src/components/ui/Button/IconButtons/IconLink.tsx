@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
 import { IconLinkProps } from './IconLink.types.ts';

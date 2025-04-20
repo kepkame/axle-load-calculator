@@ -1,4 +1,3 @@
-import React from 'react';
 import { Table } from '../Table';
 import { AxleLoadTableHeader } from './AxleLoadTableHeader/AxleLoadTableHeader';
 import { AxleLoadTableRow } from './AxleLoadTableRow/AxleLoadTableRow';
