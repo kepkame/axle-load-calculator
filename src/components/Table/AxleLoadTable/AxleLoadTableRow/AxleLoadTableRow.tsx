@@ -18,13 +18,14 @@ export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({
   isLifted = false,
   constraints,
 }) => {
+  // Construct field names using the array index
   const axleLoadEmptyName = `axleLoadData.${index}.axleLoadEmpty` as const;
   const axleLoadLimitName = `axleLoadData.${index}.axleLoadLimit` as const;
 
+  // Watch current values for re-validation purposes
   const axleLoadEmptyValue = useWatch({ control, name: axleLoadEmptyName });
   const axleLoadLimitValue = useWatch({ control, name: axleLoadLimitName });
 
-  // If one of the values is changed manually, we call validation on both
   useEffect(() => {
     trigger([axleLoadEmptyName, axleLoadLimitName]);
   }, [axleLoadEmptyValue, axleLoadLimitValue, axleLoadEmpty, axleLoadLimit, trigger]);
@@ -38,7 +39,7 @@ export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({
           {isLifted}
         </td>
 
-        {/* Field axleLoadEmpty */}
+        {/* Field: axle load without cargo */}
         <AxleLoadTableData
           icon={<IconTruck className={styles.icon} />}
           label="Без груза"
@@ -49,7 +50,7 @@ export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({
           isErrors={errors?.axleLoadEmpty !== undefined}
         />
 
-        {/* Field axleLoadLimit */}
+        {/* Field: maximum allowed axle load */}
         <AxleLoadTableData
           icon={<IconTruckCargo className={styles.icon} />}
           label="Максимальная нагрузка"
@@ -61,7 +62,7 @@ export const AxleLoadTableRow: React.FC<IAxleLoadTableRowProps> = ({
         />
       </tr>
 
-      {/* Validation errors for the entire string */}
+      {/* Renders validation error messages if any exist for this row */}
       <AxleLoadTableRowErrors errors={errors} />
     </>
   );

@@ -4,6 +4,10 @@ import { IBaseFieldProps } from './BaseField.types';
 import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
 import styles from './BaseField.module.scss';
 
+/**
+ * Wrapper component for form fields that renders a label, optional tooltip,
+ * units suffix, and error message. Injects `id` and `isUnits` into the child input.
+ */
 export const BaseField: React.FC<IBaseFieldProps> = ({
   label,
   className,

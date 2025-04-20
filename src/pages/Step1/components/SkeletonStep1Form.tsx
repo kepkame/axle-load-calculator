@@ -1,6 +1,6 @@
 import ContentLoader from 'react-content-loader';
 
-const SkeletonStep1Form = () => (
+export const SkeletonStep1Form = () => (
   <ContentLoader
     speed={2}
     width={280}
@@ -25,5 +25,3 @@ const SkeletonStep1Form = () => (
     <rect x="95" y="445" rx="8" ry="8" width="186" height="44" />
   </ContentLoader>
 );
-
-export default SkeletonStep1Form;

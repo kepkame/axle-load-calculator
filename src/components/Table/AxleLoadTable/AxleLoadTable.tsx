@@ -2,47 +2,47 @@ import React from 'react';
 import { Table } from '../Table';
 import { AxleLoadTableHeader } from './AxleLoadTableHeader/AxleLoadTableHeader';
 import { AxleLoadTableRow } from './AxleLoadTableRow/AxleLoadTableRow';
-import { IAxleLoadTableProps } from './AxleLoadTable.types';
 import { TABLE_COLUMN_HEADERS } from './data';
+import { IAxleLoadTableProps } from './AxleLoadTable.types';
 
+/** Axle load display table */
 export const AxleLoadTable: React.FC<IAxleLoadTableProps> = ({
-  fields,
   control,
-  errors,
   trigger,
+  fields,
   constraints,
+  errors,
 }) => {
-  let truckAxleCount = 0;
-  let trailerAxleCount = 0;
+  let truckIndex = 0;
+  let trailerIndex = 0;
 
   return (
     <Table>
       <AxleLoadTableHeader titles={TABLE_COLUMN_HEADERS} />
-
       <tbody>
         {fields.map((field, index) => {
-          const isTruckAxle = field.axleType === 'truck';
-          const axleTypeLabel = isTruckAxle ? 'Ось тягача' : 'Ось полуприцепа';
-          const axleNumber = isTruckAxle ? ++truckAxleCount : ++trailerAxleCount;
+          const isTruck = field.axleType === 'truck';
           const isLifted = field.lifted === true;
-          const liftedLabel = isLifted ? ' (подъёмная)' : '';
-          const label = `${axleTypeLabel} ${axleNumber}${liftedLabel}`;
+
+          const currentNumber = isTruck ? ++truckIndex : ++trailerIndex;
+
+          const label = `Ось ${isTruck ? 'тягача' : 'полуприцепа'} ${currentNumber} ${
+            isLifted ? ' (подъёмная)' : ''
+          }`;
 
           return (
-            <React.Fragment key={field.id}>
-              <AxleLoadTableRow
-                key={field.id}
-                control={control}
-                trigger={trigger}
-                errors={errors?.[index] ? errors[index] : undefined}
-                label={label}
-                index={index}
-                axleLoadEmpty={`axleLoadData.${index}.axleLoadEmpty`}
-                axleLoadLimit={`axleLoadData.${index}.axleLoadLimit`}
-                isLifted={isLifted}
-                constraints={constraints}
-              />
-            </React.Fragment>
+            <AxleLoadTableRow
+              key={field.id}
+              control={control}
+              trigger={trigger}
+              index={index}
+              label={label}
+              axleLoadEmpty={`axleLoadData.${index}.axleLoadEmpty`}
+              axleLoadLimit={`axleLoadData.${index}.axleLoadLimit`}
+              isLifted={isLifted}
+              errors={errors?.[index]}
+              constraints={constraints}
+            />
           );
         })}
       </tbody>

@@ -1,36 +1,40 @@
-import { useEffect } from 'react';
-import { FieldErrorsImpl, useFieldArray } from 'react-hook-form';
-import { TruckFormSection } from './TruckFormSection';
-import { TruckSideView } from '@components/visualization/TruckSideView/TruckSideView';
+import { TruckAxleVisualizer } from '@components/visualization/TruckAxleVisualizer/TruckAxleVisualizer';
 import { AxleLoadTable } from '@components/Table/AxleLoadTable/AxleLoadTable';
+import { AxleLoadSkeletonMobile } from '@components/Table/AxleLoadTable/AxleLoadTableSkeleton/AxleLoadSkeletonMobile';
 import { formSchema } from '@entities/step1Form/schema';
 import { getConstraintsFromSchema } from '../../validation/validationUtils';
-import { useAxleFieldValues } from '../../hooks/useAxleFieldValues';
-import { syncAxleFields } from '../../utils/axleFieldSync';
-import type { AxleLoadDataItem, ITransportFormProps } from './TransportForm.types';
+import { TruckFormSection } from './TruckFormSection';
 import { TrailerFormSection } from './TrailerFormSection';
+import { TransportFormEmptyMessage } from './TransportFormEmptyMessage';
+import type { ITransportFormProps } from './TransportForm.types';
 import styles from './TransportForm.module.scss';
 
-// Extracting constraints from the validation schema
+// Extract min/max validation constraints from Zod schema for field-level validation
 const constraints = getConstraintsFromSchema(formSchema);
 const axleLoadConstraints = constraints.axleLoadData as {
   axleLoadEmpty: { min: number; max: number };
   axleLoadLimit: { min: number; max: number };
 };
 
-export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors, trigger }) => {
-  const { fields, append, remove } = useFieldArray({ control, name: 'axleLoadData' });
-  const { truckAxlesRaw, trailerAxlesRaw } = useAxleFieldValues(control);
+/**
+ * TransportForm - visual component responsible for displaying the form
+ * of transport parameters and axle load distribution table.
+ */
+export const TransportForm: React.FC<ITransportFormProps> = ({
+  control,
+  errors,
+  trigger,
+  fields,
+  truckAxles,
+  trailerAxles,
+}) => {
+  // A fractional truck axle count (e.g., 2.5) indicates presence of a lifted axle
+  const hasLiftedAxle = truckAxles % 1 !== 0;
 
-  useEffect(() => {
-    syncAxleFields({
-      truckAxlesRaw,
-      trailerAxlesRaw,
-      currentFieldsLength: fields.length,
-      append,
-      remove,
-    });
-  }, [truckAxlesRaw, trailerAxlesRaw, fields.length, append, remove]);
+  const totalExpected = Math.floor(truckAxles) + (hasLiftedAxle ? 1 : 0) + trailerAxles;
+
+  const isAxleDataReady = fields.length === totalExpected;
+  const axleDataCanExist = truckAxles > 0 && trailerAxles > 0;
 
   return (
     <>
@@ -38,24 +42,21 @@ export const TransportForm: React.FC<ITransportFormProps> = ({ control, errors, 
 
       <TrailerFormSection control={control} errors={errors} constraints={constraints} />
 
-      <TruckSideView TractorAxleCount={2} TrailerAxleCount={3} />
+      <TruckAxleVisualizer control={control} className={styles.axleLoadVisualization} />
 
-      {fields.length > 0 ? (
+      {isAxleDataReady ? (
         <AxleLoadTable
           fields={fields}
           control={control}
+          name="axleLoadData"
           trigger={trigger}
-          errors={
-            Array.isArray(errors.axleLoadData)
-              ? (errors.axleLoadData as FieldErrorsImpl<AxleLoadDataItem>[])
-              : []
-          }
           constraints={axleLoadConstraints}
+          errors={Array.isArray(errors.axleLoadData) ? errors.axleLoadData : []}
         />
+      ) : axleDataCanExist ? (
+        <AxleLoadSkeletonMobile />
       ) : (
-        <p className={styles.emptyMessage}>
-          Для указания значений нагрузки на оси, пожалуйста, заполните данные тягача и полуприцепа.
-        </p>
+        <TransportFormEmptyMessage className={styles.emptyMessage} />
       )}
     </>
   );

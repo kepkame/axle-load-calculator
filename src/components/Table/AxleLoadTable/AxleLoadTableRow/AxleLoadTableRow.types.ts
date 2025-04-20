@@ -10,8 +10,8 @@ export interface IAxleLoadTableRowProps {
   errors: AxleLoadDataItemErrors | undefined;
   label: string;
   index: number;
-  axleLoadEmpty: string;
-  axleLoadLimit: string;
+  axleLoadEmpty: FieldPath<FormSchemaType>;
+  axleLoadLimit: FieldPath<FormSchemaType>;
   isLifted?: boolean;
   constraints: {
     axleLoadEmpty: { min: number; max: number };

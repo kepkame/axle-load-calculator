@@ -1,7 +1,7 @@
 import { FormSchemaType } from '@entities/step1Form/types';
 
 /**
- * Получает дефолтные значения формы Step1 с API Mokky.
+ * Fetches the default values of the Step1 form from the Mokky API
  */
 export async function fetchDefaultStep1(): Promise<FormSchemaType> {
   const response = await fetch('https://1a1607d9514f4230.mokky.dev/defaultValuesStep1');

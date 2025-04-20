@@ -1,5 +1,22 @@
-import { syncAxleFieldsParams } from './axleFieldSync.types';
+import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
+import { FormSchemaType } from '../components/TransportForm/TransportForm.types';
 
+export interface syncAxleFieldsParams {
+  currentFieldsLength: number;
+  truckAxlesRaw: number;
+  trailerAxlesRaw: number;
+  append: UseFieldArrayAppend<FormSchemaType, 'axleLoadData'>;
+  remove: UseFieldArrayRemove;
+}
+
+/**
+ * Synchronizes the axleLoadData field array to match the given axle configuration.
+ *
+ * - Removes excess fields when the new configuration has fewer axles.
+ * - Appends new fields when the configuration includes additional axles.
+ * - Supports lifted truck axles (e.g. 2.5 = 2 + 1 lifted axle).
+ * - Prevents focusing newly added fields for smoother UX.
+ */
 export const syncAxleFields = ({
   currentFieldsLength,
   truckAxlesRaw,
@@ -7,41 +24,39 @@ export const syncAxleFields = ({
   append,
   remove,
 }: syncAxleFieldsParams): void => {
-  // Round down to get the base number of truck axles (e.g., 2 from 2.5)
   const baseTruckAxles = Math.floor(truckAxlesRaw);
-
-  // Check whether a lifted axle is included (e.g., 2.5 means there's a lifted axle)
   const hasLiftedAxle = truckAxlesRaw % 1 !== 0;
-
-  // Total truck axles = base + lifted axle if applicable
   const totalTruckAxles = baseTruckAxles + (hasLiftedAxle ? 1 : 0);
-
-  // Calculate the total number of axles across both truck and trailer
   const totalAxles = totalTruckAxles + trailerAxlesRaw;
+  const currentTotal = currentFieldsLength;
 
-  // Append new axle entries if there are fewer fields than required
-  if (totalAxles > currentFieldsLength) {
-    for (let i = currentFieldsLength; i < totalAxles; i += 1) {
+  // If there are too many fields, remove extras from the end
+  if (currentTotal > totalAxles) {
+    for (let i = currentTotal - 1; i >= totalAxles; i--) {
+      remove(i);
+    }
+  }
+  // If there are too few fields, append new ones
+  else if (currentTotal < totalAxles) {
+    for (let i = currentTotal; i < totalAxles; i++) {
       const isTruck = i < totalTruckAxles;
 
       // Determine if this axle is a lifted axle (last one on the truck side)
       const isLifted = isTruck && hasLiftedAxle && i === totalTruckAxles - 1;
 
-      // Add a new axle with default load values
       append(
         {
           axleType: isTruck ? 'truck' : 'trailer',
+
+          // Default values vary depending on axle type and position
           axleLoadEmpty: isTruck ? (i < 2 ? 29.99 : 13) : 13,
           axleLoadLimit: isTruck ? (i < 2 ? 46.77 : 17) : 17,
+
+          // Set lifted only if true, omit otherwise to keep form state clean
           lifted: isLifted || undefined, // only set if true
         },
-        { shouldFocus: false },
+        { shouldFocus: false }, // Avoid auto-focus on new fields to reduce distraction
       );
-    }
-  } else if (totalAxles < currentFieldsLength) {
-    // Remove extra axle entries if there are too many
-    for (let i = currentFieldsLength; i > totalAxles; i -= 1) {
-      remove(i - 1); // remove the last field
     }
   }
 };

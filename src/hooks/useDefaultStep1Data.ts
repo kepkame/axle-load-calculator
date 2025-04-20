@@ -8,6 +8,7 @@ import { saveFormData, markFormFilled } from '@store/slices/step1FormSlice/step1
 import { fetchDefaultStep1 } from '@api/fetchDefaultStep1';
 import { FormSchemaType } from '@entities/step1Form/types';
 import { getEmptyFormData } from '@entities/step1Form/defaultValues';
+import { normalizeAxlesFromApi } from '../utils/normalizeAxlesFromApi';
 
 interface UseStep1FormStateResult {
   defaultValues: FormSchemaType;
@@ -18,12 +19,13 @@ interface UseStep1FormStateResult {
 }
 
 /**
- * Hook that returns the values of the Step1 form.
- * If there is no data in Redux, it loads them from the API and stores them.
+ * Provides initial/default values for the Step1 form.
+ * Fetches from API on first load if not already filled in Redux.
+ * Ensures axle data is normalized before storing in Redux.
  */
 export const useDefaultStep1Data = (): UseStep1FormStateResult => {
   const dispatch = useDispatch();
-  const isFilled = useSelector(selectStep1FormFilled);
+  const isFilled = useSelector(selectStep1FormFilled); // used to skip unnecessary fetch
   const formData = useSelector(selectStep1FormData);
 
   const [isLoading, setIsLoading] = useState(!isFilled);
@@ -35,11 +37,13 @@ export const useDefaultStep1Data = (): UseStep1FormStateResult => {
 
     try {
       const data = await fetchDefaultStep1();
-      dispatch(saveFormData(data));
+      const normalized = normalizeAxlesFromApi(data);
+
+      dispatch(saveFormData(normalized));
       dispatch(markFormFilled());
     } catch (error) {
       console.error('Ошибка при загрузке данных формы Step1:', error);
-      alert('Не удалось загрузить значения по умолчанию. Будет использована пустая форма.');
+      alert('Не удалось загрузить значения формы по умолчанию. Будет использована пустая форма.');
       dispatch(saveFormData(getEmptyFormData()));
       dispatch(markFormFilled());
       setIsError(true);
@@ -48,6 +52,7 @@ export const useDefaultStep1Data = (): UseStep1FormStateResult => {
     }
   }, [dispatch]);
 
+  // Automatically fetch default data if not filled yet
   useEffect(() => {
     if (!isFilled) {
       fetchData();
@@ -55,10 +60,10 @@ export const useDefaultStep1Data = (): UseStep1FormStateResult => {
   }, [isFilled, dispatch]);
 
   return {
-    defaultValues: formData,
+    defaultValues: formData, // Always returns latest Redux form state
     isLoading,
     isError,
-    hasData: isFilled,
-    refetch: fetchData,
+    hasData: isFilled, // True if data has been loaded or filled manually
+    refetch: fetchData, // Allows to re-trigger fetch
   };
 };

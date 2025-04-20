@@ -38,6 +38,7 @@
       "@pages/*": ["src/pages/*"],
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
+      "@shared-types/*": ["src/shared/types/*"],
       "@utils/*": ["src/utils/*"]
     }
   },

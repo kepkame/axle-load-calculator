@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
 import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IFormProps } from './Form.types';
 
+/**
+ * Generic Form component using react-hook-form and Zod schema validation.
+ */
 export const Form = <T extends FieldValues>({
   schema,
   defaultValues,
@@ -14,12 +16,6 @@ export const Form = <T extends FieldValues>({
     defaultValues,
     mode: 'onChange',
   });
-
-  const { reset } = methods;
-
-  useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset]);
 
   const onSubmit = (data: T) => {
     if (onSubmitSuccess) {

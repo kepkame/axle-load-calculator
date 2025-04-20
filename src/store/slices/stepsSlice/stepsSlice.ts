@@ -3,6 +3,7 @@ import { stepsRoutes } from './stepsConfig';
 import type { StepsState } from './stepsSlice.types';
 import { StepsRoute } from './stepsConfig.types';
 
+// Initializes steps from config and marks the first one as active
 const initialState: StepsState = {
   steps: stepsRoutes.map((route: StepsRoute, index: number) => ({
     name: route.name,
@@ -12,10 +13,18 @@ const initialState: StepsState = {
   currentStepIndex: 0,
 };
 
+/**
+ * Redux slice for controlling navigation and validation status
+ * of a multi-step flow. Enforces linear navigation and validation rules.
+ */
 const stepsSlice = createSlice({
   name: 'steps',
   initialState,
   reducers: {
+    /**
+     * Changes the current step if all prior steps are validated.
+     * Also updates step status based on validation state.
+     */
     navigateToStep: (state, action: PayloadAction<number>) => {
       const targetIndex = action.payload;
 
@@ -45,6 +54,9 @@ const stepsSlice = createSlice({
       state.currentStepIndex = targetIndex;
     },
 
+    /**
+     * Marks the given step as validated and updates its status to 'success'.
+     */
     validateStep: (state, action: PayloadAction<number>) => {
       const index = action.payload;
       if (index < 0 || index >= state.steps.length) return;
@@ -53,6 +65,9 @@ const stepsSlice = createSlice({
       state.steps[index].isValidated = true;
     },
 
+    /**
+     * Flags a step as having an issue (e.g. validation failure).
+     */
     markStepDanger: (state, action: PayloadAction<number>) => {
       const index = action.payload;
       if (index < 0 || index >= state.steps.length) return;
@@ -60,6 +75,9 @@ const stepsSlice = createSlice({
       state.steps[index].status = 'danger';
     },
 
+    /**
+     * Resets validation and status for all steps after the given index.
+     */
     resetStepsAfter: (state, action: PayloadAction<number>) => {
       const index = action.payload;
       // Clear status and validation from all steps after the given index

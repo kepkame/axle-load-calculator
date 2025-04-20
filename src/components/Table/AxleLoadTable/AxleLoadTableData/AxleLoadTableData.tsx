@@ -1,8 +1,15 @@
-import { NumberField } from '@components/forms/fields/NumberField/NumberField';
+import clsx from 'clsx';
+import { useController } from 'react-hook-form';
+import { ControlledNumberInput } from '@components/forms/fields/NumberField/ControlledNumberInput/ControlledNumberInput';
 import { IAxleLoadTableDataProps } from './AxleLoadTableData.types';
 import styles from './AxleLoadTableData.module.scss';
-import clsx from 'clsx';
 
+/**
+ * A table cell that renders a labeled numeric input
+ * for axle load values, integrated with react-hook-form.
+ *
+ * Supports optional read-only mode, error highlighting, and unit suffix display.
+ */
 export const AxleLoadTableData: React.FC<IAxleLoadTableDataProps> = ({
   icon,
   label,
@@ -14,12 +21,21 @@ export const AxleLoadTableData: React.FC<IAxleLoadTableDataProps> = ({
   decimalPlaces = 2,
   inputMode = 'decimal',
   isErrors = false,
+  readOnly = false,
 }) => {
+  const {
+    field: { value, onChange },
+  } = useController({
+    name: fieldName,
+    control,
+  });
+
   return (
     <td className={styles.data}>
       <div className={clsx(styles.wrapper, { [styles.wrapperError]: isErrors })}>
         {icon}
 
+        {/* Responsive label: full for mobile, short for desktop */}
         <span className={styles.name}>
           {label === 'Максимальная нагрузка' ? (
             <>
@@ -31,18 +47,26 @@ export const AxleLoadTableData: React.FC<IAxleLoadTableDataProps> = ({
           )}
         </span>
 
-        <NumberField
-          className={styles.input}
-          name={fieldName}
-          control={control}
-          min={min}
-          max={max}
-          maxLength={maxLength}
-          decimalPlaces={decimalPlaces}
-          inputMode={inputMode}
-          autoFocus={false}
-        />
-        <span className={styles.units}>т.</span>
+        {readOnly ? (
+          // Render static text when read-only
+          <span className={styles.textValue}>{Number(value)?.toFixed(decimalPlaces)} т.</span>
+        ) : (
+          <>
+            {/* Controlled numeric input with formatting and validation */}
+            <ControlledNumberInput
+              value={Number(value)}
+              onChange={onChange}
+              min={min}
+              max={max}
+              maxLength={maxLength}
+              decimalPlaces={decimalPlaces}
+              inputMode={inputMode}
+              isUnits={true}
+              className={styles.input}
+            />
+            <span className={styles.units}>т.</span>
+          </>
+        )}
       </div>
     </td>
   );
