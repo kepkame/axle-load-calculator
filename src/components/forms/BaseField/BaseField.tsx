@@ -28,7 +28,7 @@ export const BaseField: React.FC<BaseFieldProps> = ({
       </div>
 
       <div className={styles.field}>
-        {cloneElement(children, { id: fieldId, isUnits: units !== undefined })}
+        {cloneElement(children, { id: fieldId })}
         {units && <span className={styles.units}>{units}</span>}
       </div>
 
