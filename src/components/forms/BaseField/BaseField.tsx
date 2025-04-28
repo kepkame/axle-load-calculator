@@ -1,4 +1,4 @@
-import React, { useId, cloneElement } from 'react';
+import { useId, cloneElement } from 'react';
 import clsx from 'clsx';
 import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
 import { BaseFieldProps } from './BaseField.types';

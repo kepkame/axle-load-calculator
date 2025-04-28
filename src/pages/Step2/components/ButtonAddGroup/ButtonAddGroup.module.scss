@@ -1,0 +1,7 @@
+.btnAddGroup {
+  margin-bottom: 32px;
+
+  &:disabled {
+    margin-bottom: 8px;
+  }
+}

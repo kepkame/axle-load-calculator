@@ -45,7 +45,7 @@ export const formSchema = z.object({
       })
       .refine((data) => data.axleLoadEmpty < data.axleLoadLimit, {
         message: 'должно быть меньше максимальной нагрузки',
-        path: ['axleLoadEmpty'],
+        path: ['axleLoadLimit'],
       }),
   ),
 });

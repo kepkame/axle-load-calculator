@@ -1,0 +1,26 @@
+@use '@styles/variables.scss';
+
+.group {
+  position: relative;
+  max-width: 344px;
+  margin-bottom: 32px;
+  padding-top: 24px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: variables.$color-text-subtitle-light;
+  }
+
+  &:first-child {
+    padding-top: 0;
+
+    &:before {
+      content: none;
+    }
+  }
+}

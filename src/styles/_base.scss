@@ -107,6 +107,21 @@ img {
   transition: background-color variables.$duration ease-in-out;
   cursor: pointer;
 
+  &--icon {
+    position: relative;
+    padding-left: 38px;
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      width: 16px;
+      height: 16px;
+      fill: variables.$color-white;
+      transform: translateY(-50%);
+    }
+  }
+
   &:focus,
   &:hover {
     background-color: variables.$color-primary-hover;
@@ -120,11 +135,35 @@ img {
     transition: color variables.$duration ease-in-out,
       background-color variables.$duration ease-in-out, border-color variables.$duration ease-in-out;
 
+    &.btn--icon {
+      padding-left: 37px;
+    }
+
+    .icon {
+      fill: variables.$color-primary;
+      transition: fill variables.$duration ease-in-out;
+    }
+
     &:focus,
     &:hover {
       color: variables.$color-primary-hover;
       background-color: variables.$color-hover;
       border-color: variables.$color-primary-hover;
+
+      .icon {
+        fill: variables.$color-primary-hover;
+      }
+    }
+
+    &:disabled {
+      color: variables.$color-text-secondary;
+      background-color: variables.$color-background;
+      border-color: variables.$color-text-subtitle;
+      cursor: not-allowed;
+
+      .icon {
+        fill: variables.$color-text-secondary;
+      }
     }
   }
 }

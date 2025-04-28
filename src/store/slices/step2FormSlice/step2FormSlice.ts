@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormSchemaType } from '@entities/step2Form/types';
 
+// Defines the initial empty form data for Step 2
 const emptyFormData: FormSchemaType = {
-  cargoGroup: [],
+  cargoGroup: [{ palletId: 'EUR', weight: 1, quantity: 1 }],
 };
 
 export interface Step2FormState {
-  formData: FormSchemaType;
-  isFilled: boolean;
+  formData: FormSchemaType; // Stores cargo groups and their parameters
+  isFilled: boolean; // Indicates whether the form has been successfully completed
 }
 
 const initialState: Step2FormState = {
@@ -19,14 +20,17 @@ const step2FormSlice = createSlice({
   name: 'step2Form',
   initialState,
   reducers: {
+    /** Replaces current form data with submitted values */
     saveFormData(state, action: PayloadAction<FormSchemaType>) {
       state.formData = action.payload;
     },
 
+    /** Flags the form as filled after successful submission */
     markFormFilled(state) {
       state.isFilled = true;
     },
 
+    /** Resets form state to initial empty values */
     resetFormData(state) {
       state.formData = emptyFormData;
       state.isFilled = false;

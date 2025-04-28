@@ -1,0 +1,12 @@
+@use '@styles/variables.scss';
+
+.stepTitle {
+  margin-bottom: 32px;
+}
+
+.actionLimitHint {
+  max-width: 344px;
+  font-size: 0.875rem;
+  color: variables.$color-text-secondary;
+  margin-bottom: 32px;
+}
