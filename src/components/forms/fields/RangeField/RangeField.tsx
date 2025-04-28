@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { calculateStep, roundToNearestStep } from '@utils/numberUtils/mathUtils';
 import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
@@ -24,8 +24,10 @@ export const RangeField: React.FC<RangeFieldProps> = ({
    */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
+
     // Rounding before setting
     const roundedValue = roundToNearestStep(newValue, step, max, decimalPlaces);
+
     // Format the number before sending it to onChange
     const formattedValue = formatNumberToDecimals(roundedValue, decimalPlaces);
 
