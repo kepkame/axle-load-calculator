@@ -17,18 +17,14 @@ export interface CargoFormConstraints {
   quantity: { min: number; max: number };
 }
 
-/**
- * Props for the CargoForm component.
- *
- * Provides control over cargo groups, validation errors, constraint values,
- * and platform-specific context needed for dynamic validation.
- */
-export interface CargoFormProps {
+export interface CargoFormItemProps {
+  index: number;
+  field: FieldArrayWithId<FormSchemaType, 'cargoGroup', 'id'>;
   control: Control<FormSchemaType>;
   errors: FieldErrors<FormSchemaType>;
-  fields: FieldArrayWithId<FormSchemaType, 'cargoGroup', 'id'>[];
-  remove: UseFieldArrayRemove;
   constraints: CargoFormConstraints;
+  remove: UseFieldArrayRemove;
   trigger: (name?: FieldPath<FormSchemaType> | FieldPath<FormSchemaType>[]) => Promise<boolean>;
   deckLengthMM: number;
+  showHeader: boolean;
 }

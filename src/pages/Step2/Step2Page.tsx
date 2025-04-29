@@ -18,7 +18,7 @@ import { useFormCargoSchema } from '@entities/step2Form/hooks/useFormCargoSchema
 import { useStepGuard } from '@hooks/useStepGuard';
 import { useStepSync } from '@hooks/useStepSync';
 
-import { CargoForm } from './components/CargoForm/CargoForm';
+import { CargoFormItem } from './components/CargoFormItem/CargoFormItem';
 import { ButtonAddGroup } from './components/ButtonAddGroup/ButtonAddGroup';
 import { getCargoFormConstraints } from './utils/getCargoFormConstraints';
 import { useCanAddNewGroup } from './utils/useCanAddNewGroup';
@@ -92,15 +92,21 @@ const Step2Page: React.FC = () => {
 
           return (
             <>
-              <CargoForm
-                control={control}
-                errors={errors}
-                fields={fields}
-                remove={remove}
-                constraints={cargoConstraints}
-                trigger={trigger}
-                deckLengthMM={deckLengthMM}
-              />
+              {/* Renders a list of pallet groups in the form */}
+              {fields.map((field, index) => (
+                <CargoFormItem
+                  key={field.id}
+                  index={index}
+                  field={field}
+                  control={control}
+                  errors={errors}
+                  remove={remove}
+                  constraints={cargoConstraints}
+                  trigger={trigger}
+                  deckLengthMM={deckLengthMM}
+                  showHeader={fields.length > 1}
+                />
+              ))}
 
               <ButtonAddGroup append={append} canAdd={canAdd} />
 
