@@ -1,27 +1,23 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useFieldArray } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { saveFormData, markFormFilled } from '@store/slices/step2FormSlice/step2FormSlice';
-import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
+import { resetStepsAfter, validateStep } from '@store/slices/stepsSlice/stepsSlice';
 import {
   selectStep1FormData,
   selectStep1FormFilled,
 } from '@store/slices/step1FormSlice/step1FormSlice.selectors';
-import { resetStepsAfter, validateStep } from '@store/slices/stepsSlice/stepsSlice';
+import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
 import { selectStep2FormData } from '@store/slices/step2FormSlice/step2FormSlice.selectors';
 
 import { Form } from '@components/forms/Form/Form';
-import { FormActions } from '@components/forms/FormActions/FormActions';
-import { FormSchemaType } from '@entities/step2Form/types';
+import Step2FormContent from './components/Step2FormContent/Step2FormContent';
+
 import { useFormCargoSchema } from '@entities/step2Form/hooks/useFormCargoSchema';
+import { FormSchemaType } from '@entities/step2Form/types';
 import { useStepGuard } from '@hooks/useStepGuard';
 import { useStepSync } from '@hooks/useStepSync';
-
-import { CargoFormItem } from './components/CargoFormItem/CargoFormItem';
-import { ButtonAddGroup } from './components/ButtonAddGroup/ButtonAddGroup';
 import { getCargoFormConstraints } from './utils/getCargoFormConstraints';
-import { useCanAddNewGroup } from './utils/useCanAddNewGroup';
 
 import styles from './Step2Page.module.scss';
 
@@ -38,23 +34,29 @@ const Step2Page: React.FC = () => {
     fallbackPath: '/',
   });
 
+  // Syncs the stepper to highlight current step
+  useStepSync(1);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const step1Data = useSelector(selectStep1FormData);
   const step2FormData = useSelector(selectStep2FormData);
 
-  // Converts platform length from meters to millimeters
   const deckLengthMM = step1Data.deckLength * 1000;
-
-  // Dynamically generates validation schema based on deck length
   const formSchema = useFormCargoSchema(deckLengthMM);
-
-  // Prepares static validation constraints for cargo fields
   const cargoConstraints = getCargoFormConstraints();
 
-  // Syncs the stepper to highlight current step
-  useStepSync(1);
+  const handleSuccess = (formData: FormSchemaType) => {
+    dispatch(saveFormData(formData));
+    dispatch(markFormFilled());
+
+    // Marks current step as validated and resets subsequent steps
+    dispatch(validateStep(1));
+    dispatch(resetStepsAfter(1));
+
+    navigate(stepsRoutes[2].path);
+  };
 
   return (
     <>
@@ -64,63 +66,17 @@ const Step2Page: React.FC = () => {
         schema={formSchema}
         defaultValues={step2FormData}
         resolverContext={{ deckLength: deckLengthMM }}
-        onSubmitSuccess={(formData) => {
-          dispatch(saveFormData(formData));
-          dispatch(markFormFilled());
-
-          // Marks current step as validated and resets subsequent steps
-          dispatch(validateStep(1));
-          dispatch(resetStepsAfter(1));
-
-          navigate(stepsRoutes[2].path);
-        }}
+        onSubmitSuccess={handleSuccess}
       >
-        {(methods) => {
-          const {
-            control,
-            formState: { errors },
-            trigger,
-          } = methods;
-
-          // Determines whether a new cargo group can be added based on remaining deck space
-          const canAdd = useCanAddNewGroup({ control, deckLengthMM });
-
-          const { fields, append, remove } = useFieldArray<FormSchemaType, 'cargoGroup', 'id'>({
-            control,
-            name: 'cargoGroup',
-          });
-
-          return (
-            <>
-              {/* Renders a list of pallet groups in the form */}
-              {fields.map((field, index) => (
-                <CargoFormItem
-                  key={field.id}
-                  index={index}
-                  field={field}
-                  control={control}
-                  errors={errors}
-                  remove={remove}
-                  constraints={cargoConstraints}
-                  trigger={trigger}
-                  deckLengthMM={deckLengthMM}
-                  showHeader={fields.length > 1}
-                />
-              ))}
-
-              <ButtonAddGroup append={append} canAdd={canAdd} />
-
-              {!canAdd && (
-                <p className={styles.actionLimitHint}>
-                  Все паллеты уже заняли длину платформы. Чтобы добавить новую группу, уменьшите
-                  количество паллет либо удалите одну из текущих групп.
-                </p>
-              )}
-
-              <FormActions />
-            </>
-          );
-        }}
+        {(methods) => (
+          <Step2FormContent
+            control={methods.control}
+            errors={methods.formState.errors}
+            trigger={methods.trigger}
+            deckLengthMM={deckLengthMM}
+            cargoConstraints={cargoConstraints}
+          />
+        )}
       </Form>
     </>
   );

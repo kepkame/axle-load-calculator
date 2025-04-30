@@ -1,9 +1,11 @@
+import { Reorder, useDragControls } from 'motion/react';
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { SelectField } from '@components/forms/fields/SelectField/SelectField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { palletSizeOptions } from '@entities/step2Form/pallet/selectOptions';
-import { HeaderGroup } from '../HeaderGroup/HeaderGroup';
+import { GroupHeader } from '../GroupHeader/GroupHeader';
 import { useAllQuantityConstraints } from '../../utils/useQuantityConstraints';
+import { groupItemVariants } from './animation';
 import { CargoFormItemProps } from './CargoFormItem.types';
 import styles from './CargoFormItem.module.scss';
 
@@ -24,13 +26,32 @@ export const CargoFormItem: React.FC<CargoFormItemProps> = ({
   deckLengthMM,
   showHeader,
 }) => {
+  const dragControls = useDragControls();
+
   // Computes maximum allowed quantities dynamically for each group based on platform length
   const maxValues = useAllQuantityConstraints({ control, deckLengthMM });
 
   return (
-    <div key={field.id} className={styles.group}>
+    <Reorder.Item
+      as="li"
+      value={field.id}
+      key={field.id}
+      className={styles.group}
+      dragListener={false}
+      dragControls={dragControls}
+      initial={groupItemVariants.initial}
+      animate={groupItemVariants.animate}
+      exit={groupItemVariants.exit}
+      transition={groupItemVariants.transition}
+    >
       {/* Renders group header with drag-and-drop and remove actions if multiple groups exist */}
-      {showHeader && <HeaderGroup index={index} onClick={() => remove(index)} />}
+      {showHeader && (
+        <GroupHeader
+          groupId={field.groupId}
+          onClick={() => remove(index)}
+          dragControls={dragControls}
+        />
+      )}
 
       {/* Select field for choosing pallet size */}
       <BaseField
@@ -85,6 +106,6 @@ export const CargoFormItem: React.FC<CargoFormItemProps> = ({
           onBlur={() => trigger('cargoGroup')}
         />
       </BaseField>
-    </div>
+    </Reorder.Item>
   );
 };

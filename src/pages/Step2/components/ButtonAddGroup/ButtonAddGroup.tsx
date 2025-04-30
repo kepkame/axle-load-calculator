@@ -5,7 +5,7 @@ import { FormSchemaType } from '@entities/step2Form/types';
 import styles from './ButtonAddGroup.module.scss';
 
 interface ButtonAddGroupProps {
-  append: UseFieldArrayAppend<FormSchemaType, 'cargoGroup'>;
+  onAddGroup: UseFieldArrayAppend<FormSchemaType, 'cargoGroup'>;
   canAdd: boolean;
 }
 
@@ -15,11 +15,11 @@ interface ButtonAddGroupProps {
  * Renders an action button that appends a default cargo group item to the form array.
  * The button is disabled when adding new groups is restricted by platform length constraints.
  */
-export const ButtonAddGroup: React.FC<ButtonAddGroupProps> = ({ append, canAdd }) => {
+export const ButtonAddGroup: React.FC<ButtonAddGroupProps> = ({ onAddGroup, canAdd }) => {
   return (
     <button
       type="button"
-      onClick={() => append({ palletId: 'EUR', weight: 1, quantity: 1 })}
+      onClick={() => onAddGroup({ groupId: 1, palletId: 'EUR', weight: 1, quantity: 1 })}
       className={clsx('btn btn--icon btn--outline', styles.btnAddGroup)}
       disabled={!canAdd}
     >

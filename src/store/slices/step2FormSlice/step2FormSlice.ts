@@ -3,7 +3,7 @@ import { FormSchemaType } from '@entities/step2Form/types';
 
 // Defines the initial empty form data for Step 2
 const emptyFormData: FormSchemaType = {
-  cargoGroup: [{ palletId: 'EUR', weight: 1, quantity: 1 }],
+  cargoGroup: [{ groupId: 1, palletId: 'EUR', weight: 1, quantity: 1 }],
 };
 
 export interface Step2FormState {

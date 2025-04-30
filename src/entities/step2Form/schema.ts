@@ -3,6 +3,7 @@ import { getPalletById } from './pallet/constants';
 import { getMaxQuantities, totalUsedLengthMM, usedLengthForGroupMM } from './pallet/utils';
 
 export const cargoGroupSchema = z.object({
+  groupId: z.number().int().min(1, 'Неправильный идентификатор группы'),
   palletId: z.enum(['EUR', 'FIN', 'SQUARE'] as const),
   weight: z.coerce.number().min(1).max(1500),
   quantity: z.coerce.number().min(1),
@@ -38,9 +39,7 @@ export function formCargoSchema(deckLengthMM: number) {
               code: z.ZodIssueCode.custom,
               message: `Сумма длины всех паллет ${Math.ceil(
                 totalUsed / 1000,
-              )}м. превышает длину платформы ${Math.ceil(
-                deckLengthMM / 1000,
-              )}м. Уменьшите количество паллет.`,
+              )}м. превышает длину платформы ${deckLengthMM / 1000}м. Уменьшите количество паллет.`,
             });
             return;
           }
