@@ -1,0 +1,54 @@
+@use '@styles/variables';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.title {
+  margin-top: 0;
+  margin-right: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.tooltipParagraph {
+  display: block;
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+.tooltipList {
+  li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 0.25rem;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.tooltipListColor {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: variables.$color-background;
+  margin-right: 0.25rem;
+
+  &Success {
+    background-color: variables.$color-success;
+  }
+
+  &Warning {
+    background-color: variables.$color-warning;
+  }
+
+  &Danger {
+    background-color: variables.$color-danger;
+  }
+}

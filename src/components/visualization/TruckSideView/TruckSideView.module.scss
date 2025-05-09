@@ -1,5 +1,42 @@
+@use '@styles/variables';
+
+@keyframes axleLoadingPulse {
+  0% {
+    fill: #ffffff;
+  }
+  50% {
+    fill: #d3daec;
+  }
+  100% {
+    fill: #ffffff;
+  }
+}
+
 .media {
   width: 100%;
   max-width: 482px;
   height: auto;
+  fill: none;
+  stroke-width: 2px;
+  stroke: variables.$color-text-primary;
+}
+
+.axle {
+  fill: variables.$color-white;
+
+  &--loading {
+    animation: axleLoadingPulse 2s infinite ease-in-out;
+  }
+
+  &--success {
+    fill: variables.$color-success-light;
+  }
+
+  &--warning {
+    fill: variables.$color-warning-light;
+  }
+
+  &--danger {
+    fill: variables.$color-danger-light;
+  }
 }

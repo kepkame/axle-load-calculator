@@ -1,0 +1,49 @@
+@use '@styles/variables';
+
+.row {
+  border-bottom: 1px solid variables.$color-text-subtitle-light;
+
+  tfoot > & {
+    // background-color: variables.$color-surface;
+    border-top: 2px solid variables.$color-text-subtitle-light;
+    border-bottom: 2px solid variables.$color-text-subtitle-light;
+  }
+}
+
+.data {
+  font-size: 0.875rem;
+  color: variables.$color-text-secondary;
+  padding: 8px;
+
+  &Footer {
+    color: variables.$color-text-primary;
+  }
+
+  &:first-child {
+    width: calc(100% - 130px);
+    padding-left: 4px;
+  }
+
+  &:last-child {
+    width: 130px;
+    font-weight: 600;
+    color: variables.$color-success-dark;
+    border-left: 1px solid variables.$color-text-subtitle-light;
+    padding-right: 4px;
+
+    &.dataWarning {
+      color: variables.$color-warning;
+    }
+
+    &.dataDanger {
+      color: variables.$color-danger;
+    }
+  }
+}
+
+.dataLiftedTag {
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
+}

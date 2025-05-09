@@ -36,7 +36,6 @@ export function useAxleArraySync(
   const baseTruck = Math.floor(truckAxlesRaw);
   const hasLifted = truckAxlesRaw % 1 !== 0;
   const totalExpected = baseTruck + (hasLifted ? 1 : 0) + trailerAxlesRaw;
-  // const hasLiftedInFields = fields.some((f) => f.lifted === true);
   const hasLiftedInFields = fields.some((f) => f.lifted === true && f.axleType === 'truck');
 
   useEffect(() => {

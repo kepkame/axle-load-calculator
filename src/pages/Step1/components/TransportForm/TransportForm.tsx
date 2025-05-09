@@ -1,10 +1,10 @@
-import { TruckAxleVisualizer } from '@components/visualization/TruckAxleVisualizer/TruckAxleVisualizer';
 import { AxleLoadTable } from '@components/Table/AxleLoadTable/AxleLoadTable';
 import { AxleLoadSkeletonMobile } from '@components/Table/AxleLoadTable/AxleLoadTableSkeleton/AxleLoadSkeletonMobile';
 import { formSchema } from '@entities/step1Form/schema';
 import { getConstraintsFromSchema } from '../../validation/validationUtils';
 import { TruckFormSection } from './TruckFormSection';
 import { TrailerFormSection } from './TrailerFormSection';
+import { TruckAxleSection } from './TruckAxleSection';
 import { TransportFormEmptyMessage } from './TransportFormEmptyMessage';
 import type { TransportFormProps } from './TransportForm.types';
 import styles from './TransportForm.module.scss';
@@ -42,7 +42,7 @@ export const TransportForm: React.FC<TransportFormProps> = ({
 
       <TrailerFormSection control={control} errors={errors} constraints={constraints} />
 
-      <TruckAxleVisualizer control={control} className={styles.axleLoadVisualization} />
+      <TruckAxleSection control={control} className={styles.axleLoadVisualization} />
 
       {isAxleDataReady ? (
         <AxleLoadTable

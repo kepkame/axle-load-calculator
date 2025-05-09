@@ -1,24 +1,20 @@
-import React from 'react';
-import { COLUMN_TITLES } from './data';
+import { LoadStatusTableHeader } from './LoadStatusTableHeader/LoadStatusTableHeader';
+import { LoadStatusRow } from './LoadStatusTableRows/LoadStatusRow';
+import { LoadStatusTableFooter } from './LoadStatusTableFooter/LoadStatusTableFooter';
+import type { LoadStatusTableProps } from './LoadStatusTable.types';
 
-export const AxleLoadTable: React.FC = () => {
+export const LoadStatusTable: React.FC<LoadStatusTableProps> = ({ rows, step1Data, step2Data }) => {
   return (
     <>
-      <thead>
-        <tr>
-          {COLUMN_TITLES.map((title) => (
-            <td key={title}>{title}</td>
-          ))}
-        </tr>
-      </thead>
+      <LoadStatusTableHeader />
 
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>
+        {rows.map((row) => {
+          return <LoadStatusRow key={row.axleKey} row={row} />;
+        })}
       </tbody>
+
+      <LoadStatusTableFooter step1Data={step1Data} step2Data={step2Data} />
     </>
   );
 };

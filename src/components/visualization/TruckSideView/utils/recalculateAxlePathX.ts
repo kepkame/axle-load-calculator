@@ -6,7 +6,7 @@ interface RecalculateAxlePathXParams {
 }
 
 /**
- * Parses the "d" attribute string and returns an array of tokens.
+ * Parses an SVG "d" attribute string and returns an array of tokens.
  * @param d - the "d" attribute string
  * @returns an array of tokens
  * @throws Error if parsing fails
@@ -43,7 +43,7 @@ const extractXCoordinates = (tokens: string[]): number[] => {
 };
 
 /**
- * Recalculates coordinates by adjusting only the X values.
+ * Shifts X-coordinates by a delta, leaves Y unchanged.
  * @param tokens - the original token array
  * @param shiftX - the shift value along the X-axis
  * @returns a new token array with updated coordinates
@@ -66,8 +66,7 @@ const recalcCoordinates = (tokens: string[], shiftX: number): string[] => {
 };
 
 /**
- * Recalculates the "d" attribute value by adjusting the X-coordinates.
- * This function is pure, declarative, and strictly typed.
+ * Adjusts the path's X-coordinates to align the leftmost point to newLeftX
  * @param params.newLeftX - the new minimum X value
  * @param params.originalD - the original "d" attribute value (defaults to a predefined value if not provided)
  * @returns the updated "d" attribute with recalculated coordinates
@@ -88,6 +87,7 @@ const recalculateAxlePathX = ({ newLeftX, originalD }: RecalculateAxlePathXParam
 
     return newTokens.join(' ');
   } catch (error) {
+    // Adds context to error for easier debugging
     throw new Error(
       `recalculateAxlePathX failed: ${error instanceof Error ? error.message : String(error)}`,
     );

@@ -1,20 +1,20 @@
+import api from './client';
 import { FormSchemaType } from '@entities/step1Form/types';
 
 /**
  * Fetches the default values of the Step1 form from the Mokky API
  */
 export async function fetchDefaultStep1(): Promise<FormSchemaType> {
-  const response = await fetch('https://1a1607d9514f4230.mokky.dev/defaultValuesStep1');
+  try {
+    const response = await api.get<FormSchemaType[]>('/defaultValuesStep1');
+    const data = response.data;
 
-  if (!response.ok) {
-    throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('API response is empty or in an invalid format');
+    }
+
+    return data[0];
+  } catch (error) {
+    throw new Error('Failed to load default form data');
   }
-
-  const data = await response.json();
-
-  if (!Array.isArray(data) || data.length === 0) {
-    throw new Error('Ответ от API пустой или в неверном формате');
-  }
-
-  return data[0];
 }

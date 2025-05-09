@@ -42,7 +42,7 @@ export const useDefaultStep1Data = (): UseStep1FormStateResult => {
       dispatch(saveFormData(normalized));
       dispatch(markFormFilled());
     } catch (error) {
-      console.error('Ошибка при загрузке данных формы Step1:', error);
+      console.error('Error loading Step1 form data:', error);
       alert('Не удалось загрузить значения формы по умолчанию. Будет использована пустая форма.');
       dispatch(saveFormData(getEmptyFormData()));
       dispatch(markFormFilled());

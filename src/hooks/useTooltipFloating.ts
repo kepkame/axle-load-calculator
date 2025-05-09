@@ -9,12 +9,12 @@ interface UseTooltipFloatingProps {
   setOpen: (open: boolean) => void;
 }
 
+/**
+ * Hook to manage tooltip positioning, interaction, and dynamic updates
+ */
 export const useTooltipFloating = ({ open, setOpen }: UseTooltipFloatingProps) => {
-  // Ref for the tooltip arrow element
-  const arrowRef = useRef<SVGSVGElement | null>(null);
-
-  // State to store the current tooltip placement
-  const [placement, setPlacement] = useState<string>('bottom');
+  const arrowRef = useRef<SVGSVGElement | null>(null); // Ref for tooltip arrow element
+  const [placement, setPlacement] = useState<string>('bottom'); // Stores actual placement used
 
   // Initializing tooltip positioning using Floating UI
   const {
@@ -44,8 +44,7 @@ export const useTooltipFloating = ({ open, setOpen }: UseTooltipFloatingProps) =
   });
 
   useEffect(() => {
-    // Updates `placement` when `floatingPlacement` changes,
-    // ensuring the arrow in `Arrow` stays correctly positioned.
+    // Syncs internal placement state for arrow alignment
     setPlacement(floatingPlacement);
   }, [floatingPlacement]);
 
