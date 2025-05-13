@@ -8,6 +8,8 @@ import { useStepsGuard } from '@hooks/useStepsGuard';
 import { useStepSync } from '@hooks/useStepSync';
 
 import styles from './Step3Page.module.scss';
+import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 /**
  * Step3Page – displays axle load results and cargo layout.
@@ -21,15 +23,42 @@ const Step3Page = () => {
   const step1Data = useSelector(selectStep1FormData);
   const step2Data = useSelector(selectStep2FormData);
 
+  const { error, refetch } = useCalculateAxleLoadsQuery(
+    { step1Data, step2Data },
+    { skip: !isAllowed },
+  );
+
   if (!isAllowed) return null;
+
+  const fetchError = error as FetchBaseQueryError | undefined;
+  const isHttpError =
+    fetchError &&
+    typeof fetchError.status === 'number' &&
+    [400, 500].includes(fetchError.status as number);
 
   return (
     <>
       <h2 className={styles.stepTitle}>Размещение груза</h2>
 
+      {isHttpError && (
+        <div className={styles.errorContainer}>
+          <p>
+            При загрузке данных расчёта нагрузки произошла ошибка сервера (
+            {fetchError.status as number}). Пожалуйста, попробуйте ещё раз.
+          </p>
+          <button className="btn" onClick={() => refetch()}>
+            Повторить
+          </button>
+        </div>
+      )}
+
       <SectionAxleLoad step1Data={step1Data} step2Data={step2Data} />
 
-      <SectionCargoLayout deckLength={step1Data.deckLength} />
+      <SectionCargoLayout
+        deckLength={step1Data.deckLength}
+        step1Data={step1Data}
+        step2Data={step2Data}
+      />
     </>
   );
 };
