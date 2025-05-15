@@ -10,6 +10,7 @@ import { useStepSync } from '@hooks/useStepSync';
 import styles from './Step3Page.module.scss';
 import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useEffect } from 'react';
 
 /**
  * Step3Page – displays axle load results and cargo layout.
@@ -23,10 +24,17 @@ const Step3Page = () => {
   const step1Data = useSelector(selectStep1FormData);
   const step2Data = useSelector(selectStep2FormData);
 
-  const { error, refetch } = useCalculateAxleLoadsQuery(
+  const { data, isLoading, error, refetch } = useCalculateAxleLoadsQuery(
     { step1Data, step2Data },
     { skip: !isAllowed },
   );
+
+  useEffect(() => {
+    if (!isLoading) {
+      console.log('[Step3Page] Ответ API:', data);
+      if (error) console.warn('[Step3Page] Ошибка API:', error);
+    }
+  }, [data, isLoading, error]);
 
   if (!isAllowed) return null;
 
