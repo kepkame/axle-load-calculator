@@ -8,15 +8,15 @@ import type {
 import { mergeAxleFormAndCalcData } from '@pages/Step3/utils/mergeAxleFormAndCalcData';
 import type { AxleCalculationResult } from '@shared-types/axleCalculation';
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://1a1607d9514f4230.mokky.dev',
-  }),
+  baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     // Fetch default values for Step 1
     getDefaultStep1: builder.query<GetDefaultStep1Response, void>({
-      query: () => '/defaultValuesStep1',
+      query: () => '/api/defaultValuesStep1',
       transformResponse: (response: GetDefaultStep1Response[]) => {
         if (!Array.isArray(response) || response.length === 0) {
           throw new Error('Empty response received from /defaultValuesStep1');
@@ -34,7 +34,7 @@ export const apiSlice = createApi({
           step2: step2Data,
         });
         return {
-          url: '/result',
+          url: '/api/result',
           method: 'POST',
           body: { step1: step1Data, step2: step2Data },
         };
