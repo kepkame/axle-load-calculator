@@ -1,4 +1,9 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useAppDispatch } from './store';
+import { initFormData } from '@store/slices/step1FormSlice/step1FormSlice';
+import { selectStep1FormInitialized } from '@store/slices/step1FormSlice/step1FormSlice.selectors';
 import { MainLayout } from '@layouts/MainLayout/MainLayout';
 import { CalcLayout } from '@layouts/CalcLayout/CalcLayout';
 import Step1Page from '@pages/Step1/Step1Page';
@@ -49,6 +54,15 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useAppDispatch();
+  const initialized = useSelector(selectStep1FormInitialized);
+
+  useEffect(() => {
+    if (!initialized) {
+      dispatch(initFormData());
+    }
+  }, [initialized, dispatch]);
+
   return <RouterProvider router={router} />;
 }
 

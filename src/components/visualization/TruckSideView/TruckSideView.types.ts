@@ -1,16 +1,18 @@
-import { AxleVisualizationModel, AxleStatus } from '../TruckVisualizer/models';
+import type { TruckAxleCount } from '@shared-constants/axleCounts';
+import type { AxleVisualizationModel, AxleStatus } from '../TruckVisualizer/models';
 
-// Allowed discrete values for tractor and trailer axle count
-export type TractorAxleCount = 2 | 2.5 | 3;
-export type TrailerAxleCount = 2 | 3 | 4;
-
+/**
+ * Props for the full truck side view visualization.
+ * Accepts an array of axle objects (both tractor and trailer).
+ */
 export interface TruckSideViewProps {
-  tractorAxleCount?: number;
-  trailerAxleCount?: number;
   axles: AxleVisualizationModel[];
 }
 
+/**
+ * Props for individual axle renderer (tractor or trailer).
+ */
 export interface AxlesProps {
-  axleCount?: number;
+  axleCount: TruckAxleCount;
   statuses: AxleStatus[];
 }

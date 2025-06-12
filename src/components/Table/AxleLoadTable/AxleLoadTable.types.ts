@@ -1,15 +1,10 @@
-import { Control, FieldErrors, FieldArrayWithId } from 'react-hook-form';
-import {
-  AxleLoadDataItem,
-  FormSchemaType,
-} from '@pages/Step1/components/TransportForm/TransportForm.types';
-
-// Type of one element of axleLoadData array in useFieldArray with ID included
-export type AxleFieldArrayItem = FieldArrayWithId<FormSchemaType, 'axleLoadData', 'id'>;
+import { Control, FieldErrors } from 'react-hook-form';
+import type { FormSchemaType, FormContext, AxleLoadDataItem } from '@entities/step1Form/types';
+import type { AxleFieldArrayItem } from '@entities/step1Form/types';
 
 export interface AxleLoadTableProps {
   fields: AxleFieldArrayItem[]; // Axis array obtained via useFieldArray, with service IDs included
-  control: Control<FormSchemaType>;
+  control: Control<FormSchemaType, FormContext>;
   name: 'axleLoadData';
   trigger: (name?: any) => Promise<boolean>; // Trigger for manual validation of specific fields
   constraints: {

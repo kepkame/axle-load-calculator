@@ -1,7 +1,7 @@
-import { FormSchemaType } from '@entities/step1Form/types';
 import type { LoadStatusRow } from '@components/Table/LoadStatusTable/LoadStatusTableRows/LoadStatusRow.types';
-import { generateAxleKeys } from '@pages/Step1/utils/generateAxleKeys';
-import { AxleCalculationResult } from '@shared-types/axleCalculation';
+import type { FormSchemaType } from '@entities/step1Form/types';
+import { generateAxleKeys } from '@utils/generateAxleKeys';
+import type { AxleCalculationResult } from '@shared-types/axleCalculation';
 
 /**
  * Combines axle calculation results with user-entered form data.

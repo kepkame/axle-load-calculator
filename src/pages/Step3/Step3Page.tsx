@@ -31,7 +31,6 @@ const Step3Page = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      console.log('[Step3Page] Ответ API:', data);
       if (error) console.warn('[Step3Page] Ошибка API:', error);
     }
   }, [data, isLoading, error]);

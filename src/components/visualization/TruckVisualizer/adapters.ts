@@ -1,60 +1,86 @@
 import { Control, useWatch } from 'react-hook-form';
-import { FormSchemaType } from '@entities/step1Form/types';
-import { TruckVisualizationModel, AxleLoadInfo } from './models';
+import type { FormSchemaType, FormContext } from '@entities/step1Form/types';
+import type { TruckVisualizationModel, AxleLoadInfo } from './models';
 
 /**
- * Maps live form input to a visualization model for rendering.
+ * Adapter hook: watches form state and transforms it into a visualization model.
+ *
+ * Ensures axle data reflects the current truck/trailer count and strips excess
+ * entries to match the user's configuration. Used for live previews in the form UI.
  */
 export function useFormVisualizationAdapter(
-  control: Control<FormSchemaType>,
+  control: Control<FormSchemaType, FormContext>,
 ): TruckVisualizationModel {
-  // Watches specific fields from the form state
   const [truckAxles, trailerAxles, axleLoadData] = useWatch({
     control,
     name: ['truckAxles', 'trailerAxles', 'axleLoadData'],
   });
 
-  // Parses axle counts from strings with fallbacks
-  const tractorAxleCount = parseFloat(truckAxles || '2');
-  const trailerAxleCount = parseInt(trailerAxles || '3', 10);
+  const tractorCount = parseInt(truckAxles || '0', 10) || 0;
+  const trailerCount = parseInt(trailerAxles || '0', 10) || 0;
 
-  // Normalizes axle load data into a consistent shape
-  const axleLoadInfo: AxleLoadInfo[] = Array.isArray(axleLoadData)
+  // Transform all axleLoadData entries → AxleLoadInfo[]
+  const rawAxles: AxleLoadInfo[] = Array.isArray(axleLoadData)
     ? axleLoadData.map((item) => ({
         axleType: item.axleType as 'truck' | 'trailer',
         loadEmpty: item.axleLoadEmpty,
         loadLimit: item.axleLoadLimit,
-        lifted: item.lifted,
+        lifted: item.lifted ?? false,
       }))
     : [];
 
-  return {
-    tractorAxles: tractorAxleCount,
-    trailerAxles: trailerAxleCount,
-    axles: axleLoadInfo.map((axle, index) => ({
-      axleKey: `axle-${index}`, // Temporary unique key for rendering
-      axleType: axle.axleType,
+  let truckAxleInfos = rawAxles.filter((a) => a.axleType === 'truck');
+  let trailerAxleInfos = rawAxles.filter((a) => a.axleType === 'trailer');
+
+  // Defensive: truncate arrays if more axles exist than form allows
+  if (truckAxleInfos.length > tractorCount) {
+    truckAxleInfos = truckAxleInfos.slice(0, tractorCount);
+  }
+  if (trailerAxleInfos.length > trailerCount) {
+    trailerAxleInfos = trailerAxleInfos.slice(0, trailerCount);
+  }
+
+  const axles = [
+    // Truck axles use base index
+    ...truckAxleInfos.map((axle, index) => ({
+      axleKey: `axle-${index}`,
+      axleType: 'truck' as const,
       index,
       lifted: axle.lifted,
     })),
+    // Trailer axles use offset index to maintain uniqueness
+    ...trailerAxleInfos.map((axle, index) => ({
+      axleKey: `axle-${tractorCount + index}`,
+      axleType: 'trailer' as const,
+      index,
+      lifted: axle.lifted,
+    })),
+  ];
+
+  return {
+    tractorAxles: tractorCount,
+    trailerAxles: trailerCount,
+    axles,
   };
 }
 
 /**
- * Converts serialized form data (e.g., from Redux) to a visualization model.
+ * Static version of the visualization adapter for use outside form context.
+ *
+ * Accepts raw axle data and counts (e.g., from server or Redux) and formats it
+ * for visualization. Ensures consistent structure and indexing.
  */
 export function createVisualizationModel(data: {
   truckAxles: string;
   trailerAxles: string;
   axleLoadData?: Array<{
-    axleType?: string;
+    axleType: 'truck' | 'trailer';
     axleLoadEmpty?: number;
     axleLoadLimit?: number;
-    lifted?: boolean;
+    lifted: boolean;
   }>;
 }): TruckVisualizationModel {
-  // Parses axle counts from strings with default fallback values
-  const tractorAxleCount = parseFloat(data.truckAxles || '2');
+  const tractorAxleCount = parseInt(data.truckAxles || '2');
   const trailerAxleCount = parseInt(data.trailerAxles || '3', 10);
 
   // Transforms axle data into a normalized format

@@ -1,6 +1,6 @@
 export const TractorCab = () => {
   return (
-    <g id="cab">
+    <g id="tractor-cab">
       <line x1="4" y1="116" x2="4" y2="128" />
       <line x1="26" y1="116" x2="26" y2="128" />
       <line x1="3" y1="115" x2="27" y2="115" />

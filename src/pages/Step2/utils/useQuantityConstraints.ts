@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useWatch, Control } from 'react-hook-form';
-import { FormSchemaType } from '@entities/step2Form/types';
 import { getMaxQuantities } from '@entities/step2Form/pallet/utils';
+import type { FormSchemaType } from '@entities/step2Form/types';
 
 interface UseAllQuantityConstraintsParams {
   control: Control<FormSchemaType>;

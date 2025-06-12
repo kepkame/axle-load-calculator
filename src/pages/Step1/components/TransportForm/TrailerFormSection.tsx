@@ -1,14 +1,58 @@
 import { BaseField } from '@components/forms/BaseField/BaseField';
 import { NumberField } from '@components/forms/fields/NumberField/NumberField';
 import { RadioGroup } from '@components/forms/fields/RadioGroup/RadioGroup';
-import { FormSectionProps } from './TransportForm.types';
+import { ToggleOptionGroup } from '@components/ui/ToggleOptionGroup/ToggleOptionGroup';
+import type { ToggleOption } from '@components/ui/ToggleOptionGroup/ToggleOptionGroup.types';
+import { useToggleOptionGroupLogic } from '@entities/step1Form/hooks/useToggleOptionGroupLogic';
+import { generateWheelbaseKeys } from '../../utils/generateWheelbaseKeys';
+import type { FormSectionProps } from './TransportForm.types';
 import styles from './TransportForm.module.scss';
 
+/**
+ * Renders input fields related to the semi-trailer configuration.
+ *
+ * Used within Step1 form to capture trailer-specific transport parameters.
+ */
 export const TrailerFormSection: React.FC<FormSectionProps> = ({
   control,
   errors,
   constraints,
+  wheelbaseValues,
+  fields,
+  update,
+  axleCount,
 }) => {
+  const { min, max } = constraints.trailerWheelbase as { min: number; max: number };
+
+  // Guarantees at least one wheelbase field; avoids UI/validation inconsistencies
+  const trailerAxleCount = Math.max(2, wheelbaseValues.length + 1);
+  const allKeys = generateWheelbaseKeys(0, trailerAxleCount);
+  const trailerKeys = allKeys.filter((k) => k.startsWith('trailer-'));
+
+  // Handles toggleable lift axle selection.
+  const { actualIndices, selectedRelative, handleToggle } = useToggleOptionGroupLogic({
+    fields,
+    control,
+    update,
+    axleType: 'trailer',
+    axleCount,
+  });
+
+  // Create toggle options for each eligible axle (except last)
+  const liftOptions: ToggleOption[] = actualIndices
+    .map((globalIdx, relIdx) => ({
+      axleId: fields[globalIdx].axleId,
+      label: String(relIdx + 1),
+      selected: selectedRelative === relIdx,
+      onToggle: () => handleToggle(relIdx),
+    }))
+    .filter((_, relIdx) => {
+      const isOnlyFirstAllowed = axleCount === 2;
+      const isNotLast = relIdx < axleCount - 1;
+
+      return (isOnlyFirstAllowed && relIdx === 0) || (!isOnlyFirstAllowed && isNotLast);
+    });
+
   return (
     <fieldset className={styles.fieldset}>
       <legend>Данные полуприцепа</legend>
@@ -42,31 +86,41 @@ export const TrailerFormSection: React.FC<FormSectionProps> = ({
         error={errors.trailerAxles?.message}
       />
 
-      <RadioGroup
-        name="couplingLength"
-        options={[
-          { value: '1.20', option: '1.20' },
-          { value: '1.35', option: '1.35' },
-          { value: '1.50', option: '1.50' },
-          { value: '1.60', option: '1.60' },
-        ]}
-        label="Длина сцепного устройства (метров)"
-        tooltip="Расстояние от сцепного устройства до точки сцепки с полуприцепом."
-        control={control}
-        error={errors.couplingLength?.message}
-      />
+      <ToggleOptionGroup options={liftOptions} label="Подъёмная ось полуприцепа (если есть)" />
+
+      {wheelbaseValues.map((_, idx) => (
+        <BaseField
+          key={trailerKeys[idx] || `trailer-wheelbase-${idx}`}
+          label={`Расстояние между ${idx + 1} и ${idx + 2} осями прицепа`}
+          error={errors.trailerWheelbase?.[idx]?.message}
+          tooltip="Измеряется от центра одной оси до центра следующей."
+          units="метров"
+        >
+          <NumberField
+            name={`trailerWheelbase.${idx}` as const}
+            control={control}
+            min={min}
+            max={max}
+            maxLength={5}
+            decimalPlaces={2}
+            showRange
+            inputMode="decimal"
+            isUnits
+          />
+        </BaseField>
+      ))}
 
       <BaseField
-        label="Межосевое расстояние осей полуприцепа"
-        error={errors.trailerWheelbase?.message}
-        tooltip="Расстояние между осями полуприцепа, измеряется по центрам осей."
+        label="Длина сцепного устройства"
+        error={errors.couplingLength?.message}
+        tooltip="Расстояние от сцепного устройства до точки сцепки с полуприцепом."
         units="метров"
       >
         <NumberField
-          name="trailerWheelbase"
+          name="couplingLength"
           control={control}
-          min={(constraints.trailerWheelbase as { min: number; max: number }).min}
-          max={(constraints.trailerWheelbase as { min: number; max: number }).max}
+          min={(constraints.couplingLength as { min: number; max: number }).min}
+          max={(constraints.couplingLength as { min: number; max: number }).max}
           maxLength={5}
           decimalPlaces={2}
           showRange

@@ -5,12 +5,12 @@ import { saveFormData, markFormFilled } from '@store/slices/step2FormSlice/step2
 import { resetStepsAfter, validateStep } from '@store/slices/stepsSlice/stepsSlice';
 import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
 
-import Step2FormContent from './components/Step2FormContent/Step2FormContent';
 import { Form } from '@components/forms/Form/Form';
-import { FormSchemaType } from '@entities/step2Form/types';
+import type { FormSchemaType } from '@entities/step2Form/types';
 import { useStepsGuard } from '@hooks/useStepsGuard';
 import { useStepSync } from '@hooks/useStepSync';
 
+import Step2FormContent from './components/Step2FormContent/Step2FormContent';
 import { useStep2FormConfig } from './hooks/useStep2FormConfig';
 import styles from './Step2Page.module.scss';
 

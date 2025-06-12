@@ -1,6 +1,6 @@
 import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
-import { FormSchemaType as Step1FormData } from '@entities/step1Form/types';
-import { FormSchemaType as Step2FormData } from '@entities/step2Form/types';
+import type { FormSchemaType as Step1FormData } from '@entities/step1Form/types';
+import type { FormSchemaType as Step2FormData } from '@entities/step2Form/types';
 
 import styles from './SectionCargoLayout.module.scss';
 

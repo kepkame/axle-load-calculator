@@ -5,6 +5,11 @@ import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
 import { RangeFieldProps } from './RangeField.types';
 import styles from './RangeField.module.scss';
 
+/**
+ * Slider input for adjusting numeric values with controlled precision.
+ *
+ * Used alongside NumberField to give users a more intuitive way to fine-tune values.
+ */
 export const RangeField: React.FC<RangeFieldProps> = ({
   value,
   onChange,
@@ -14,23 +19,22 @@ export const RangeField: React.FC<RangeFieldProps> = ({
 }) => {
   const [step, setStep] = useState(1);
 
-  // Observe the change in `value` and recalculate `step`
+  // Recalculate slider step when value or precision changes.
+  // Prevents jumpy behavior for small decimal ranges.
   useEffect(() => {
     setStep(calculateStep(value, decimalPlaces));
   }, [value, decimalPlaces]);
 
-  /**
-   * Handler for changing the value of the slider.
-   */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
 
-    // Rounding before setting
+    // Ensure value lands on a valid step
     const roundedValue = roundToNearestStep(newValue, step, max, decimalPlaces);
 
     // Format the number before sending it to onChange
     const formattedValue = formatNumberToDecimals(roundedValue, decimalPlaces);
 
+    // Propagate change to parent (usually a NumberField)
     onChange(formattedValue);
   };
 

@@ -1,11 +1,14 @@
+import { useWatch } from 'react-hook-form';
 import { AxleLoadTable } from '@components/Table/AxleLoadTable/AxleLoadTable';
-import { AxleLoadSkeletonMobile } from '@components/Table/AxleLoadTable/AxleLoadTableSkeleton/AxleLoadSkeletonMobile';
+import { AxleLoadSkeleton } from '@components/Table/AxleLoadTable/AxleLoadTableSkeleton/AxleLoadSkeleton';
+import { TruckAxleVisualizer } from '@components/visualization/TruckAxleVisualizer/TruckAxleVisualizer';
 import { formSchema } from '@entities/step1Form/schema';
+
 import { getConstraintsFromSchema } from '../../validation/validationUtils';
 import { TruckFormSection } from './TruckFormSection';
 import { TrailerFormSection } from './TrailerFormSection';
-import { TruckAxleSection } from './TruckAxleSection';
 import { TransportFormEmptyMessage } from './TransportFormEmptyMessage';
+
 import type { TransportFormProps } from './TransportForm.types';
 import styles from './TransportForm.module.scss';
 
@@ -17,32 +20,62 @@ const axleLoadConstraints = constraints.axleLoadData as {
 };
 
 /**
- * TransportForm - visual component responsible for displaying the form
- * of transport parameters and axle load distribution table.
+ * Renders the full transport configuration UI (truck, trailer, axles).
+ *
+ * Includes conditional logic to handle intermediate states:
+ * shows skeletons when axle data isn't ready and renders fallback
+ * when no axle config is yet possible (e.g., 0 axles selected).
  */
 export const TransportForm: React.FC<TransportFormProps> = ({
   control,
   errors,
   trigger,
   fields,
+  update,
   truckAxles,
   trailerAxles,
 }) => {
-  // A fractional truck axle count (e.g., 2.5) indicates presence of a lifted axle
-  const hasLiftedAxle = truckAxles % 1 !== 0;
+  const [truckAxlesRaw, trailerAxlesRaw] = useWatch({
+    control,
+    name: ['truckAxles', 'trailerAxles'],
+  });
 
-  const totalExpected = Math.floor(truckAxles) + (hasLiftedAxle ? 1 : 0) + trailerAxles;
-
+  const truckCount = Number(truckAxlesRaw) || 0;
+  const trailerCount = Number(trailerAxlesRaw) || 0;
+  const totalExpected = truckCount + trailerCount;
   const isAxleDataReady = fields.length === totalExpected;
-  const axleDataCanExist = truckAxles > 0 && trailerAxles > 0;
+
+  const axleDataCanExist = truckCount > 0 && trailerCount > 0;
+
+  const truckWheelbaseValues = useWatch({ control, name: 'truckWheelbase' }) ?? [];
+  const trailerWheelbaseValues = useWatch({ control, name: 'trailerWheelbase' }) ?? [];
 
   return (
     <>
-      <TruckFormSection control={control} errors={errors} constraints={constraints} />
+      <TruckFormSection
+        control={control}
+        errors={errors}
+        constraints={constraints}
+        wheelbaseValues={truckWheelbaseValues}
+        fields={fields}
+        update={update}
+        axleCount={truckAxles}
+      />
 
-      <TrailerFormSection control={control} errors={errors} constraints={constraints} />
+      <TrailerFormSection
+        control={control}
+        errors={errors}
+        constraints={constraints}
+        wheelbaseValues={trailerWheelbaseValues}
+        fields={fields}
+        update={update}
+        axleCount={trailerAxles}
+      />
 
-      <TruckAxleSection control={control} className={styles.axleLoadVisualization} />
+      <div className={styles.axleLoadVisualization}>
+        <h3>Нагрузка на оси</h3>
+        <TruckAxleVisualizer control={control} />
+      </div>
 
       {isAxleDataReady ? (
         <AxleLoadTable
@@ -54,7 +87,8 @@ export const TransportForm: React.FC<TransportFormProps> = ({
           errors={Array.isArray(errors.axleLoadData) ? errors.axleLoadData : []}
         />
       ) : axleDataCanExist ? (
-        <AxleLoadSkeletonMobile />
+        // Show skeleton if both truck & trailer axle counts are present but data hasn't synced yet
+        <AxleLoadSkeleton />
       ) : (
         <TransportFormEmptyMessage className={styles.emptyMessage} />
       )}

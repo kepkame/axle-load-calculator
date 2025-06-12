@@ -5,7 +5,7 @@ import {
   FieldPath,
   UseFieldArrayRemove,
 } from 'react-hook-form';
-import { FormSchemaType } from '@entities/step2Form/types';
+import type { FormSchemaType } from '@entities/step2Form/types';
 
 /**
  * Defines minimum and maximum values for cargo field validations (weight and quantity).

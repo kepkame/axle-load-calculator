@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useWatch, Control } from 'react-hook-form';
 import { PALLET_SIZES } from '@entities/step2Form/pallet/constants';
 import { totalUsedLengthMM } from '@entities/step2Form/pallet/utils';
-import { FormSchemaType } from '@entities/step2Form/types';
+import type { FormSchemaType } from '@entities/step2Form/types';
 
 interface Params {
   control: Control<FormSchemaType>;

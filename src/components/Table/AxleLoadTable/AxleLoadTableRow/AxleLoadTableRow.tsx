@@ -1,34 +1,63 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useWatch } from 'react-hook-form';
-import { AxleLoadTableRowProps } from './AxleLoadTableRow.types';
-import { AxleLoadTableRowErrors } from '../AxleLoadTableRowErrors/AxleLoadTableRowErrors';
-import { AxleLoadTableData } from '../AxleLoadTableData/AxleLoadTableData';
 import IconTruck from '@assets/icons/truck.svg?react';
 import IconTruckCargo from '@assets/icons/truck-cargo.svg?react';
+import { setAxleCache } from '@store/slices/step1FormSlice/step1FormSlice';
+import { AxleLoadTableData } from '../AxleLoadTableData/AxleLoadTableData';
+import { AxleLoadTableRowErrors } from '../AxleLoadTableRowErrors/AxleLoadTableRowErrors';
+import type { AxleLoadTableRowProps } from './AxleLoadTableRow.types';
 import styles from './AxleLoadTableRow.module.scss';
 
+/**
+ * Renders a single row in the axle load table.
+ */
 export const AxleLoadTableRow: React.FC<AxleLoadTableRowProps> = ({
   control,
   trigger,
   errors,
   label,
   index,
+  axleId,
   axleLoadEmpty,
   axleLoadLimit,
   isLifted = false,
   constraints,
 }) => {
-  // Construct field names using the array index
-  const axleLoadEmptyName = `axleLoadData.${index}.axleLoadEmpty` as const;
-  const axleLoadLimitName = `axleLoadData.${index}.axleLoadLimit` as const;
+  const dispatch = useDispatch();
 
-  // Watch current values for re-validation purposes
-  const axleLoadEmptyValue = useWatch({ control, name: axleLoadEmptyName });
-  const axleLoadLimitValue = useWatch({ control, name: axleLoadLimitName });
+  const axleItem = useWatch({
+    control,
+    name: `axleLoadData.${index}`,
+  });
+
+  const {
+    axleType,
+    axleLoadEmpty: axleLoadEmptyValue,
+    axleLoadLimit: axleLoadLimitValue,
+    lifted: liftedValue,
+  } = axleItem ?? {};
+
+  // Cache the latest input state to Redux to persist across steps
+  useEffect(() => {
+    if (!axleId || !axleType) return;
+    dispatch(
+      setAxleCache([
+        {
+          axleId,
+          axleType,
+          axleLoadEmpty: axleLoadEmptyValue,
+          axleLoadLimit: axleLoadLimitValue,
+          lifted: liftedValue,
+        },
+      ]),
+    );
+  }, [axleId, axleType, axleLoadEmptyValue, axleLoadLimitValue, liftedValue, dispatch]);
 
   useEffect(() => {
-    trigger([axleLoadEmptyName, axleLoadLimitName]);
-  }, [axleLoadEmptyValue, axleLoadLimitValue, axleLoadEmpty, axleLoadLimit, trigger]);
+    // Re-trigger validation when the user changes values manually
+    trigger([`axleLoadData.${index}.axleLoadEmpty`, `axleLoadData.${index}.axleLoadLimit`]);
+  }, [axleLoadEmptyValue, axleLoadLimitValue, trigger, index]);
 
   return (
     <>
@@ -62,7 +91,7 @@ export const AxleLoadTableRow: React.FC<AxleLoadTableRowProps> = ({
         />
       </tr>
 
-      {/* Renders validation error messages if any exist for this row */}
+      {/* Show validation messages below the row if needed */}
       <AxleLoadTableRowErrors errors={errors} />
     </>
   );

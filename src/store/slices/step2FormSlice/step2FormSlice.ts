@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FormSchemaType } from '@entities/step2Form/types';
+import type { FormSchemaType } from '@entities/step2Form/types';
 
 // Defines the initial empty form data for Step 2
 const emptyFormData: FormSchemaType = {

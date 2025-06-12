@@ -1,13 +1,14 @@
+import { TrailerAxleCount } from '@shared-constants/axleCounts';
 import { TRAILER_FRONT_SECTION, TRAILER_FENDERS } from '../data/platformData';
 
 interface TrailerPlatformProps {
-  axleCount: number;
+  axleCount: TrailerAxleCount;
 }
 
-export const TrailerPlatform: React.FC<TrailerPlatformProps> = ({ axleCount = 3 }) => {
+export const TrailerPlatform: React.FC<TrailerPlatformProps> = ({ axleCount }) => {
   return (
     <g id="trailer-platform">
-      <g id="front-section-of-frame-trailer" data-attr={axleCount}>
+      <g id="trailer-front-section-of-frame">
         <line x1="208" y1="102" x2="208" y2="130" />
         <line x1="206" y1="131" x2="220" y2="131" />
         <line x1="217" y1="110" x2="217" y2="130" />
@@ -22,7 +23,7 @@ export const TrailerPlatform: React.FC<TrailerPlatformProps> = ({ axleCount = 3 
         />
       </g>
 
-      <g id="fenders-trailer">
+      <g id="trailer-fenders">
         <line
           x1={TRAILER_FENDERS[axleCount][0][0]}
           y1="125.709"
@@ -43,7 +44,7 @@ export const TrailerPlatform: React.FC<TrailerPlatformProps> = ({ axleCount = 3 
         />
       </g>
 
-      <g id="back-section-of-frame-trailer">
+      <g id="trailer-back-section-of-frame">
         <line x1="431" y1="111" x2="466" y2="111" />
         <line x1="465.588" y1="111.191" x2="476.588" y2="119.191" />
         <line x1="480" y1="119" x2="476" y2="119" />

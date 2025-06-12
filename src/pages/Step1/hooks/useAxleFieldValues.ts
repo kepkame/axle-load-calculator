@@ -1,5 +1,5 @@
 import { useWatch, Control } from 'react-hook-form';
-import { FormSchemaType } from '../components/TransportForm/TransportForm.types';
+import type { FormSchemaType, FormContext } from '@entities/step1Form/types';
 
 interface UseAxleFieldValuesResult {
   truckAxlesRaw: number;
@@ -7,13 +7,13 @@ interface UseAxleFieldValuesResult {
 }
 
 /**
- * Custom hook for getting the current values of the axis fields:
- * - truckAxles (possibly with a fractional part, e.g. 2.5)
- * - trailerAxles (integer)
+ * Extracts the current truck and trailer axle counts from form state.
  *
- * Returns numeric values ready to be passed to syncAxleFields.
+ * Converts values to numbers for use in dynamic field logic (e.g. FieldArray syncing).
  */
-export const useAxleFieldValues = (control: Control<FormSchemaType>): UseAxleFieldValuesResult => {
+export const useAxleFieldValues = (
+  control: Control<FormSchemaType, FormContext>,
+): UseAxleFieldValuesResult => {
   const truckAxles = useWatch({ control, name: 'truckAxles' });
   const trailerAxles = useWatch({ control, name: 'trailerAxles' });
 

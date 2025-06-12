@@ -1,10 +1,15 @@
 import { useId } from 'react';
 import { useController } from 'react-hook-form';
-import { RadioButton } from './RadioButton';
-import { Option, RadioGroupProps } from './RadioGroup.types';
 import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
+import { RadioButton } from './RadioButton';
+import type { Option, RadioGroupProps } from './RadioGroup.types';
 import styles from './RadioGroup.module.scss';
 
+/**
+ * Controlled group of radio buttons with label, error display, and optional tooltip.
+ *
+ * Integrates with react-hook-form and ensures accessible structure (ARIA + dynamic errors).
+ */
 export const RadioGroup: React.FC<RadioGroupProps> = ({
   name,
   options,
@@ -24,6 +29,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     defaultValue: undefined,
   });
 
+  // Generate or reuse group ID for ARIA associations
   const groupId = id || useId();
   const errorMessage = fieldError?.message || error;
 

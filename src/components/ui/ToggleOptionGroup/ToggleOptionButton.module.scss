@@ -1,0 +1,29 @@
+@use '@styles/variables';
+
+.toggleButton {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  background-color: variables.$color-background;
+  border: none;
+  border-radius: variables.$border-radius;
+  padding: 6px 16px;
+  transition: color variables.$duration ease-in-out,
+    background-color variables.$duration ease-in-out;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    background-color: variables.$color-text-subtitle-light;
+  }
+
+  &Selected {
+    color: variables.$color-white;
+    background-color: variables.$color-primary-light;
+
+    &:focus,
+    &:hover {
+      background-color: variables.$color-primary;
+    }
+  }
+}

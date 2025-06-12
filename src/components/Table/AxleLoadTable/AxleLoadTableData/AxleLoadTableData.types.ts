@@ -1,12 +1,12 @@
 import { Control, FieldPath } from 'react-hook-form';
-import { FormSchemaType } from '@pages/Step1/components/TransportForm/TransportForm.types';
+import type { FormSchemaType, FormContext } from '@entities/step1Form/types';
 
 export interface AxleLoadTableDataProps {
   icon: React.ReactNode;
   label: string;
 
   fieldName: FieldPath<FormSchemaType>;
-  control: Control<FormSchemaType>;
+  control: Control<FormSchemaType, FormContext>;
 
   min: number;
   max: number;

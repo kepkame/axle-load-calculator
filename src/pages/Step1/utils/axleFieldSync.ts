@@ -1,5 +1,6 @@
 import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
-import { FormSchemaType } from '../components/TransportForm/TransportForm.types';
+import type { FormSchemaType } from '@entities/step1Form/types';
+import { DEFAULT_AXLE_VALUES } from '../constants/axleOptions';
 
 export interface SyncAxleFieldsParams {
   currentFieldsLength: number;
@@ -10,52 +11,59 @@ export interface SyncAxleFieldsParams {
 }
 
 /**
- * Synchronizes the axleLoadData field array to match the given axle configuration.
+ * Ensures the axleLoadData array matches the current total axle count (truck + trailer).
  *
- * - Removes excess fields when the new configuration has fewer axles.
- * - Appends new fields when the configuration includes additional axles.
- * - Supports lifted truck axles (e.g. 2.5 = 2 + 1 lifted axle).
- * - Prevents focusing newly added fields for smoother UX.
+ * - Removes surplus fields if axle count is reduced
+ * - Appends default fields for new axles if increased
+ * - Uses truck/trailer-specific defaults for initial values
  */
 export const syncAxleFields = ({
-  currentFieldsLength,
+  currentFieldsLength: currentTotal,
   truckAxlesRaw,
   trailerAxlesRaw,
   append,
   remove,
 }: SyncAxleFieldsParams): void => {
-  const baseTruckAxles = Math.floor(truckAxlesRaw);
-  const hasLiftedAxle = truckAxlesRaw % 1 !== 0;
-  const totalTruckAxles = baseTruckAxles + (hasLiftedAxle ? 1 : 0);
-  const totalAxles = totalTruckAxles + trailerAxlesRaw;
-  const currentTotal = currentFieldsLength;
+  const totalAxles = truckAxlesRaw + trailerAxlesRaw;
 
-  // If there are too many fields, remove extras from the end
+  //  Remove fields if the form currently has more than required
   if (currentTotal > totalAxles) {
     for (let i = currentTotal - 1; i >= totalAxles; i--) {
       remove(i);
     }
-  }
-  // If there are too few fields, append new ones
-  else if (currentTotal < totalAxles) {
+  } else if (currentTotal < totalAxles) {
+    // Append missing fields if axle count increased
     for (let i = currentTotal; i < totalAxles; i++) {
-      const isTruck = i < totalTruckAxles;
+      const isTruck = i < truckAxlesRaw;
 
-      // Determine if this axle is a lifted axle (last one on the truck side)
-      const isLifted = isTruck && hasLiftedAxle && i === totalTruckAxles - 1;
+      let axleLoadEmpty: number;
+      let axleLoadLimit: number;
+
+      if (isTruck) {
+        const truckIndex = i;
+
+        // First two truck axles get separate default config
+        const isLeadAxle = truckIndex < 2;
+
+        const defaults = isLeadAxle
+          ? DEFAULT_AXLE_VALUES.truck.lead
+          : DEFAULT_AXLE_VALUES.truck.other;
+
+        axleLoadEmpty = defaults.axleLoadEmpty;
+        axleLoadLimit = defaults.axleLoadLimit;
+      } else {
+        axleLoadEmpty = DEFAULT_AXLE_VALUES.trailer.axleLoadEmpty;
+        axleLoadLimit = DEFAULT_AXLE_VALUES.trailer.axleLoadLimit;
+      }
 
       append(
         {
           axleType: isTruck ? 'truck' : 'trailer',
-
-          // Default values vary depending on axle type and position
-          axleLoadEmpty: isTruck ? (i < 2 ? 29.99 : 13) : 13,
-          axleLoadLimit: isTruck ? (i < 2 ? 46.77 : 17) : 17,
-
-          // Set lifted only if true, omit otherwise to keep form state clean
-          lifted: isLifted || undefined, // only set if true
+          axleLoadEmpty,
+          axleLoadLimit,
+          lifted: false,
         },
-        { shouldFocus: false }, // Avoid auto-focus on new fields to reduce distraction
+        { shouldFocus: false }, // Avoid focus-jump when appending new items dynamically
       );
     }
   }

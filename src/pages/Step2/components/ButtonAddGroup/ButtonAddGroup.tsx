@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { UseFieldArrayAppend } from 'react-hook-form';
 import IconPlus from '@assets/icons/plus.svg?react';
-import { FormSchemaType } from '@entities/step2Form/types';
+import type { FormSchemaType } from '@entities/step2Form/types';
 import styles from './ButtonAddGroup.module.scss';
 
 interface ButtonAddGroupProps {

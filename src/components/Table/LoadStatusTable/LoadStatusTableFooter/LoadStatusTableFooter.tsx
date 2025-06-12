@@ -12,12 +12,7 @@ export const LoadStatusTableFooter: React.FC<LoadStatusTableFooterProps> = ({
   const truckWeightKg = step1Data.truckWeight;
   const trailerWeightKg = step1Data.trailerWeight;
 
-  // Converts fractional axle counts into whole number with lifted axle if applicable
-  const rawTruckAxles = parseFloat(step1Data.truckAxles);
-  const baseTruckAxles = Math.floor(rawTruckAxles);
-  const hasLifted = rawTruckAxles % 1 !== 0;
-  const truckAxles = baseTruckAxles + (hasLifted ? 1 : 0);
-
+  const truckAxles = parseInt(step1Data.truckAxles, 10) || 0;
   const trailerAxles = parseInt(step1Data.trailerAxles, 10) || 0;
 
   // Calculates total cargo weight from all cargo groups

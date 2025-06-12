@@ -16,6 +16,8 @@ export default defineConfig({
       '@layouts': path.resolve(__dirname, 'src/layouts'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@store': path.resolve(__dirname, 'src/store'),
+      '@shared-constants': path.resolve(__dirname, 'src/shared/constants'),
+      '@shared-types': path.resolve(__dirname, 'src/shared/types'),
       '@styles': path.resolve(__dirname, 'src/styles'),
       '@utils': path.resolve(__dirname, 'src/utils'),
     },

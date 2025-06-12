@@ -1,25 +1,42 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FormSchemaType } from '@entities/step1Form/types';
 import { getEmptyFormData } from '@entities/step1Form/defaultValues';
+import type { AxleLoadDataItem, FormSchemaType } from '@entities/step1Form/types';
 
-// Defines the slice state for Step 1 form
+export interface WheelbaseCache {
+  truck: number[];
+  trailer: number[];
+}
+
 export interface Step1FormState {
-  formData: FormSchemaType; // Stores current values of the form
-  isFilled: boolean; // Indicates whether the form has been successfully filled
+  formData: FormSchemaType;
+  isFilled: boolean;
+  initialized: boolean;
+  wheelbaseCache: WheelbaseCache;
+  axleCache: Record<string, AxleLoadDataItem>;
 }
 
 const initialState: Step1FormState = {
   formData: getEmptyFormData(),
   isFilled: false,
+  initialized: false,
+  wheelbaseCache: {
+    truck: [],
+    trailer: [],
+  },
+  axleCache: {},
 };
 
-/**
- * Allows saving form data, marking it as filled, and resetting
- */
 const step1FormSlice = createSlice({
   name: 'step1Form',
   initialState,
   reducers: {
+    /** Initializes the form with default data only once */
+    initFormData(state) {
+      if (!state.initialized) {
+        state.formData = getEmptyFormData();
+        state.initialized = true;
+      }
+    },
     /** Replaces current form data with submitted values */
     saveFormData(state, action: PayloadAction<FormSchemaType>) {
       state.formData = action.payload;
@@ -28,13 +45,47 @@ const step1FormSlice = createSlice({
     markFormFilled(state) {
       state.isFilled = true;
     },
-    /** Resets form state to initial empty values */
+    /** Persists axle config per axleId (used in FieldArray reconstruction) */
+    setAxleCache(state, action: PayloadAction<AxleLoadDataItem[]>) {
+      action.payload.forEach((item) => {
+        state.axleCache[item.axleId] = item;
+      });
+    },
+    /** Replaces entire wheelbase cache (both truck and trailer) */
+    setWheelbaseCache(state, action: PayloadAction<WheelbaseCache>) {
+      state.wheelbaseCache = action.payload;
+    },
+    /** Updates either truck or trailer wheelbase values independently */
+    updateWheelbaseCachePartial(
+      state,
+      action: PayloadAction<{ type: 'truck' | 'trailer'; values: number[] }>,
+    ) {
+      state.wheelbaseCache[action.payload.type] = action.payload.values;
+    },
+    /** Clears the form but keeps initialization flag to avoid re-init on mount */
     resetFormData(state) {
       state.formData = getEmptyFormData();
       state.isFilled = false;
+      state.initialized = true;
+    },
+    resetAxleCache(state) {
+      state.axleCache = {};
+    },
+    resetWheelbaseCache(state) {
+      state.wheelbaseCache = { truck: [], trailer: [] };
     },
   },
 });
 
-export const { saveFormData, markFormFilled, resetFormData } = step1FormSlice.actions;
+export const {
+  initFormData,
+  saveFormData,
+  markFormFilled,
+  setAxleCache,
+  setWheelbaseCache,
+  updateWheelbaseCachePartial,
+  resetFormData,
+  resetAxleCache,
+  resetWheelbaseCache,
+} = step1FormSlice.actions;
 export default step1FormSlice.reducer;

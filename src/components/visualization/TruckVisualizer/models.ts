@@ -1,12 +1,12 @@
 /** Axle load status used for coloring and state indication */
-export type AxleStatus = 'success' | 'warning' | 'danger' | 'loading';
+export type AxleStatus = 'default' | 'success' | 'warning' | 'danger' | 'loading';
 
 /** Describes a single axle in the visualization model */
 export interface AxleVisualizationModel {
   axleKey: string; // Unique key for React rendering
   axleType: 'truck' | 'trailer';
   index: number; // Position in axle sequence
-  lifted?: boolean;
+  lifted: boolean;
   status?: AxleStatus; // Visual state indicator
 }
 
@@ -25,5 +25,5 @@ export interface AxleLoadInfo {
   axleType: 'truck' | 'trailer';
   loadEmpty?: number;
   loadLimit?: number;
-  lifted?: boolean;
+  lifted: boolean;
 }

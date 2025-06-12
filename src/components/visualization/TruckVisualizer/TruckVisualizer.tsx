@@ -1,5 +1,5 @@
 import { TruckSideView } from '@components/visualization/TruckSideView/TruckSideView';
-import { TruckVisualizationModel } from './models';
+import type { TruckVisualizationModel } from './models';
 
 interface TruckVisualizerProps {
   model: TruckVisualizationModel;
@@ -9,11 +9,5 @@ interface TruckVisualizerProps {
  * Renders truck and trailer layout using the provided visualization model.
  */
 export const TruckVisualizer: React.FC<TruckVisualizerProps> = ({ model }) => {
-  return (
-    <TruckSideView
-      tractorAxleCount={model.tractorAxles}
-      trailerAxleCount={model.trailerAxles}
-      axles={model.axles}
-    />
-  );
+  return <TruckSideView axles={model.axles} />;
 };

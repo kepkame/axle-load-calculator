@@ -10,6 +10,11 @@ import { handleNumberInputKeyDown } from '@utils/inputUtils/handleNumberInputKey
 import { NumberFieldProps } from './NumberField.types';
 import styles from './NumberField.module.scss';
 
+/**
+ * Controlled numeric input field with optional range slider and unit styling.
+ *
+ * Handles formatting, clamping, and validation using react-hook-form + custom handlers.
+ */
 export const NumberField: React.FC<NumberFieldProps> = ({
   id,
   min = 0,
@@ -67,6 +72,7 @@ export const NumberField: React.FC<NumberFieldProps> = ({
         )}
       />
 
+      {/* Optional range slider for visual value adjustment (UX) */}
       {showRange && (
         <RangeField
           value={Number(field.value)}

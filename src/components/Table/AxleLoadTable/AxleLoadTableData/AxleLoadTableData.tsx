@@ -5,10 +5,10 @@ import { AxleLoadTableDataProps } from './AxleLoadTableData.types';
 import styles from './AxleLoadTableData.module.scss';
 
 /**
- * A table cell that renders a labeled numeric input
- * for axle load values, integrated with react-hook-form.
+ * Cell component for editing or displaying a single axle load value.
  *
- * Supports optional read-only mode, error highlighting, and unit suffix display.
+ * Renders either a numeric input or static value with unit suffix,
+ * depending on readOnly mode. Includes icon and responsive label handling.
  */
 export const AxleLoadTableData: React.FC<AxleLoadTableDataProps> = ({
   icon,
@@ -32,11 +32,11 @@ export const AxleLoadTableData: React.FC<AxleLoadTableDataProps> = ({
 
   return (
     <td className={styles.data}>
-      <div className={clsx(styles.wrapper, { [styles.wrapperError]: isErrors })}>
+      <label className={clsx(styles.wrapper, { [styles.wrapperError]: isErrors })}>
         {icon}
 
-        {/* Responsive label: full for mobile, short for desktop */}
         <span className={styles.name}>
+          {/* Responsive label: full for mobile, short for desktop */}
           {label === 'Максимальная нагрузка' ? (
             <>
               <span className={styles.mobileOnly}>Максимальная нагрузка</span>
@@ -48,11 +48,10 @@ export const AxleLoadTableData: React.FC<AxleLoadTableDataProps> = ({
         </span>
 
         {readOnly ? (
-          // Render static text when read-only
+          // Render static text when read-only. Shows formatted value with unit
           <span className={styles.textValue}>{Number(value)?.toFixed(decimalPlaces)} т.</span>
         ) : (
           <>
-            {/* Controlled numeric input with formatting and validation */}
             <ControlledNumberInput
               value={Number(value)}
               onChange={onChange}
@@ -67,7 +66,7 @@ export const AxleLoadTableData: React.FC<AxleLoadTableDataProps> = ({
             <span className={styles.units}>т.</span>
           </>
         )}
-      </div>
+      </label>
     </td>
   );
 };
