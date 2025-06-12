@@ -17,8 +17,8 @@ export const createVisualizationModelFromRows = (params: {
   trailerAxles: string;
   rows: LoadStatusRow[];
 }): TruckVisualizationModel => {
-  const truckCount = parseFloat(params.truckAxles);
-  const trailerCount = parseFloat(params.trailerAxles);
+  const truckCount = parseInt(params.truckAxles);
+  const trailerCount = parseInt(params.trailerAxles);
 
   // Generate an array of axles with lifted/status indicators
   let axles: AxleVisualizationModel[] = params.rows.map((row) => {
