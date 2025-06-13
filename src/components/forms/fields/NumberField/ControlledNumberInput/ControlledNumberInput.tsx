@@ -6,6 +6,7 @@ import {
   handleNumberInputBlur,
 } from '@utils/inputUtils/numberFieldHandlers';
 import { handleNumberInputKeyDown } from '@utils/inputUtils/handleNumberInputKeyDown';
+import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
 
 import { ControlledNumberInputProps } from './ControlledNumberInput.types';
 import styles from '../NumberField.module.scss';
@@ -31,8 +32,9 @@ export const ControlledNumberInput: React.FC<ControlledNumberInputProps> = ({
 
   // Sync internal value when external value changes (e.g. form reset)
   useEffect(() => {
-    setInternalValue(String(value));
-  }, [value]);
+    const formatted = formatNumberToDecimals(Number(value), normalizedDecimalPlaces);
+    setInternalValue(formatted);
+  }, [value, normalizedDecimalPlaces]);
 
   return (
     <input
