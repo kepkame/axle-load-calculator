@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { selectStep1FormData } from '@store/slices/step1FormSlice/step1FormSlice.selectors';
-import { selectStep2FormData } from '@store/slices/step2FormSlice/step2FormSlice.selectors';
+import { selectStep2FinalData } from '@store/slices/step2FormSlice/step2FormSlice.selectors';
 import { SectionAxleLoad } from './components/SectionAxleLoad/SectionAxleLoad';
 import { SectionCargoLayout } from './components/SectionCargoLayout/SectionCargoLayout';
 import { useStepsGuard } from '@hooks/useStepsGuard';
@@ -22,7 +22,7 @@ const Step3Page = () => {
 
   const isAllowed = useStepsGuard({ requireStep1: true, requireStep2: true });
   const step1Data = useSelector(selectStep1FormData);
-  const step2Data = useSelector(selectStep2FormData);
+  const step2Data = useSelector(selectStep2FinalData);
 
   const { data, isLoading, error, refetch } = useCalculateAxleLoadsQuery(
     { step1Data, step2Data },

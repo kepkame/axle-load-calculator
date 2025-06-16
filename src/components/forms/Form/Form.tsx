@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { FormContext } from '@entities/step1Form/types';
@@ -12,6 +13,7 @@ export const Form = <T extends Record<string, any>, TContext = FormContext>({
   children,
   resolverContext,
   onSubmitSuccess,
+  onUnmountSave,
 }: FormProps<T, TContext>) => {
   const methods = useForm<T, TContext>({
     resolver: zodResolver(schema),
@@ -19,6 +21,14 @@ export const Form = <T extends Record<string, any>, TContext = FormContext>({
     defaultValues,
     mode: 'onChange',
   });
+
+  useEffect(() => {
+    return () => {
+      if (onUnmountSave) {
+        onUnmountSave(methods);
+      }
+    };
+  }, [onUnmountSave]);
 
   const onSubmit = (data: T) => {
     onSubmitSuccess?.(data);

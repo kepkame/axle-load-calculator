@@ -8,4 +8,5 @@ export interface FormProps<T extends FieldValues, TContext = FormContext> {
   children: (methods: UseFormReturn<T, TContext>) => React.ReactNode;
   resolverContext?: TContext;
   onSubmitSuccess?: (data: T) => void;
+  onUnmountSave?: (methods: UseFormReturn<T, TContext>) => void;
 }

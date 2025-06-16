@@ -1,7 +1,9 @@
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import type { UseFormReturn } from 'react-hook-form';
 
-import { saveFormData, markFormFilled } from '@store/slices/step2FormSlice/step2FormSlice';
+import { setDraftData, saveFinalData } from '@store/slices/step2FormSlice/step2FormSlice';
 import { resetStepsAfter, validateStep } from '@store/slices/stepsSlice/stepsSlice';
 import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
 
@@ -34,8 +36,7 @@ const Step2Page: React.FC = () => {
   const { schema, deckLengthMM, constraints, defaultValues } = useStep2FormConfig();
 
   const handleSuccess = (formData: FormSchemaType) => {
-    dispatch(saveFormData(formData));
-    dispatch(markFormFilled());
+    dispatch(saveFinalData(formData));
 
     // Marks current step as validated and resets subsequent steps
     dispatch(validateStep(1));
@@ -43,6 +44,14 @@ const Step2Page: React.FC = () => {
 
     navigate(stepsRoutes[2].path);
   };
+
+  const handleUnmountSave = useCallback(
+    (methods: UseFormReturn<FormSchemaType>) => {
+      const data = methods.getValues();
+      dispatch(setDraftData(data));
+    },
+    [dispatch],
+  );
 
   return (
     <>
@@ -53,6 +62,7 @@ const Step2Page: React.FC = () => {
         defaultValues={defaultValues}
         resolverContext={{ deckLength: deckLengthMM }}
         onSubmitSuccess={handleSuccess}
+        onUnmountSave={handleUnmountSave}
       >
         {(methods) => (
           <Step2FormContent

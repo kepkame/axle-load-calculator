@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { FormSchemaType } from '@entities/step2Form/types';
 
+export interface Step2FormState {
+  draftFormData: FormSchemaType;
+  finalFormData: FormSchemaType;
+  isFilled: boolean;
+}
+
 // Defines the initial empty form data for Step 2
 const emptyFormData: FormSchemaType = {
   cargoGroup: [{ groupId: 1, palletId: 'EUR', weight: 1, quantity: 1 }],
 };
 
-export interface Step2FormState {
-  formData: FormSchemaType; // Stores cargo groups and their parameters
-  isFilled: boolean; // Indicates whether the form has been successfully completed
-}
-
 const initialState: Step2FormState = {
-  formData: emptyFormData,
+  draftFormData: emptyFormData,
+  finalFormData: emptyFormData,
   isFilled: false,
 };
 
@@ -20,23 +22,24 @@ const step2FormSlice = createSlice({
   name: 'step2Form',
   initialState,
   reducers: {
-    /** Replaces current form data with submitted values */
-    saveFormData(state, action: PayloadAction<FormSchemaType>) {
-      state.formData = action.payload;
+    /** Updates the draft form data with user input */
+    setDraftData(state, action: PayloadAction<FormSchemaType>) {
+      state.draftFormData = action.payload;
     },
-
-    /** Flags the form as filled after successful submission */
-    markFormFilled(state) {
+    /** Saves the final form data and marks the form as completed */
+    saveFinalData(state, action: PayloadAction<FormSchemaType>) {
+      state.finalFormData = action.payload;
+      state.draftFormData = action.payload;
       state.isFilled = true;
     },
-
-    /** Resets form state to initial empty values */
+    /** Clears both draft and final form data, marking the form as unfilled */
     resetFormData(state) {
-      state.formData = emptyFormData;
+      state.draftFormData = emptyFormData;
+      state.finalFormData = emptyFormData;
       state.isFilled = false;
     },
   },
 });
 
-export const { saveFormData, markFormFilled, resetFormData } = step2FormSlice.actions;
+export const { setDraftData, saveFinalData, resetFormData } = step2FormSlice.actions;
 export default step2FormSlice.reducer;

@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux';
-
 import { selectStep1FormData } from '@store/slices/step1FormSlice/step1FormSlice.selectors';
-import { selectStep2FormData } from '@store/slices/step2FormSlice/step2FormSlice.selectors';
-
+import { selectStep2DraftData } from '@store/slices/step2FormSlice/step2FormSlice.selectors';
 import { useFormCargoSchema } from '@entities/step2Form/hooks/useFormCargoSchema';
 import { getCargoFormConstraints } from '../utils/getCargoFormConstraints';
 
@@ -11,7 +9,7 @@ import { getCargoFormConstraints } from '../utils/getCargoFormConstraints';
  */
 export const useStep2FormConfig = () => {
   const step1Data = useSelector(selectStep1FormData);
-  const step2FormData = useSelector(selectStep2FormData);
+  const step2DraftData = useSelector(selectStep2DraftData);
 
   const deckLengthMM = step1Data.deckLength * 1000;
   const schema = useFormCargoSchema(deckLengthMM);
@@ -21,6 +19,6 @@ export const useStep2FormConfig = () => {
     schema,
     deckLengthMM,
     constraints,
-    defaultValues: step2FormData,
+    defaultValues: step2DraftData,
   };
 };
