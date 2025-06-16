@@ -1,11 +1,9 @@
 import clsx from 'clsx';
-import { UseFieldArrayAppend } from 'react-hook-form';
 import IconPlus from '@assets/icons/plus.svg?react';
-import type { FormSchemaType } from '@entities/step2Form/types';
 import styles from './ButtonAddGroup.module.scss';
 
 interface ButtonAddGroupProps {
-  onAddGroup: UseFieldArrayAppend<FormSchemaType, 'cargoGroup'>;
+  onAddGroup: () => void;
   canAdd: boolean;
 }
 
@@ -19,7 +17,7 @@ export const ButtonAddGroup: React.FC<ButtonAddGroupProps> = ({ onAddGroup, canA
   return (
     <button
       type="button"
-      onClick={() => onAddGroup({ groupId: 1, palletId: 'EUR', weight: 1, quantity: 1 })}
+      onClick={onAddGroup}
       className={clsx('btn btn--icon btn--outline', styles.btnAddGroup)}
       disabled={!canAdd}
     >

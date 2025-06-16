@@ -5,11 +5,14 @@ import { getMaxQuantities, totalUsedLengthMM, usedLengthForGroupMM } from './pal
 export const cargoGroupSchema = z.object({
   groupId: z.number().int().min(1, 'Неправильный идентификатор группы'),
   palletId: z.enum(['EUR', 'FIN', 'SQUARE'] as const),
-  weight: z.coerce.number().min(1).max(1500),
+  weight: z.coerce
+    .number()
+    .min(100, 'Введите значение от 100')
+    .max(1500, 'Введите значение до 1 500'),
   quantity: z.coerce.number().min(1),
 });
 
-export function formCargoSchema(deckLengthMM: number) {
+export const formCargoSchema = (deckLengthMM: number) => {
   return z
     .object({
       cargoGroup: z.array(cargoGroupSchema),
@@ -55,4 +58,4 @@ export function formCargoSchema(deckLengthMM: number) {
         }
       });
     });
-}
+};

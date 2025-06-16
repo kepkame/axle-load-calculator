@@ -56,7 +56,7 @@ const Step2FormContent: React.FC<Step2FormContentProps> = ({
     appendRaw({
       groupId: maxId + 1,
       palletId: 'EUR',
-      weight: 1,
+      weight: 100,
       quantity: 1,
     });
   }, [fields, appendRaw]);

@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
+import debounce from 'lodash-es/debounce';
+
 import { calculateStep, roundToNearestStep } from '@utils/numberUtils/mathUtils';
 import { formatNumberToDecimals } from '@utils/numberUtils/formatUtils';
 import { RangeFieldProps } from './RangeField.types';
@@ -17,25 +19,38 @@ export const RangeField: React.FC<RangeFieldProps> = ({
   max,
   decimalPlaces = 0,
 }) => {
-  const [step, setStep] = useState(1);
+  // const [step, setStep] = useState(1);
+  const [step, setStep] = useState(() => calculateStep(value, decimalPlaces));
+  const [localValue, setLocalValue] = useState<number>(value);
 
   // Recalculate slider step when value or precision changes.
   // Prevents jumpy behavior for small decimal ranges.
   useEffect(() => {
-    setStep(calculateStep(value, decimalPlaces));
-  }, [value, decimalPlaces]);
+    setStep(calculateStep(localValue, decimalPlaces));
+  }, [localValue, decimalPlaces]);
+
+  useEffect(() => {
+    if (value !== localValue) setLocalValue(value);
+  }, [value]);
+
+  const debouncedChange = useMemo(() => {
+    return debounce((v: string) => {
+      onChange(v);
+    }, 5);
+  }, [onChange]);
+
+  useEffect(() => {
+    return () => debouncedChange.cancel();
+  }, [debouncedChange]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(event.target.value);
+    const rawValue = Number(event.target.value);
+    setLocalValue(rawValue);
 
-    // Ensure value lands on a valid step
-    const roundedValue = roundToNearestStep(newValue, step, max, decimalPlaces);
-
-    // Format the number before sending it to onChange
+    const roundedValue = roundToNearestStep(rawValue, step, max, decimalPlaces);
     const formattedValue = formatNumberToDecimals(roundedValue, decimalPlaces);
 
-    // Propagate change to parent (usually a NumberField)
-    onChange(formattedValue);
+    debouncedChange(formattedValue);
   };
 
   return (
