@@ -9,7 +9,7 @@ export interface Step2FormState {
 
 // Defines the initial empty form data for Step 2
 const emptyFormData: FormSchemaType = {
-  cargoGroup: [{ groupId: 1, palletId: 'EUR', weight: 1, quantity: 1 }],
+  cargoGroup: [{ groupId: 1, palletId: 'EUR', weight: 100, quantity: 1 }],
 };
 
 const initialState: Step2FormState = {
