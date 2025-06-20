@@ -14,6 +14,7 @@ import { useStepSync } from '@hooks/useStepSync';
 
 import Step2FormContent from './components/Step2FormContent/Step2FormContent';
 import { useStep2FormConfig } from './hooks/useStep2FormConfig';
+import { splitCargoGroups } from './utils/splitCargoGroups';
 import styles from './Step2Page.module.scss';
 
 /**
@@ -36,7 +37,8 @@ const Step2Page: React.FC = () => {
   const { schema, deckLengthMM, constraints, defaultValues } = useStep2FormConfig();
 
   const handleSuccess = (formData: FormSchemaType) => {
-    dispatch(saveFinalData(formData));
+    const splittedGroups = splitCargoGroups(formData.cargoGroup);
+    dispatch(saveFinalData({ ...formData, cargoGroup: splittedGroups }));
 
     // Marks current step as validated and resets subsequent steps
     dispatch(validateStep(1));

@@ -13,7 +13,8 @@ export function calcTotalWeights({
   truckAxles,
   trailerAxles,
 }: CalcTotalWeightsParams) {
-  const totalWeightTons = (truckWeightKg + trailerWeightKg + cargoWeightKg) / 1000;
+  const totalWeightTons =
+    (Number(truckWeightKg) + Number(trailerWeightKg) + Number(cargoWeightKg)) / 1000;
 
   const totalAxles = truckAxles + trailerAxles;
   const maxAllowedTons =

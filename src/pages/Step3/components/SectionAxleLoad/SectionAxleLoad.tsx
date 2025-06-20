@@ -18,7 +18,6 @@ export const SectionAxleLoad: React.FC<SectionAxleLoadProps> = ({ step1Data, ste
     isLoading,
     error,
   } = useCalculateAxleLoadsQuery({ step1Data, step2Data });
-
   return (
     <section className={styles.section}>
       <Header />

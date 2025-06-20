@@ -14,14 +14,14 @@ export function mergeAxleFormAndCalcData(
 ): LoadStatusRow[] {
   // Generate keys in the same order as formData.axleLoadData
   const keys = generateAxleKeys({
-    truckAxles: parseFloat(formData.truckAxles),
-    trailerAxles: parseFloat(formData.trailerAxles),
+    truckAxles: parseInt(formData.truckAxles),
+    trailerAxles: parseInt(formData.trailerAxles),
   });
 
   // Map axleKey → form data entry for fast lookup
   const formMap = formData.axleLoadData.reduce<Record<string, (typeof formData.axleLoadData)[0]>>(
-    (acc, item, idx) => {
-      acc[keys[idx]] = item;
+    (acc, item, index) => {
+      acc[keys[index]] = item;
       return acc;
     },
     {},
