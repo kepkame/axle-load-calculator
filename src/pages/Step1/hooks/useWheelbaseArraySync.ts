@@ -1,113 +1,109 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useWatch, Control } from 'react-hook-form';
-import type { FormSchemaType, FormContext } from '@entities/step1Form/types';
+import { useWatch, Control, UseFormSetValue } from 'react-hook-form';
+import { updateWheelbaseCachePartial } from '@store/slices/step1FormSlice/step1FormSlice';
+import type { FormSchemaType } from '@entities/step1Form/types';
 import {
   DEFAULT_TRAILER_WHEELBASE_METERS,
   DEFAULT_TRUCK_WHEELBASE_METERS,
 } from '../constants/wheelbaseDefaults';
-import { syncWheelbaseCache } from '../utils/syncWheelbaseCache';
+import { arraysDiffer } from '../utils/arraysDiffer';
+
+interface WheelbaseCache {
+  truck: number[];
+  trailer: number[];
+}
 
 interface UseWheelbaseArraySyncParams {
   truckAxlesRaw: number;
   trailerAxlesRaw: number;
-  setValue: (
-    name: 'truckWheelbase' | 'trailerWheelbase',
-    value: number[],
-    options?: { shouldValidate: boolean },
-  ) => void;
-  control: Control<FormSchemaType, FormContext>;
-  wheelbaseCache: {
-    truck: number[];
-    trailer: number[];
-  };
-  defaultTruck: number[];
-  defaultTrailer: number[];
+  setValue: UseFormSetValue<FormSchemaType>;
+  control: Control<FormSchemaType>;
+  wheelbaseCache: WheelbaseCache;
 }
 
-// Utility to check if two arrays differ (by length or value)
-const arraysDiffer = (a: number[], b: number[]) =>
-  a.length !== b.length || a.some((val, i) => val !== b[i]);
-
+/**
+ * Bidirectional sync between wheelbase arrays in form state and cached values in Redux.
+ * - Propagates manual changes from form → cache.
+ * - When axle count changes, repopulates form from cache (with fallback to defaults).
+ *
+ * Designed to ensure a stable user experience when switching axle counts,
+ * minimizing surprises and restoring previous values where possible.
+ */
 export const useWheelbaseArraySync = ({
   truckAxlesRaw,
   trailerAxlesRaw,
   setValue,
   control,
   wheelbaseCache,
-  defaultTruck,
-  defaultTrailer,
 }: UseWheelbaseArraySyncParams) => {
   const dispatch = useDispatch();
-  const currentTruck = useWatch({ control, name: 'truckWheelbase' }) ?? [];
-  const currentTrailer = useWatch({ control, name: 'trailerWheelbase' }) ?? [];
 
-  const prevAxleCountRef = useRef({ truck: 0, trailer: 0 });
+  // Watch for direct user input in the form fields
+  const formTruckWheelbase = useWatch({ control, name: 'truckWheelbase' }) ?? [];
+  const formTrailerWheelbase = useWatch({ control, name: 'trailerWheelbase' }) ?? [];
 
-  const targetTruckLength = Math.max(0, Math.floor(truckAxlesRaw) - 1);
-  const targetTrailerLength = Math.max(0, trailerAxlesRaw - 1);
-
-  // Cache truck values after every change — so they can be reused later
+  // Sync from Form state TO Redux Cache (Non-destructive)
   useEffect(() => {
-    syncWheelbaseCache({
-      current: currentTruck,
-      defaultValues: defaultTruck,
-      prevCache: wheelbaseCache.truck,
-      type: 'truck',
-      dispatch,
-    });
-  }, [currentTruck, defaultTruck]);
+    // Create a new cache array based on the old one to avoid truncation
+    const newCache = [...wheelbaseCache.truck];
+    let hasChanges = false;
 
-  // Cache trailer values after every change — ensures consistency across steps
-  useEffect(() => {
-    syncWheelbaseCache({
-      current: currentTrailer,
-      defaultValues: defaultTrailer,
-      prevCache: wheelbaseCache.trailer,
-      type: 'trailer',
-      dispatch,
-    });
-  }, [currentTrailer, defaultTrailer]);
-
-  // Ensure wheelbase array for truck is correct in length and values
-  useEffect(() => {
-    if (
-      targetTruckLength !== prevAxleCountRef.current.truck ||
-      arraysDiffer(currentTruck, wheelbaseCache.truck.slice(0, targetTruckLength))
-    ) {
-      const filled = Array.from({ length: targetTruckLength }, (_, i) => {
-        if (i < wheelbaseCache.truck.length && wheelbaseCache.truck[i] !== 0) {
-          return wheelbaseCache.truck[i];
-        }
-        return defaultTruck[i] ?? DEFAULT_TRUCK_WHEELBASE_METERS;
-      });
-
-      if (arraysDiffer(currentTruck, filled)) {
-        setValue('truckWheelbase', filled, { shouldValidate: true });
+    // Update cache with values from the form
+    formTruckWheelbase.forEach((value, index) => {
+      if (newCache[index] !== value) {
+        newCache[index] = value;
+        hasChanges = true;
       }
+    });
 
-      prevAxleCountRef.current.truck = targetTruckLength;
+    // Dispatch only if there are actual changes to prevent unnecessary re-renders
+    if (hasChanges) {
+      dispatch(updateWheelbaseCachePartial({ type: 'truck', values: newCache }));
     }
-  }, [targetTruckLength, defaultTruck, setValue]);
+  }, [formTruckWheelbase, wheelbaseCache.truck, dispatch]);
 
-  // Same logic for trailer wheelbase
   useEffect(() => {
-    if (
-      targetTrailerLength !== prevAxleCountRef.current.trailer ||
-      arraysDiffer(currentTrailer, wheelbaseCache.trailer.slice(0, targetTrailerLength))
-    ) {
-      const filled = Array.from({ length: targetTrailerLength }, (_, i) => {
-        if (i < wheelbaseCache.trailer.length && wheelbaseCache.trailer[i] !== 0) {
-          return wheelbaseCache.trailer[i];
-        }
-        return defaultTrailer[i] ?? DEFAULT_TRAILER_WHEELBASE_METERS;
-      });
+    const newCache = [...wheelbaseCache.trailer];
+    let hasChanges = false;
 
-      if (arraysDiffer(currentTrailer, filled)) {
-        setValue('trailerWheelbase', filled, { shouldValidate: true });
+    formTrailerWheelbase.forEach((value, index) => {
+      if (newCache[index] !== value) {
+        newCache[index] = value;
+        hasChanges = true;
       }
+    });
 
-      prevAxleCountRef.current.trailer = targetTrailerLength;
+    if (hasChanges) {
+      dispatch(updateWheelbaseCachePartial({ type: 'trailer', values: newCache }));
     }
-  }, [targetTrailerLength, defaultTrailer, setValue]);
+  }, [formTrailerWheelbase, wheelbaseCache.trailer, dispatch]);
+
+  // Sync from Axle Count change TO Form state
+  useEffect(() => {
+    const targetLength = Math.max(0, truckAxlesRaw - 1);
+
+    // Reconstruct the array for the form
+    const newFormArray = Array.from({ length: targetLength }, (_, i) => {
+      // Prioritize cached value, otherwise use default
+      return wheelbaseCache.truck[i] ?? DEFAULT_TRUCK_WHEELBASE_METERS;
+    });
+
+    // Update form state only if the newly constructed array differs from the current one
+    if (arraysDiffer(formTruckWheelbase, newFormArray)) {
+      setValue('truckWheelbase', newFormArray, { shouldValidate: true });
+    }
+  }, [truckAxlesRaw, wheelbaseCache.truck, setValue]);
+
+  useEffect(() => {
+    const targetLength = Math.max(0, trailerAxlesRaw - 1);
+
+    const newFormArray = Array.from({ length: targetLength }, (_, i) => {
+      return wheelbaseCache.trailer[i] ?? DEFAULT_TRAILER_WHEELBASE_METERS;
+    });
+
+    if (arraysDiffer(formTrailerWheelbase, newFormArray)) {
+      setValue('trailerWheelbase', newFormArray, { shouldValidate: true });
+    }
+  }, [trailerAxlesRaw, wheelbaseCache.trailer, setValue]);
 };

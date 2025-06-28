@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { validateStep, resetStepsAfter } from '@store/slices/stepsSlice/stepsSlice';
 import { stepsRoutes } from '@store/slices/stepsSlice/stepsConfig';
@@ -19,7 +19,6 @@ import { useStepSync } from '@hooks/useStepSync';
 import { SkeletonStep1Form } from './components/SkeletonStep1Form';
 import { TransportForm } from './components/TransportForm/TransportForm';
 import { useStep1Form } from './hooks/useStep1Form';
-import { useWheelbaseReduxSync } from './hooks/useWheelbaseReduxSync';
 import { getNormalizedStep1FormSnapshot } from './utils/getNormalizedStep1FormSnapshot';
 import { storeTruckFormPreset } from './utils/storeTruckFormPreset';
 
@@ -46,17 +45,13 @@ const Step1Page: React.FC = () => {
     mode: 'onChange',
   });
 
-  // Synchronizes the wheelbase with the Redux cache -
-  // allows restoring entered values when navigating between steps
-  useWheelbaseReduxSync(methods.control, methods.setValue);
-
   useEffect(() => {
     // Automatically reset the form if it's initialized but not filled -
     // otherwise the data may become inconsistent
     if (initialized && !isFilled) {
       methods.reset(defaultValues);
     }
-  }, [initialized, defaultValues]);
+  }, [initialized, defaultValues, isFilled, methods]);
 
   const { fields, update, truckAxles, trailerAxles } = useStep1Form({
     methods,

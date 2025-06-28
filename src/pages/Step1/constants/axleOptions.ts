@@ -5,9 +5,9 @@ export type TrailerAxleCount = (typeof ALLOWED_TRAILER_AXLES)[number];
 
 /** Default axle load values depending on type and role */
 export const AXLE_LOAD_DEFAULTS = {
-  truckLeading: { axleLoadEmpty: 29.99, axleLoadLimit: 46.77 },
-  truckStandard: { axleLoadEmpty: 23, axleLoadLimit: 27 },
-  trailerStandard: { axleLoadEmpty: 13, axleLoadLimit: 17 },
+  truckLeading: { axleLoadEmpty: 3.28, axleLoadLimit: 7.5 },
+  truckStandard: { axleLoadEmpty: 4.92, axleLoadLimit: 9.0 },
+  trailerStandard: { axleLoadEmpty: 2.33, axleLoadLimit: 8.0 },
 };
 
 /** Maps each allowed truck axle count to a string option object for form fields */

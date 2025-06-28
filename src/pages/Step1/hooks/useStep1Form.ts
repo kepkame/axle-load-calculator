@@ -8,11 +8,6 @@ import {
   selectStep1FormAxleCache,
   selectStep1FormWheelbaseCache,
 } from '@store/slices/step1FormSlice/step1FormSlice.selectors';
-import { prepareWheelbaseDefaults } from '@utils/prepareWheelbaseDefaults';
-import {
-  DEFAULT_TRUCK_WHEELBASE_METERS,
-  DEFAULT_TRAILER_WHEELBASE_METERS,
-} from '../constants/wheelbaseDefaults';
 import { parseAxleValue } from '../utils/parseAxleValue';
 import { usePersistentAxleArray } from './usePersistentAxleArray';
 import { useWheelbaseArraySync } from './useWheelbaseArraySync';
@@ -57,23 +52,6 @@ export const useStep1Form = ({ methods, isFilled }: UseStep1FormParams) => {
     return parsed;
   }, [rawTrailerAxles]);
 
-  // Generate base wheelbase arrays if nothing exists yet
-  const defaultTruckBases = useMemo(() => {
-    const result = prepareWheelbaseDefaults(
-      Math.max(1, Math.floor(truckAxles) - 1),
-      DEFAULT_TRUCK_WHEELBASE_METERS,
-    );
-    return result;
-  }, [truckAxles]);
-
-  const defaultTrailerBases = useMemo(() => {
-    const result = prepareWheelbaseDefaults(
-      Math.max(1, trailerAxles - 1),
-      DEFAULT_TRAILER_WHEELBASE_METERS,
-    );
-    return result;
-  }, [trailerAxles]);
-
   // Manage "axleLoadData" as a dynamic field array
   const {
     fields: rawFields,
@@ -102,8 +80,6 @@ export const useStep1Form = ({ methods, isFilled }: UseStep1FormParams) => {
     setValue,
     control,
     wheelbaseCache,
-    defaultTruck: defaultTruckBases,
-    defaultTrailer: defaultTrailerBases,
   });
 
   return {
