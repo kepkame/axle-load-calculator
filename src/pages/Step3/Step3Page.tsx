@@ -1,71 +1,71 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
 import { selectStep1FormData } from '@store/slices/step1FormSlice/step1FormSlice.selectors';
 import { selectStep2FinalData } from '@store/slices/step2FormSlice/step2FormSlice.selectors';
-import { SectionAxleLoad } from './components/SectionAxleLoad/SectionAxleLoad';
-import { SectionCargoLayout } from './components/SectionCargoLayout/SectionCargoLayout';
 import { useStepsGuard } from '@hooks/useStepsGuard';
 import { useStepSync } from '@hooks/useStepSync';
 
+import { ErrorWithRetry } from './components/ErrorWithRetry/ErrorWithRetry';
+import { SectionAxleLoad } from './components/SectionAxleLoad/SectionAxleLoad';
+import { SectionCargoLayout } from './components/SectionCargoLayout/SectionCargoLayout';
+
 import styles from './Step3Page.module.scss';
-import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useEffect } from 'react';
 
 /**
- * Step3Page – displays axle load results and cargo layout.
- * Accessible only after steps 1 and 2 are completed.
+ * Final step of the wizard: shows calculated axle loads and cargo placement.
+ *
+ * Access is guarded: only available after steps 1 and 2 are both completed.
+ * Handles API loading, error, and data states.
  */
 const Step3Page = () => {
   // Syncs the stepper to highlight current step
   useStepSync(2);
 
   const isAllowed = useStepsGuard({ requireStep1: true, requireStep2: true });
+  if (!isAllowed) return null;
+
   const step1Data = useSelector(selectStep1FormData);
   const step2Data = useSelector(selectStep2FinalData);
 
-  const { data, isLoading, error, refetch } = useCalculateAxleLoadsQuery(
-    { step1Data, step2Data },
-    { skip: !isAllowed },
-  );
+  // Fetches calculation results based on user input from prior steps.
+  const {
+    data: rows = [],
+    isLoading,
+    error,
+    refetch,
+  } = useCalculateAxleLoadsQuery({ step1Data, step2Data });
 
   useEffect(() => {
     if (!isLoading) {
       if (error) console.warn('[Step3Page] Ошибка API:', error);
     }
-  }, [data, isLoading, error]);
-
-  if (!isAllowed) return null;
-
-  const fetchError = error as FetchBaseQueryError | undefined;
-  const isHttpError =
-    fetchError &&
-    typeof fetchError.status === 'number' &&
-    [400, 500].includes(fetchError.status as number);
+  }, [isLoading, error]);
 
   return (
     <>
       <h2 className={styles.stepTitle}>Размещение груза</h2>
 
-      {isHttpError && (
-        <div className={styles.errorContainer}>
-          <p>
-            При загрузке данных расчёта нагрузки произошла ошибка сервера (
-            {fetchError.status as number}). Пожалуйста, попробуйте ещё раз.
-          </p>
-          <button className="btn" onClick={() => refetch()}>
-            Повторить
-          </button>
-        </div>
+      {error ? (
+        <ErrorWithRetry error={error} onRetry={refetch} />
+      ) : (
+        <>
+          <SectionAxleLoad
+            step1Data={step1Data}
+            step2Data={step2Data}
+            rows={rows}
+            isLoading={isLoading}
+          />
+
+          <SectionCargoLayout
+            step1Data={step1Data}
+            step2Data={step2Data}
+            rows={rows}
+            isLoading={isLoading}
+          />
+        </>
       )}
-
-      <SectionAxleLoad step1Data={step1Data} step2Data={step2Data} />
-
-      <SectionCargoLayout
-        deckLength={step1Data.deckLength}
-        step1Data={step1Data}
-        step2Data={step2Data}
-      />
     </>
   );
 };

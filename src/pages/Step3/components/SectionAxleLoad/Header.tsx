@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
 import styles from './Header.module.scss';
 
+/** Renders the title and a color legend (in a tooltip) */
 export const Header: React.FC = () => {
   return (
     <div className={styles.header}>

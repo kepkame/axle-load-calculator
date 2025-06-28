@@ -1,9 +1,5 @@
-import { TruckSideView } from '@components/visualization/TruckSideView/TruckSideView';
-import type { TruckVisualizationModel } from './models';
-
-interface TruckVisualizerProps {
-  model: TruckVisualizationModel;
-}
+import { TruckSideView } from '../TruckSideView/TruckSideView';
+import type { TruckVisualizerProps } from './models';
 
 /**
  * Renders truck and trailer layout using the provided visualization model.

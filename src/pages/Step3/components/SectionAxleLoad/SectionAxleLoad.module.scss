@@ -1,7 +1,13 @@
+@use '@styles/variables';
+
 .section {
-  margin-bottom: 32px;
+  margin-bottom: 60px;
 }
 
 .media {
   margin-bottom: 1.25rem;
+}
+
+.errorMessage {
+  color: variables.$color-danger-dark;
 }

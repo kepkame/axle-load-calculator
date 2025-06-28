@@ -4,7 +4,6 @@
   border-bottom: 1px solid variables.$color-text-subtitle-light;
 
   tfoot > & {
-    // background-color: variables.$color-surface;
     border-top: 2px solid variables.$color-text-subtitle-light;
     border-bottom: 2px solid variables.$color-text-subtitle-light;
   }
@@ -27,9 +26,12 @@
   &:last-child {
     width: 130px;
     font-weight: 600;
-    color: variables.$color-success-dark;
     border-left: 1px solid variables.$color-text-subtitle-light;
     padding-right: 4px;
+
+    &.dataSuccess {
+      color: variables.$color-success-dark;
+    }
 
     &.dataWarning {
       color: variables.$color-warning;

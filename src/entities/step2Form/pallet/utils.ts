@@ -1,4 +1,14 @@
-import { PalletSize, getPalletById } from './constants';
+import type { PalletSize, PalletSizeId } from '../types';
+import { PALLET_SIZES } from './constants';
+
+/**
+ * Retrieves a pallet configuration by its ID.
+ */
+export const getPalletById = (id: PalletSizeId): PalletSize => {
+  const p = PALLET_SIZES.find((x) => x.id === id);
+  if (!p) throw new Error(`Unknown pallet id "${id}"`);
+  return p;
+};
 
 /**
  * Calculates the used platform length (in millimeters) for a given cargo group.
@@ -9,11 +19,11 @@ import { PalletSize, getPalletById } from './constants';
  * @param quantity Number of pallets in the group
  * @returns Total length in millimeters occupied by the group
  */
-export function usedLengthForGroupMM(palletId: PalletSize['id'], quantity: number): number {
+export const usedLengthForGroupMM = (palletId: PalletSize['id'], quantity: number): number => {
   const { length } = getPalletById(palletId);
   const rows = Math.ceil(quantity / 2);
   return rows * length;
-}
+};
 
 /**
  * Calculates the total used platform length (in millimeters) across multiple cargo groups.
@@ -23,9 +33,9 @@ export function usedLengthForGroupMM(palletId: PalletSize['id'], quantity: numbe
  * @param groups List of cargo groups with pallet IDs and quantities
  * @returns Total used length in millimeters
  */
-export function totalUsedLengthMM(groups: { palletId: PalletSize['id']; quantity: number }[]) {
+export const totalUsedLengthMM = (groups: { palletId: PalletSize['id']; quantity: number }[]) => {
   return groups.reduce((sum, g) => sum + usedLengthForGroupMM(g.palletId, g.quantity), 0);
-}
+};
 
 /**
  * Calculates the maximum allowable quantity for each cargo group
@@ -38,10 +48,10 @@ export function totalUsedLengthMM(groups: { palletId: PalletSize['id']; quantity
  * @param groups List of cargo groups with pallet IDs and quantities
  * @returns Array of maximum allowed quantities for each group
  */
-export function getMaxQuantities(
+export const getMaxQuantities = (
   deckLengthMM: number,
   groups: { palletId: PalletSize['id']; quantity: number }[],
-): number[] {
+): number[] => {
   const usedTotal = totalUsedLengthMM(groups);
 
   return groups.map(({ palletId, quantity }) => {
@@ -52,4 +62,4 @@ export function getMaxQuantities(
 
     return maxRows * 2;
   });
-}
+};

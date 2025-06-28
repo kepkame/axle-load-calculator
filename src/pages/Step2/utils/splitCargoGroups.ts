@@ -1,42 +1,32 @@
-import type { PalletSizeId } from '@entities/step2Form/pallet/constants';
-
-export interface CargoGroup {
-  groupId: number;
-  palletId: PalletSizeId;
-  weight: number;
-  quantity: number;
-}
+import { CargoGroup } from '@entities/step2Form/types';
 
 /**
- * Разбивает каждую группу паллет на подгруппы по 1–2 паллеты,
- * перенумеровывая groupId сквозной нумерацией с 1.
+ * Splits each pallet group into subgroups of 1–2 pallets,
+ * reassigning groupId using sequential numbering starting from 1.
  *
- * Исходный массив не мутируется. Порядок групп сохраняется.
- *
- * @param groups Массив исходных групп паллет
- * @returns Новый массив групп с quantity ≤ 2 и пересозданными groupId
+ * The original array is not mutated. The order of groups is preserved.
  */
 export function splitCargoGroups(groups: CargoGroup[]): CargoGroup[] {
-  const result: CargoGroup[] = [];
-  let newGroupId = 1;
+  const splitGroups = groups.flatMap((group) => {
+    const validQuantity = Math.max(0, Math.floor(group.quantity));
 
-  for (const group of groups) {
-    let remaining = group.quantity;
-
-    while (remaining > 0) {
-      const take = remaining >= 2 ? 2 : 1;
-
-      result.push({
-        palletId: group.palletId,
-        weight: group.weight,
-        quantity: take,
-        groupId: newGroupId,
-      });
-
-      newGroupId += 1;
-      remaining -= take;
+    if (validQuantity === 0) {
+      console.warn(`Group with groupId=${group.groupId} has zero quantity and was skipped`);
     }
-  }
 
-  return result;
+    return Array.from({ length: Math.ceil(validQuantity / 2) }, (_, index) => {
+      const remaining = validQuantity - index * 2;
+      const subQuantity = remaining >= 2 ? 2 : 1;
+
+      return {
+        ...group,
+        quantity: subQuantity,
+      };
+    });
+  });
+
+  return splitGroups.map((group, index) => ({
+    ...group,
+    groupId: index + 1,
+  }));
 }

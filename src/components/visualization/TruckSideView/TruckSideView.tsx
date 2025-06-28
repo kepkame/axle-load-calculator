@@ -11,6 +11,7 @@ export const TruckSideView: React.FC<TruckSideViewProps> = ({ axles }) => {
     return <div className={styles.error}>Ошибка: отсутствуют данные об осях</div>;
   }
 
+  // Group and order axles by type
   const tractorAxles = axles
     .filter((axle) => axle.axleType === 'truck')
     .sort((a, b) => a.index - b.index);
@@ -22,6 +23,7 @@ export const TruckSideView: React.FC<TruckSideViewProps> = ({ axles }) => {
   const tractorAxleCountStr = tractorAxles.length.toString();
   const trailerAxleCountStr = trailerAxles.length.toString();
 
+  // Validate supported axle counts (avoids rendering unknown layouts)
   if (!isValidTruckAxleCount(tractorAxleCountStr)) {
     return <div className={styles.error}>Ошибка: неподдерживаемое число осей тягача</div>;
   }
@@ -30,6 +32,7 @@ export const TruckSideView: React.FC<TruckSideViewProps> = ({ axles }) => {
     return <div className={styles.error}>Ошибка: неподдерживаемое число осей полуприцепа</div>;
   }
 
+  // Extract axle status and lifted flags for rendering
   const tractorStatuses: AxleStatus[] = tractorAxles.map((axle) => axle.status ?? 'default');
   const trailerStatuses: AxleStatus[] = trailerAxles.map((axle) => axle.status ?? 'default');
 
@@ -45,8 +48,8 @@ export const TruckSideView: React.FC<TruckSideViewProps> = ({ axles }) => {
       aria-label="Визуализация тягача и прицепа"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <Trailer axleCount={trailerAxleCountStr} statuses={trailerStatuses} lifted={trailerLifted} />
       <Tractor axleCount={tractorAxleCountStr} statuses={tractorStatuses} lifted={tractorLifted} />
+      <Trailer axleCount={trailerAxleCountStr} statuses={trailerStatuses} lifted={trailerLifted} />
     </svg>
   );
 };

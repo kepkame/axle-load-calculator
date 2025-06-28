@@ -1,6 +1,10 @@
 import { z } from 'zod';
-import { getPalletById } from './pallet/constants';
-import { getMaxQuantities, totalUsedLengthMM, usedLengthForGroupMM } from './pallet/utils';
+import {
+  getMaxQuantities,
+  getPalletById,
+  totalUsedLengthMM,
+  usedLengthForGroupMM,
+} from './pallet/utils';
 
 export const cargoGroupSchema = z.object({
   groupId: z.number().int().min(1, 'Неправильный идентификатор группы'),

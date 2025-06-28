@@ -1,0 +1,11 @@
+export const WIDTH_IN_METERS = 2.45;
+export const TRACTOR_CAB_REAL_LENGTH_M = 2.3;
+export const TRACTOR_FRONT_AXLE_OFFSET_FROM_FRONT_M = 1.42;
+export const TRAILER_REAL_WIDTH_M = 2.45;
+export const TRAILER_REAR_AXLE_DISTANCE_FROM_END_M = 1.38;
+export const LIFTED_AXLE_RENDER_SCALE_FACTOR = 0.83;
+export const WHEEL_REAL_LENGTH_MM = 1075.5;
+export const TRUCK_REAR_AXLE_OFFSETS_M = {
+  2: 0.55,
+  3: 0.72,
+};

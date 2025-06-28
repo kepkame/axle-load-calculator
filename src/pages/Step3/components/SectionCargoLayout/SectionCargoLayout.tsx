@@ -1,47 +1,36 @@
-import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
-import type { FormSchemaType as Step1FormData } from '@entities/step1Form/types';
-import type { FormSchemaType as Step2FormData } from '@entities/step2Form/types';
-
+import { TruckTopView } from '@components/visualization/TruckTopView/TruckTopView';
+import type { SectionCargoLayoutProps } from './SectionCargoLayout.types';
 import styles from './SectionCargoLayout.module.scss';
 
-interface SectionCargoLayoutProps {
-  deckLength: number;
-  step1Data: Step1FormData;
-  step2Data: Step2FormData;
-}
-
+/**
+ * SectionCargoLayout – renders a top-down view of the trailer
+ * with pallets distributed across the deck based on axle load data.
+ */
 export const SectionCargoLayout: React.FC<SectionCargoLayoutProps> = ({
-  deckLength,
   step1Data,
   step2Data,
+  rows,
+  isLoading,
 }) => {
-  const {
-    data: rows = [],
-    isLoading,
-    error,
-  } = useCalculateAxleLoadsQuery({ step1Data, step2Data });
+  const hasRows = rows.length > 0;
+  const showVisualization = isLoading || hasRows;
+  let content: React.ReactNode;
+
+  if (showVisualization) {
+    content = <TruckTopView dataVehicle={step1Data} dataCargo={step2Data} dataResultCalc={rows} />;
+  } else {
+    content = <p>Ошибка: В полученных расчётах нет данных нагрузки осей.</p>;
+  }
 
   return (
     <section>
       <h3 className={styles.title}>План размещения груза</h3>
 
-      <div>
-        <p>Перемещайте, удаляйте паллеты или изменяйте их габариты и вес.</p>
+      <div className={styles.description}>
         <p>Используйте план для равномерного распределения груза и предотвращения перегрузки.</p>
       </div>
 
-      <p>deckLength = {deckLength}</p>
-
-      <p>
-        <strong>Загруженность расчётных осей:</strong>{' '}
-        {isLoading ? 'Загрузка…' : rows.length > 0 ? `${rows.length} осей` : 'Нет данных'}
-      </p>
-
-      {error && (
-        <p className={styles.errorMessage}>
-          Ошибка загрузки данных: {String('status' in error ? error.status : error)}
-        </p>
-      )}
+      {content}
     </section>
   );
 };

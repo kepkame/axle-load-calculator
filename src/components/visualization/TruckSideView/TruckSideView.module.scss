@@ -14,7 +14,7 @@
 
 .media {
   width: 100%;
-  max-width: 482px;
+  max-width: variables.$visualization-width;
   height: auto;
   fill: none;
   stroke-width: 2px;

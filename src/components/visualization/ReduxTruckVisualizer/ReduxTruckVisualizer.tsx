@@ -1,8 +1,7 @@
 import type { Step1FormApiPayload } from '@entities/step1Form/types';
-
+import { createVisualizationModelFromRows } from '../TruckAxleVisualizer/adapters';
 import { TruckVisualizer } from '../TruckVisualizer/TruckVisualizer';
 import { createVisualizationModel } from '../TruckVisualizer/adapters';
-import { createVisualizationModelFromRows } from '../TruckAxleVisualizer/adapters';
 import type { ReduxTruckVisualizerProps } from './ReduxTruckVisualizer.types';
 
 /**

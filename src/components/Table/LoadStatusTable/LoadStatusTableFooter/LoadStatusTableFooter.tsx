@@ -3,8 +3,13 @@ import { Tooltip } from '@components/feedback/Tooltip/Tooltip';
 import { calcTotalWeights } from '@utils/calculations/calcTotalWeights';
 import { CargoWeightTooltipContent } from './CargoWeightTooltipContent';
 import { LoadStatusTableFooterProps } from './LoadStatusTableFooter.types';
+import { getStatusClass } from '../utils/getStatusClass';
 import styles from './../LoadStatusTable.module.scss';
 
+/**
+ * Table footer: shows total calculated cargo + vehicle weight and limit.
+ * Highlights cell based on total load status.
+ */
 export const LoadStatusTableFooter: React.FC<LoadStatusTableFooterProps> = ({
   step1Data,
   step2Data,
@@ -29,19 +34,14 @@ export const LoadStatusTableFooter: React.FC<LoadStatusTableFooterProps> = ({
     trailerAxles,
   });
 
-  // Determines status class based on weight percentage
-  const getStatusClass = (): string | undefined => {
-    const percent = totalWeightTons / maxAllowedTons;
-    if (percent >= 1.0) return styles.dataDanger;
-    if (percent >= 0.85) return styles.dataWarning;
-    return undefined;
-  };
+  // Highlights value cell if overloaded (danger/warning)
+  const axleStatusClass = getStatusClass(totalWeightTons, maxAllowedTons);
 
   return (
     <tfoot>
       <tr className={styles.row}>
         <td className={clsx(styles.data, styles.dataFooter)}>Общая масса груза</td>
-        <td className={clsx(styles.data, getStatusClass())}>
+        <td className={clsx(styles.data, axleStatusClass)}>
           {totalWeightTons.toFixed(1)} из {maxAllowedTons} т.{' '}
           <Tooltip>
             <CargoWeightTooltipContent />

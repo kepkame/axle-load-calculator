@@ -3,49 +3,63 @@ import { LoadStatusTable } from '@components/Table/LoadStatusTable/LoadStatusTab
 import { Table } from '@components/Table/Table';
 import { LoadStatusTableSkeleton } from '@components/Table/LoadStatusTable/LoadStatusTableSkeleton/LoadStatusTableSkeleton';
 import { ReduxTruckVisualizer } from '@components/visualization/ReduxTruckVisualizer/ReduxTruckVisualizer';
-import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
 
 import { Header } from './Header';
-import { SectionAxleLoadProps } from './SectionAxleLoad.types';
+import type { SectionAxleLoadProps } from './SectionAxleLoad.types';
 import styles from './SectionAxleLoad.module.scss';
 
 /**
- * Shows axle load diagram and table based on server-calculated data.
+ * Displays the axle load diagram (top part), status table (below), and a PDF download button.
+ *
+ * Main responsibilities:
+ * - Visualizes the calculated axle loads using a schematic diagram.
+ * - Shows a summary table with per-axle status.
+ * - Handles loading and empty states gracefully for a smoother UX.
  */
-export const SectionAxleLoad: React.FC<SectionAxleLoadProps> = ({ step1Data, step2Data }) => {
-  const {
-    data: rows = [],
-    isLoading,
-    error,
-  } = useCalculateAxleLoadsQuery({ step1Data, step2Data });
+export const SectionAxleLoad: React.FC<SectionAxleLoadProps> = ({
+  step1Data,
+  step2Data,
+  rows = [],
+  isLoading,
+}) => {
+  const hasRows = rows.length > 0;
+  const showSkeleton = isLoading;
+  const showEmpty = !hasRows && !isLoading;
+
   return (
     <section className={styles.section}>
       <Header />
 
-      <div className={styles.media}>
-        <ReduxTruckVisualizer
-          truckAxles={step1Data.truckAxles}
-          trailerAxles={step1Data.trailerAxles}
-          rows={rows}
-          loading={isLoading}
-          formData={step1Data}
-        />
-      </div>
+      {(showSkeleton || hasRows) && (
+        <div className={styles.media}>
+          <ReduxTruckVisualizer
+            truckAxles={step1Data.truckAxles}
+            trailerAxles={step1Data.trailerAxles}
+            rows={rows}
+            loading={isLoading}
+            formData={step1Data}
+          />
+        </div>
+      )}
 
-      {isLoading ? (
-        <LoadStatusTableSkeleton />
-      ) : (
+      {showSkeleton && <LoadStatusTableSkeleton />}
+
+      {hasRows && (
         <Table>
           <LoadStatusTable rows={rows} step1Data={step1Data} step2Data={step2Data} />
         </Table>
       )}
 
-      {error && <div className="error">Ошибка загрузки данных: {String(error)}</div>}
+      {showEmpty && (
+        <p className={styles.errorMessage}>Ошибка: отсутствуют расчёты нагрузки на оси.</p>
+      )}
 
-      <button className="btn btn--icon">
-        <IconDocument className="icon" />
-        Скачать отчёт в PDF
-      </button>
+      {hasRows && (
+        <button className="btn btn--icon" disabled={!hasRows}>
+          <IconDocument className="icon" />
+          Скачать отчёт в PDF
+        </button>
+      )}
     </section>
   );
 };

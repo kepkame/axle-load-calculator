@@ -1,9 +1,6 @@
 import type { LoadStatusRow } from '@components/Table/LoadStatusTable/LoadStatusTableRows/LoadStatusRow.types';
-import type {
-  TruckVisualizationModel,
-  AxleVisualizationModel,
-  AxleStatus,
-} from '../TruckVisualizer/models';
+import { getAxleStatus } from '@utils/getLoadStatus';
+import type { TruckVisualizationModel, AxleVisualizationModel } from '../TruckVisualizer/models';
 
 /**
  * Maps backend axle load results to a visualization model for rendering.
@@ -22,11 +19,7 @@ export const createVisualizationModelFromRows = (params: {
 
   // Generate an array of axles with lifted/status indicators
   let axles: AxleVisualizationModel[] = params.rows.map((row) => {
-    const pct = row.actualLoad / row.maxLoad;
-
-    let status: AxleStatus = 'success';
-    if (pct > 1) status = 'danger'; // Overloaded
-    else if (pct >= 0.85) status = 'warning'; // Near limit
+    const status = getAxleStatus(row.actualLoad, row.maxLoad);
 
     return {
       axleKey: row.axleKey,

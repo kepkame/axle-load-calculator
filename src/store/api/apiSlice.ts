@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
 import { mergeAxleFormAndCalcData } from '@pages/Step3/utils/mergeAxleFormAndCalcData';
 import type { AxleCalculationResult } from '@shared-types/axleCalculation';
-import type { CalculateAxleLoadsArgs, CalculateAxleLoadsResponse } from './../types';
+import type { CalculateAxleLoadsArgs, CalculateAxleLoadsResponse } from '../types';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 

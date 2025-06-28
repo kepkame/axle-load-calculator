@@ -1,4 +1,15 @@
+@use '@styles/variables.scss';
+
 .title {
   margin-top: 0;
   margin-bottom: 1rem;
+}
+
+.description {
+  max-width: variables.$visualization-width;
+  margin-bottom: 2rem;
+}
+
+.errorMessage {
+  color: variables.$color-danger-dark;
 }

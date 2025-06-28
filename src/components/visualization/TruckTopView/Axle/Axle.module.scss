@@ -1,0 +1,51 @@
+@use '@styles/variables';
+
+@keyframes shineLoader {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.axle {
+  position: absolute;
+  width: 16px;
+  background-color: variables.$color-background;
+
+  &--default {
+    background-color: variables.$color-background;
+  }
+
+  &--success {
+    background-color: variables.$color-success-light;
+  }
+
+  &--warning {
+    background-color: variables.$color-warning-light;
+  }
+
+  &--danger {
+    background-color: variables.$color-danger-light;
+  }
+
+  &--loading {
+    background-color: variables.$color-background;
+    border: 2px solid variables.$color-text-secondary;
+    overflow: hidden;
+    z-index: -1;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent 0%, #d3daec 50%, transparent 100%);
+      transform: translateX(-100%);
+      animation: shineLoader 2s infinite;
+    }
+  }
+}

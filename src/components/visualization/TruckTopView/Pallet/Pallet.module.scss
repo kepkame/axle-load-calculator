@@ -1,0 +1,89 @@
+@use '@styles/variables.scss';
+
+@keyframes shineLoader {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.pallet {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background-color: variables.$color-background;
+  border-width: 4px;
+  border-style: solid;
+  padding: 12px 8px;
+
+  .row--default & {
+    background-color: variables.$color-background;
+    border-color: variables.$color-text-primary;
+  }
+
+  .row--success & {
+    background-color: variables.$color-success-light;
+    border-color: variables.$color-success-dark;
+  }
+
+  .row--warning & {
+    background-color: variables.$color-warning-light;
+    border-color: variables.$color-warning-dark;
+  }
+
+  .row--danger & {
+    background-color: variables.$color-danger-light;
+    border-color: variables.$color-danger-dark;
+  }
+
+  .row--out & {
+    background-color: variables.$color-danger-light;
+    border-style: dashed;
+    border-color: variables.$color-danger-dark;
+  }
+
+  .row--loading & {
+    border-color: variables.$color-text-secondary;
+    overflow: hidden;
+
+    span {
+      color: variables.$color-text-secondary;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent 0%, #d3daec 50%, transparent 100%);
+      transform: translateX(-100%);
+      animation: shineLoader 2s infinite;
+    }
+  }
+
+  span {
+    position: relative;
+    display: block;
+    margin-bottom: 0.24rem;
+    z-index: 1;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

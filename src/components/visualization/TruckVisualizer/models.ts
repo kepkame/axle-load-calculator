@@ -1,5 +1,13 @@
 /** Axle load status used for coloring and state indication */
-export type AxleStatus = 'default' | 'success' | 'warning' | 'danger' | 'loading';
+export type AxleStatus = 'default' | 'success' | 'warning' | 'danger' | 'loading' | 'out';
+
+/** Raw axle load input used for model creation */
+export interface AxleLoadInfo {
+  axleType: 'truck' | 'trailer';
+  loadEmpty?: number;
+  loadLimit?: number;
+  lifted: boolean;
+}
 
 /** Describes a single axle in the visualization model */
 export interface AxleVisualizationModel {
@@ -20,10 +28,6 @@ export interface TruckVisualizationModel {
   axles: AxleVisualizationModel[]; // Visual metadata for all axles
 }
 
-/** Raw axle load input used for model creation */
-export interface AxleLoadInfo {
-  axleType: 'truck' | 'trailer';
-  loadEmpty?: number;
-  loadLimit?: number;
-  lifted: boolean;
+export interface TruckVisualizerProps {
+  model: TruckVisualizationModel;
 }
