@@ -64,7 +64,6 @@ export const TruckFormSection: React.FC<FormSectionProps> = ({
           maxLength={5}
           showRange
           inputMode="numeric"
-          autoFocus
         />
       </BaseField>
 
