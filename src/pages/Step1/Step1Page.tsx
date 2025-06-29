@@ -20,7 +20,6 @@ import { SkeletonStep1Form } from './components/SkeletonStep1Form';
 import { TransportForm } from './components/TransportForm/TransportForm';
 import { useStep1Form } from './hooks/useStep1Form';
 import { getNormalizedStep1FormSnapshot } from './utils/getNormalizedStep1FormSnapshot';
-import { storeTruckFormPreset } from './utils/storeTruckFormPreset';
 
 /**
  * Page for the first step of the axle load calculation wizard.
@@ -94,7 +93,7 @@ const Step1Page: React.FC = () => {
                 truckAxles={truckAxles}
                 trailerAxles={trailerAxles}
               />
-              <FormActions onSave={() => storeTruckFormPreset()} showSave />
+              <FormActions />
             </>
           )}
         </Form>
