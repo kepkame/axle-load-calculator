@@ -1,0 +1,24 @@
+.privacy {
+  h3 {
+    margin-top: 2rem;
+  }
+
+  ul {
+    list-style: circle;
+    margin-bottom: 0.5rem;
+    margin-left: 2rem;
+    padding: 0;
+
+    li {
+      list-style: disc;
+    }
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
