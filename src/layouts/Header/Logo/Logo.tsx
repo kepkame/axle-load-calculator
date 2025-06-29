@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoPng from '@assets/images/logo.png';
-import logoWebp from '@assets/images/logo.webp';
+import logoPng from '@assets/images/logo/logo.png';
+import logoWebp from '@assets/images/logo/logo.webp';
 import styles from './Logo.module.scss';
 
 export const Logo: React.FC = () => {
