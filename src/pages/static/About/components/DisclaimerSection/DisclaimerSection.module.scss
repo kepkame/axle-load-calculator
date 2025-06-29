@@ -1,0 +1,31 @@
+@use 'sass:color';
+@use '@styles/variables';
+
+.disclaimer {
+  position: relative;
+  background-color: color.adjust(
+    variables.$color-danger,
+    $hue: -1,
+    $saturation: 1%,
+    $lightness: 38%
+  );
+  border-left: 4px solid variables.$color-danger;
+  padding: 1rem;
+  padding-left: 1.5rem;
+  box-shadow: variables.$box-shadow-sm;
+
+  p {
+    color: variables.$color-danger-dark;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.title {
+  color: variables.$color-danger-dark;
+  font-weight: 700;
+  margin-top: 0;
+}

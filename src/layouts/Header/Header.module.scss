@@ -27,3 +27,17 @@
     height: 32px;
   }
 }
+
+.navLink {
+  color: variables.$color-text-primary;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.active {
+    font-weight: 600;
+    color: variables.$color-text-primary;
+    cursor: default;
+  }
+}

@@ -1,7 +1,7 @@
+import clsx from 'clsx';
 import { Logo } from '@layouts/Header/Logo/Logo';
-import { ThemeToggle } from '@layouts/Header/ThemeToggle/ThemeToggle';
-import { IconLink } from '@components/ui/Button/IconButtons/IconLink';
-import IconTruck from '@assets/icons/truck-front.svg?react';
+import { NavLink } from 'react-router-dom';
+// import { ThemeToggle } from '@layouts/Header/ThemeToggle/ThemeToggle';
 import styles from './Header.module.scss';
 
 export const Header = () => {
@@ -12,14 +12,15 @@ export const Header = () => {
           <Logo />
 
           <div className={styles.buttons}>
-            <ThemeToggle />
+            <NavLink
+              to="/about"
+              className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
+            >
+              О проекте
+            </NavLink>
 
-            <IconLink
-              url="/favorites"
-              icon={IconTruck}
-              className={styles.buttonSettings}
-              ariaLabel="Сохраненные параметры"
-            />
+            {/* TODO: Add a website theme color toggle */}
+            {/* <ThemeToggle /> */}
           </div>
         </div>
       </div>
