@@ -32,7 +32,7 @@
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
       "@shared-constants/*": ["src/shared/constants/*"],
-      "@shared-types/*": ["src/types/*"],
+      "@shared-types/*": ["src/shared/types/*"],
       "@utils/*": ["src/utils/*"]
     },
     "types": ["node"]
