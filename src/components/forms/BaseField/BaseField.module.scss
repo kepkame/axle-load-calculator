@@ -47,8 +47,9 @@
   line-height: 1.25rem;
   color: variables.$color-text-subtitle;
   transform: translateY(-50%);
-  // transition: transform 0.1s ease;
-  z-index: -1;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 input[type='range'] + .units {
