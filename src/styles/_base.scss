@@ -17,14 +17,12 @@
   font-family: variables.$font-family;
   font-weight: 500;
   color: variables.$color-text-primary;
-
-  /* color-scheme: light dark; */
 }
 
 html {
+  min-width: 360px;
+  width: 100%;
   height: 100%;
-  // min-width: 360px;
-  min-width: max(360px, 100vw);
 
   font-size: 100%;
 }
@@ -33,9 +31,9 @@ body {
   display: flex;
   flex-direction: column;
 
-  // min-width: 360px;
-  min-width: max(360px, 100vw);
-  min-height: 100vh;
+  min-width: 360px;
+  width: 100%;
+  min-height: 100dvh;
 
   box-sizing: border-box;
   margin: 0;
@@ -167,12 +165,12 @@ img {
   }
 }
 
-// Скрытие стандартного фокуса для мыши
+// Hiding the standard mouse focus
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
 }
 
-// Сильный индикатор фокуса для клавиатуры
+// Strong focus indicator for the keyboard
 .js-focus-visible .focus-visible {
   outline: 2px solid variables.$color-primary-hover;
   outline-offset: 2px;
