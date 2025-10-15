@@ -22,7 +22,7 @@ export const calculateLoadRatio = (actual: number, max: number): number => {
 export const getAxleStatus = (actual: number, max: number): AxleStatus => {
   const ratio = calculateLoadRatio(actual, max);
 
-  if (ratio > DANGER_THRESHOLD) return 'danger';
+  if (ratio >= DANGER_THRESHOLD) return 'danger';
   if (ratio >= WARNING_THRESHOLD) return 'warning';
   return 'success';
 };
