@@ -1,10 +1,13 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { Buffer } from 'buffer';
 import store from './store/index.ts';
 import App from './App.tsx';
 
 import 'focus-visible';
 import './styles/app.scss';
+
+window.Buffer = Buffer;
 
 const rootElement = document.getElementById('root');
 

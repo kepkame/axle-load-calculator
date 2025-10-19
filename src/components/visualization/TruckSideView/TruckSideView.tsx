@@ -1,6 +1,6 @@
 import { Tractor } from './Tracktor/Tractor';
 import { Trailer } from './Trailer/Trailer';
-import type { AxleStatus } from '../TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import type { TruckSideViewProps } from './TruckSideView.types';
 import { isValidTruckAxleCount, isValidTrailerAxleCount } from './utils/axleCountGuards';
 import styles from './TruckSideView.module.scss';

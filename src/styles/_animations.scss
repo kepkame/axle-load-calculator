@@ -1,0 +1,26 @@
+@keyframes axleLoadingPulse {
+  0% {
+    fill: #ffffff;
+  }
+  50% {
+    fill: #d3daec;
+  }
+  100% {
+    fill: #ffffff;
+  }
+}
+
+@keyframes shineLoader {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}

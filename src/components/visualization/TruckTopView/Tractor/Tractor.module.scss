@@ -1,14 +1,5 @@
 @use '@styles/variables.scss';
-
-// Анимация для кабины во время активного статуса 'loading', пока загружаются данные нагрузки
-@keyframes shineLoader {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
+@use '@styles/animations';
 
 .wrapper {
   position: relative;

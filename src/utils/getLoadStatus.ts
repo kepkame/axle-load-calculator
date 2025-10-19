@@ -1,5 +1,5 @@
 import { DANGER_THRESHOLD, WARNING_THRESHOLD } from '@shared-constants/loadStatus';
-import { AxleStatus } from '../components/visualization/TruckVisualizer/models';
+import type { AxleStatusCore } from '@shared-types/loadStatus';
 
 /**
  * Returns load ratio for an axle, guarding against division by zero.
@@ -19,7 +19,7 @@ export const calculateLoadRatio = (actual: number, max: number): number => {
  * - ratio >= WARNING_THRESHOLD → 'warning'
  * - below that                → 'success'
  */
-export const getAxleStatus = (actual: number, max: number): AxleStatus => {
+export const getAxleStatus = (actual: number, max: number): AxleStatusCore => {
   const ratio = calculateLoadRatio(actual, max);
 
   if (ratio >= DANGER_THRESHOLD) return 'danger';

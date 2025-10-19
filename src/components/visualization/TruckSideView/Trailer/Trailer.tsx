@@ -1,4 +1,4 @@
-import type { AxleStatus } from '@components/visualization/TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import type { TrailerAxleCount } from '@shared-constants/axleCounts';
 import { AxlesRenderer } from '../AxlesRenderer/AxlesRenderer';
 import { TrailerCargoBox } from './TrailerCargoBox';

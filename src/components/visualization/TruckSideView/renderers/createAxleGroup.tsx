@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { AxleStatus } from '@components/visualization/TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import { TrailerAxleCount, TruckAxleCount } from '@shared-constants/axleCounts';
 import {
   TRACTOR_AXLE_X_POSITIONS,

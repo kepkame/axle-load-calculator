@@ -1,4 +1,5 @@
 @use './variables';
+@use '@styles/animations';
 
 *,
 *:before,
@@ -125,6 +126,18 @@ img {
     background-color: variables.$color-primary-hover;
   }
 
+  &:disabled {
+    color: variables.$color-white;
+    background-color: variables.$color-text-subtitle;
+    transition: all 0s;
+    cursor: not-allowed;
+
+    .icon {
+      fill: variables.$color-white;
+      transition: fill 0s;
+    }
+  }
+
   &--outline {
     color: variables.$color-primary;
     background-color: transparent;
@@ -156,12 +169,20 @@ img {
       color: variables.$color-text-secondary;
       background-color: variables.$color-background;
       border-color: variables.$color-text-subtitle;
+      transition: all 0s;
       cursor: not-allowed;
 
       .icon {
         fill: variables.$color-text-secondary;
+        transition: fill 0s;
       }
     }
+  }
+}
+
+.icon {
+  &--rotating {
+    animation: spin 1.5s linear infinite;
   }
 }
 

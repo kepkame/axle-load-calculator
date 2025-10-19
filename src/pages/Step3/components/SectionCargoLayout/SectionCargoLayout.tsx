@@ -11,13 +11,21 @@ export const SectionCargoLayout: React.FC<SectionCargoLayoutProps> = ({
   step2Data,
   rows,
   isLoading,
+  cargoPlanRef,
 }) => {
   const hasRows = rows.length > 0;
   const showVisualization = isLoading || hasRows;
   let content: React.ReactNode;
 
   if (showVisualization) {
-    content = <TruckTopView dataVehicle={step1Data} dataCargo={step2Data} dataResultCalc={rows} />;
+    content = (
+      <TruckTopView
+        ref={cargoPlanRef}
+        dataVehicle={step1Data}
+        dataCargo={step2Data}
+        dataResultCalc={rows}
+      />
+    );
   } else {
     content = <p>Ошибка: В полученных расчётах нет данных нагрузки осей.</p>;
   }

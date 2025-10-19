@@ -1,5 +1,5 @@
-import type { AxleStatus } from '@components/visualization/TruckVisualizer/models';
 import type { CargoGroup } from '@entities/step2Form/types';
+import type { AxleStatus } from '@shared-types/loadStatus';
 
 export interface PalletProps {
   weight: number;

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useCalculateAxleLoadsQuery } from '@store/api/apiSlice';
@@ -29,6 +29,8 @@ const Step3Page = () => {
   const step1Data = useSelector(selectStep1FormData);
   const step2Data = useSelector(selectStep2FinalData);
 
+  const cargoPlanRef = useRef<HTMLDivElement | null>(null);
+
   // Fetches calculation results based on user input from prior steps.
   const {
     data: rows = [],
@@ -39,7 +41,7 @@ const Step3Page = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      if (error) console.warn('[Step3Page] Ошибка API:', error);
+      if (error) console.warn('API error:', error);
     }
   }, [isLoading, error]);
 
@@ -56,6 +58,7 @@ const Step3Page = () => {
             step2Data={step2Data}
             rows={rows}
             isLoading={isLoading}
+            cargoPlanRef={cargoPlanRef}
           />
 
           <SectionCargoLayout
@@ -63,6 +66,7 @@ const Step3Page = () => {
             step2Data={step2Data}
             rows={rows}
             isLoading={isLoading}
+            cargoPlanRef={cargoPlanRef}
           />
         </>
       )}

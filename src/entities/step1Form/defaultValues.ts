@@ -1,11 +1,11 @@
-import { Step1FormNormalized } from '@entities/step1Form/types';
+import type { Step1Data } from '@shared-types/step1Data';
 
 /**
  * Provides the default initial values for Step1 form.
  *
  * Used during first-time initialization or form reset.
  */
-export const getEmptyFormData = (): Step1FormNormalized => {
+export const getEmptyFormData = (): Step1Data => {
   return {
     truckWeight: 8200,
     truckAxles: '3',

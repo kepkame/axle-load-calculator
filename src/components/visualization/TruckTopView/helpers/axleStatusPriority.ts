@@ -1,4 +1,4 @@
-import { AxleStatus } from '../../TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 
 /**
  * Defines visual severity priority for each axle status.

@@ -7,4 +7,5 @@ export interface SectionCargoLayoutProps {
   step2Data: Step2FormData;
   rows: LoadStatusRow[];
   isLoading: boolean;
+  cargoPlanRef?: React.RefObject<HTMLDivElement>;
 }

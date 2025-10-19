@@ -1,5 +1,6 @@
 import type { TruckAxleCount } from '@shared-constants/axleCounts';
-import type { AxleVisualizationModel, AxleStatus } from '../TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
+import type { AxleVisualizationModel } from '../TruckVisualizer/models';
 
 /**
  * Props for the full truck side view visualization.

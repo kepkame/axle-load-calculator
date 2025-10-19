@@ -1,5 +1,5 @@
 import { AXLE_STATUS_PRIORITY } from '../helpers/axleStatusPriority';
-import type { AxleStatus } from '../../TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import type { AxleCoord } from '../TruckTopView.types';
 
 const FLOAT_TOLERANCE = 0.1 as const;

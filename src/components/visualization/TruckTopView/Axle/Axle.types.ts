@@ -1,4 +1,4 @@
-import type { AxleStatus } from '@components/visualization/TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 
 export interface AxleProps {
   yPx: number;

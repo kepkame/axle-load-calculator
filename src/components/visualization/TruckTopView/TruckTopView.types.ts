@@ -1,5 +1,5 @@
 import type { LoadStatusRow } from '@components/Table/LoadStatusTable/LoadStatusTableRows/LoadStatusRow.types';
-import type { AxleStatus } from '../TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import type { FormSchemaType as Step1FormData } from '@entities/step1Form/types';
 import type { FormSchemaType as Step2FormData } from '@entities/step2Form/types';
 

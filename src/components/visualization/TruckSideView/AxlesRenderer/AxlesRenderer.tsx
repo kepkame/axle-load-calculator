@@ -1,5 +1,5 @@
 import { createAxleGroup } from '../renderers/createAxleGroup';
-import type { AxleStatus } from '@components/visualization/TruckVisualizer/models';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import type { TrailerAxleCount, TruckAxleCount } from '@shared-constants/axleCounts';
 
 interface AxlesRendererProps {

@@ -31,7 +31,7 @@ export const ReduxTruckVisualizer: React.FC<ReduxTruckVisualizerProps> = ({
   const model = loading
     ? createVisualizationModel(payload).axles.map((axle) => ({
         ...axle,
-        status: 'loading' as const,
+        status: undefined,
       }))
     : null;
 

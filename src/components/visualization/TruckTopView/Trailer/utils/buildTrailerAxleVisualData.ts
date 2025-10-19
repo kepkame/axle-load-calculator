@@ -1,5 +1,5 @@
-import type { AxleStatus } from '@components/visualization/TruckVisualizer/models';
 import type { LoadStatusRow } from '@components/Table/LoadStatusTable/LoadStatusTableRows/LoadStatusRow.types';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import { getAxleStatus } from '@utils/getLoadStatus';
 import { getTrailerAxleCoords } from '../../utils/getTrailerAxleCoords';
 import type { TrailerAxleVisualData } from '../../TruckTopView.types';

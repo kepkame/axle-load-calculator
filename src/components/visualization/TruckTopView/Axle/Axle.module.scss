@@ -1,13 +1,5 @@
 @use '@styles/variables';
-
-@keyframes shineLoader {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
+@use '@styles/animations';
 
 .axle {
   position: absolute;

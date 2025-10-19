@@ -1,31 +1,10 @@
 import { z } from 'zod';
 import { FieldArrayWithId } from 'react-hook-form';
-import { TrailerAxleCount, TruckAxleCount } from '@shared-constants/axleCounts';
 import { formSchema } from './schema';
 
 export type FormSchemaType = z.infer<typeof formSchema>;
 
 export type FormContext = unknown;
-
-export interface Step1FormNormalized {
-  truckWeight: number;
-  truckAxles: TruckAxleCount;
-  truckWheelbase: number[];
-
-  trailerWeight: number;
-  trailerAxles: TrailerAxleCount;
-  couplingLength: number;
-  trailerWheelbase: number[];
-  deckLength: number;
-
-  axleLoadData: {
-    axleId: string;
-    axleType: 'truck' | 'trailer';
-    axleLoadEmpty: number;
-    axleLoadLimit: number;
-    lifted: boolean;
-  }[];
-}
 
 // Represents a single item from the 'axleLoadData' field array,
 // including the internal 'id' added by useFieldArray.

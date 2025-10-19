@@ -1,6 +1,6 @@
-import type { AxleStatus } from '../../TruckVisualizer/models';
-import type { AxleCoord } from '../TruckTopView.types';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import { AXLE_STATUS_PRIORITY } from '../helpers/axleStatusPriority';
+import type { AxleCoord } from '../TruckTopView.types';
 
 /**
  * Returns the status of the closest axle to the given position (Y),

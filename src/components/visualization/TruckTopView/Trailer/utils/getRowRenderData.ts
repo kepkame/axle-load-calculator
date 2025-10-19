@@ -1,5 +1,5 @@
-import { AxleStatus } from '@components/visualization/TruckVisualizer/models';
 import { getPalletById } from '@entities/step2Form/pallet/utils';
+import type { AxleStatus } from '@shared-types/loadStatus';
 import { getRowTopPx } from '../../utils/getRowTopPx';
 import { getGroupStatus } from '../../utils/getGroupStatus';
 import type { AxleCoord } from '../../TruckTopView.types';
@@ -30,7 +30,6 @@ export const getRowRenderData = (
     const rowCenterPx = rowTopPx + rowHeightPx / 2;
 
     // Determine color status for the row based on nearest axle
-
     const status: AxleStatus = isLoading ? 'loading' : getGroupStatus(rowCenterPx, axlesForRows);
 
     return {

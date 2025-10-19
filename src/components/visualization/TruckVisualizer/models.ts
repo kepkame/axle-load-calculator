@@ -1,5 +1,4 @@
-/** Axle load status used for coloring and state indication */
-export type AxleStatus = 'default' | 'success' | 'warning' | 'danger' | 'loading' | 'out';
+import type { AxleStatus } from '@shared-types/loadStatus';
 
 /** Raw axle load input used for model creation */
 export interface AxleLoadInfo {
