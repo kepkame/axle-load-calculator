@@ -1,0 +1,38 @@
+@use '@styles/variables';
+
+.title {
+  margin-bottom: 16px;
+}
+
+.col {
+  margin-bottom: 32px;
+}
+
+@media (min-width: variables.$grid-breakpoints-md) {
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .col {
+    width: 100%;
+    margin-bottom: 0;
+
+    &--text {
+      max-width: 320px;
+      order: 2;
+    }
+
+    &--media {
+      max-width: 1024px;
+    }
+  }
+
+  .title {
+    margin-top: 0;
+  }
+}
