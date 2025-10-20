@@ -30,14 +30,30 @@
 
 .navLink {
   color: variables.$color-text-primary;
+  padding: 2px 8px;
 
   &:hover {
     text-decoration: none;
   }
 
   &.active {
-    font-weight: 600;
     color: variables.$color-text-primary;
+    border-color: variables.$color-text-primary;
     cursor: default;
+
+    &:focus,
+    &:hover {
+      color: variables.$color-text-primary;
+      background-color: transparent;
+      border-color: variables.$color-text-primary;
+
+      .icon {
+        fill: variables.$color-text-primary;
+      }
+    }
+
+    .icon {
+      fill: variables.$color-text-primary;
+    }
   }
 }
