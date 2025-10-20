@@ -53,12 +53,15 @@ const Step2FormContent: React.FC<Step2FormContentProps> = ({
   // Appends a new group with a unique groupId
   const appendGroup = useCallback(() => {
     const maxId = fields.reduce((m, f) => Math.max(m, f.groupId), 0);
-    appendRaw({
-      groupId: maxId + 1,
-      palletId: 'EUR',
-      weight: 100,
-      quantity: 1,
-    });
+    appendRaw(
+      {
+        groupId: maxId + 1,
+        palletId: 'EUR',
+        weight: 100,
+        quantity: 1,
+      },
+      { shouldFocus: false },
+    );
   }, [fields, appendRaw]);
 
   // Extracts field IDs to provide values for the reorderable group
