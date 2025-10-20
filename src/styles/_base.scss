@@ -108,6 +108,10 @@ img {
   transition: background-color variables.$duration ease-in-out;
   cursor: pointer;
 
+  &.btn--small {
+    padding: 4px 12px;
+  }
+
   &--icon {
     position: relative;
     padding-left: 38px;
@@ -120,6 +124,16 @@ img {
       height: 16px;
       fill: variables.$color-white;
       transform: translateY(-50%);
+    }
+
+    &.btn--small {
+      padding-left: 28px;
+
+      .icon {
+        left: 9px;
+        width: 14px;
+        height: 14px;
+      }
     }
   }
 
@@ -149,8 +163,12 @@ img {
     transition: color variables.$duration ease-in-out,
       background-color variables.$duration ease-in-out, border-color variables.$duration ease-in-out;
 
+    &.btn--small {
+      padding: 4px 8px;
+    }
+
     &.btn--icon {
-      padding-left: 37px;
+      padding-left: 28px;
     }
 
     .icon {
