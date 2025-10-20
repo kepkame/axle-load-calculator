@@ -115,7 +115,7 @@ https://github.com/user-attachments/assets/48369c53-8671-4687-b72f-2efedd09f444
 
 ```bash
 git clone https://github.com/kepkame/axle-load-calculator.git
-cd stopwatch
+cd axle-load-calculator
 ```
 
 2. Установка зависимостей:

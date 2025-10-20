@@ -116,7 +116,7 @@ Requires **Node.js** >=20 and **npm** >=10.
 
 ```bash
 git clone https://github.com/kepkame/axle-load-calculator.git
-cd stopwatch
+cd axle-load-calculator
 ```
 
 2. Install dependencies:
