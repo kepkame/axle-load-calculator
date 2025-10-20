@@ -13,7 +13,7 @@ export const cargoGroupSchema = z.object({
     .number()
     .min(100, 'Введите значение от 100')
     .max(1500, 'Введите значение до 1 500'),
-  quantity: z.coerce.number().min(1),
+  quantity: z.coerce.number().min(1, 'Введите значение от 1'),
 });
 
 export const formCargoSchema = (deckLengthMM: number) => {
