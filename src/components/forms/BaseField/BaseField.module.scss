@@ -31,7 +31,6 @@
 
   label {
     white-space: normal;
-    // display: inline-block;
   }
 }
 
@@ -54,11 +53,4 @@
 
 input[type='range'] + .units {
   top: calc(50% - 3px);
-}
-
-@media (min-width: 600px) {
-  // input:hover + .units,
-  // input:focus + .units {
-  //   transform: translate(-20px, -50%);
-  // }
 }
